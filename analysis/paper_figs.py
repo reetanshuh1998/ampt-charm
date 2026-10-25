@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""paper_figs.py OUTDIR : figures of the open-charm AMPT paper from the final samples (dm25, results/v19), STAR
+"""paper_figs.py OUTDIR : figures of the open-charm AMPT paper from the final samples (dm25, observation/results/json/), STAR
 HEPData and the digitised published curves (data/models/, provenance and calibration in each file).
 
 Footing (docs/CLAIMS_AUDIT.md): every model point is the same estimator and kinematic window as the STAR point it is
@@ -122,13 +122,13 @@ for k, pk, dx in (('fw', 'pp', -0.05), ('pub', 'pppub', 0.05)):
     # full model spectrum, same normalisation, at the model bin centres
     full = a * dens / (2 * np.pi * c) / 2.0
     ax[0].plot(c[ok & (c < 8)], full[ok & (c < 8)], color=C_FW if k == 'fw' else C_PUB, ls='-' if k == 'fw' else '--',
-               lw=1.2, label=f'{LAB[k]} ($\\chi^2$/ndf = {chi2:.1f}/{len(y_s) - 1})')
+               lw=1.2, label=f'{LAB[k]}, $\\chi^2$ = {chi2:.1f}')
     ax[1].errorbar(pt_s + dx, a * m / y_s, np.hypot(e_st, e_sy) / y_s, fmt='s' if k == 'fw' else '^',
                    color=C_FW if k == 'fw' else C_PUB, mfc=C_FW if k == 'fw' else 'white', ms=3.5, lw=0.9, capsize=0)
 data(ax[0], pt_s, y_s, e_st, e_sy, 0.12, label='STAR p+p, D$^0$ ($|y|<1$)')
 ax[0].set(yscale='log', ylabel=r'$\frac{1}{2\pi p_T}\frac{d^2N}{dp_Tdy}$ (a.u.)', xlim=(0, 7))
 ax[0].legend(loc='lower left')
-tag(ax[0], 'p+p, $\\sqrt{s}$ = 200 GeV\nnormalisation fitted', x=0.45, y=0.95)
+tag(ax[0], 'p+p, $\\sqrt{s}$ = 200 GeV\nnormalisation fitted\n$\\chi^2$: 6 points, 5 d.o.f.', x=0.45, y=0.95)
 ax[1].axhline(1, color=MUTED, lw=0.7)
 ax[1].set(xlabel='$p_T$ (GeV/$c$)', ylabel='model/STAR', ylim=(0, 2.4))
 save(fig, 'fig_pp')

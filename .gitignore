@@ -5,3 +5,8 @@ prod/
 quick/
 __pycache__/
 *.pyc
+regenerated/
+docs/*.aux
+docs/*.log
+docs/*.out
+docs/*.toc

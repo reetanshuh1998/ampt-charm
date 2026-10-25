@@ -19,12 +19,12 @@ Must vanish for Au+Au with the true reaction plane; STAR (spectator plane) and t
 | dm25_main | +0.0001 ± 0.0001 | -0.0000 ± 0.0001 | +0.0006 ± 0.0003 | +0.0000 ± 0.0004 |
 | dm25_pub | -0.0010 ± 0.0002 | -0.0011 ± 0.0002 | +0.0017 ± 0.0005 | +0.0150 ± 0.0006 |
 
-## Elliptic flow v2(pT), |y| < 1 (χ²/N against interpolated data; model estimator: scalar product in each experiment's geometry)
+## Elliptic flow v2(pT), |y| < 1 (χ² against interpolated data, number of points in brackets; model estimator: scalar product in each experiment's geometry)
 
 | arm | K vs STAR K0S 10–40 | K vs STAR K0S 0–80 | π vs PHENIX 10–40 (pT>1) | K vs PHENIX 10–40 | p vs PHENIX 10–40 |
 |---|---|---|---|---|---|
-| dm25_main | 388.0/8 | 316.3/8 | 124.6/5 | 111.3/5 | 194.2/5 |
-| dm25_pub | 259.7/8 | 198.5/8 | 59.7/5 | 46.5/5 | 26.4/5 |
+| dm25_main | 388.0 (8) | 316.3 (8) | 124.6 (5) | 111.3 (5) | 194.2 (5) |
+| dm25_pub | 259.7 (8) | 198.5 (8) | 59.7 (5) | 46.5 (5) | 26.4 (5) |
 
 ## Bulk chemistry at |y| < 0.5 (analysis v3 yields)
 

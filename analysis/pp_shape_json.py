@@ -33,5 +33,5 @@ for spec in sys.argv[1:]:
     a = np.sum(wt * y_s * inv) / np.sum(wt * inv * inv)
     chi2 = np.sum(wt * (y_s - a * inv) ** 2)
     meanpt = np.sum(c * v) / np.sum(v)
-    print(f'{lab:22s} <pT>(|y|<1) = {meanpt:.2f} GeV  chi2/ndf = {chi2:5.1f}/{len(y_s) - 1}  model/STAR: '
+    print(f'{lab:22s} <pT>(|y|<1) = {meanpt:.2f} GeV  chi2 = {chi2:5.1f} for {len(y_s) - 1} dof  model/STAR: '
           + ' '.join(f'{x:.2f}' for x in a * inv / y_s))

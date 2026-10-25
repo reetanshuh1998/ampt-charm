@@ -17,7 +17,7 @@ v3 (2026-10-21): STAR-window bulk v1 (v1s_*, slopeS_*), light-parton v1, Z-recor
 per-event yields at |y|<0.5 (yld_*) and Nch(|eta|<0.5) (nch5_*) per class.
 
 One pass over an arm (red_* + charm_* files) -> every framework observable and
-gate, with leave-one-file-out jackknife errors (docs/VALIDATION.md).
+gate, with leave-one-file-out jackknife errors (gates and checks: docs/CHANGES.pdf, verification section).
 
 v2 (2026-10-18): binary-collision weighting.  A triggered arm (AMPT_HQTRIG)
 carries one hard c-cbar pair per event at every b, while charm production
@@ -42,7 +42,7 @@ from multiprocessing import Pool
 
 import numpy as np
 
-HERE = __import__('os').path.dirname(__import__('os').path.abspath(__file__))   # ana/ locally, ana_v4/ on KEKCC
+HERE = __import__('os').path.dirname(__import__('os').path.abspath(__file__))   # analysis/
 sys.path.insert(0, HERE)
 import dmlib as L  # noqa: E402
 
@@ -200,7 +200,7 @@ def shw_weights(rfn, mode):
     if mode is None:
         return None
     if mode.startswith('tab:'):
-        # EPS09s error set K from ana/eps09s_tool/eps09s_errw.py tables (STEP_LOG 99); K = 1 = the in-code weight
+        # EPS09s error set K from analysis/eps09s/eps09s_errw.py tables; K = 1 = the in-code weight
         k = int(mode.split(':')[1])
         return {int(l.split()[0]): float(l.split()[k]) for l in
                 gzip.open(rfn.replace('/red_', '/hqerr_').replace('.dat.gz', '.txt.gz'), 'rt')}
@@ -493,7 +493,7 @@ def main():
     ap.add_argument('-j', type=int, default=6)
     ap.add_argument('--maxfiles', type=int, default=0)
     ap.add_argument('--seed', type=int, default=20261017)
-    ap.add_argument('--shw', help="offline shadowing weight: none | hij:S (needs hq_*.log.gz with '# hqshw')")
+    ap.add_argument('--shw', help="offline shadowing weight: none | hij:S | tab:K (needs hq_*.log.gz with '# hqshw'; tab:K also hqerr_*.txt.gz)")
     # split mode (2026-10-21, single-core farm jobs): --part K --nparts N analyses files i with
     # i % N == K and pickles their per-file accumulators to OUT; --merge OUT.part* finishes.
     # File seeds depend only on the global index i, so merge(parts) == one full run.

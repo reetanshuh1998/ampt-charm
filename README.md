@@ -37,11 +37,12 @@ Fedora: `sudo dnf install gcc-gfortran gcc-c++ make gawk curl unzip patch python
 `scripts/check_prereqs.sh` lists anything missing. macOS with Homebrew `gcc` should work but is untested; use Docker
 there.
 
-Tested: Ubuntu 24.04 (gfortran 13.3) natively and in Docker. The paper production ran on Alma/RHEL 9 (gfortran
-11.5); both give byte-identical events (Sec. 3).
+Tested: Ubuntu 24.04 (gfortran 13.3) natively, from a fresh clone. The Dockerfile has not been tested yet. The paper
+production ran on Alma/RHEL 9 (gfortran 11.5); both give byte-identical events (Sec. 3).
 
 ## 2. Running your own production
 
+### 2.1 Jobs and arms
 One job = one input card + one set of switches + one pair of seeds, exactly as on the batch farm:
 ```bash
 # scripts/run_job.sh CONFIG ARM SYS BMIN BMAX NEV SEEDBASE SEEDPMUL SEEDPOFF IDX [OUTDIR]
@@ -64,6 +65,7 @@ Configurations ([`configs/`](configs/)):
 | `reference_auau`, `reference_pp` | the framework (paper reference) | dm24_e_a/b + dm25_e_c..h = **dm25_main**; dm24_epp + dm25_epp = **dm25_ppmain** |
 | `c1_auau`, `c1_pp` | systematic variant: Jacobi baryon distance | dm25_c1, dm25_ppc1 |
 | `public_auau`, `public_pp` | public AMPT physics + charm trigger only | dm25_pub, dm25_pppub |
+| `do_auau`, `do_pp` | Duke–Owens variant (HIJING's PDF, HIJING shadowing × 0.4): the Duke–Owens points of the tilt-law figure | dm23_a/b (= dm23_ab), dm23_pp |
 | `stock` | all switches off = stock AMPT | — |
 
 The seeds of every production arm are in `docs/CHANGES.pdf` (Sec. 4), so any job of the paper can be regenerated.
@@ -79,15 +81,48 @@ python3 analysis/analyze_arm.py prod/mypp  mypp.json  --sys pp   -j 8     # p+p 
 ```
 The output JSON has the same keys as the published ones in `observation/results/json/`. To compare with STAR, copy
 your files over `dm25_main.json` / `dm25_ppmain.json` (keep a backup) and run `python3 analysis/audit_claims.py
-out.md` and `python3 analysis/paper_figs.py figs/`.
+out.md` and `python3 analysis/paper_figs.py figs/`. The file formats are in
+[`docs/CHARM_DAT_FORMAT.md`](docs/CHARM_DAT_FORMAT.md), the flow estimators in
+[`docs/FLOW_METHOD.md`](docs/FLOW_METHOD.md).
+
+### 2.2 The paper samples
+The paper samples combine several arms into one directory of links, job *i* of the *k*-th arm becoming file
+1000*k* + *i*. Keep the arm order: the analysis seeds the feed-down decays of a file by its position in the sorted list.
+```bash
+scripts/combine_arms.sh prod dm25_main dm24_e_a dm24_e_b dm25_e_c dm25_e_d dm25_e_e dm25_e_f dm25_e_g dm25_e_h
+scripts/combine_arms.sh prod dm25_ppmain dm24_epp dm25_epp
+scripts/combine_arms.sh prod dm25_pub dm25_pub_a dm25_pub_b
+python3 analysis/analyze_arm.py prod/dm25_main dm25_main.json --sys auau -j 16
+```
+Analysis variants re-weight the same events offline (`--shw`; `docs/CHANGES.pdf`, Sec. 4):
+- `dm24_e_ab__cteq` is `dm24_e_ab` (= dm24_e_a + dm24_e_b) with `--shw none`.
+- `dm23_ab__none` and `dm23_ab__hij10` are `dm23_ab` with `--shw none` and `--shw hij:1.0`.
+
+A large sample can be analysed in pieces: `--part K --nparts N` (one part per call, e.g. on several machines), then
+`--merge OUT.part*`. The result is the same as one full run.
+
+### 2.3 The nPDF (EPS09s) uncertainty band
+The 31 EPS09s error sets are applied offline to the same events. The `# hqshw` line that the reference configuration
+writes per event into `hq_*.log.gz` holds everything needed.
+```bash
+make eps-tool                                   # bin/eps09s_rg: the official EPS09s code, 31 sets per gluon leg
+scripts/eps_band.sh prod/dm25_main dm25_ppmain.json eps_dm25_main 16
+```
+This writes the per-event weights (`hqerr_*.txt.gz`), runs 31 analyses with `--shw tab:K`, and combines them with
+the EPS09 Hessian prescription into `eps_dm25_main/EPS09S_BAND.md`. The weight tool holds all gluon legs of a
+directory in memory; over the 2.4M-event sample it exceeded 4 GB on the farm. Run it per arm before combining
+(`python3 analysis/eps09s/eps09s_errw.py prod/dm24_e_a`, and so on). `combine_arms.sh` links the weight files, and
+`eps_band.sh` reuses them when every file has one. The paper's band,
+`observation/results/tables/EPS09S_BAND_DM25.md`, is rebuilt this way from the 31 shipped per-set outputs
+(`observation/results/json/eps/`).
 
 ## 3. Verification: what `make test` checks
 
 | target | time | what it does | expected |
 |---|---|---|---|
-| `make test-results` | 30 s | regenerates every table and figure of `observation/results/` from the shipped analysis outputs | `PASS` (tables identical) |
-| `make test-repro` | 2 min | regenerates the first events of Au+Au job 1 (arm dm24_e_a) and p+p job 1 (dm24_epp) of the paper production and compares them with the files written on the farm (`tests/reference/`) | `PASS` for `charm.dat`; `PASS` for the event file with gawk, `PASS*` without gawk |
-| `make test-quick` | 10–20 min | a new small production (4×20 Au+Au, 2×2000 p+p events, new seeds) → production analysis → an **independent re-implementation** of the observables on the same events (must agree exactly) → comparison of charm yields and ⟨pT⟩ with the published full-statistics results (pulls < 3.5) | `PASS` |
+| `make test-results` | 20 s | regenerates every table of `observation/results/` (χ² tables, bulk flow, p+p shape, charm tilt, EPS09s band) and every figure from the shipped analysis outputs, into `regenerated/` | `PASS` (tables identical, figures pixel-identical; a `WARN` on figures means other fonts) |
+| `make test-repro` | 3 min | regenerates the first events of job 1 of one arm per configuration of the paper (reference, c1, public AMPT, Duke–Owens; Au+Au and p+p: 7 jobs in parallel) and compares them with the files written on the farm (`tests/reference/`) | `PASS` for `charm.dat`; `PASS` for the event file with gawk, `PASS*` without gawk |
+| `make test-quick` | 15–20 min | a new small production (4×20 Au+Au, 2×2000 p+p events, new seeds) → production analysis → an **independent re-implementation** of the observables on the same events (must agree exactly) → the EPS09s error-set chain (closure; set 1 must reproduce the in-code weights) → comparison of charm yields and ⟨pT⟩ with the published full-statistics results (pulls < 3.5) | `PASS` |
 
 `PASS*` means the event headers, flow vectors and every charm hadron are identical, but the 25 % pion sample in the
 reduced file differs. That sample is drawn with awk's `rand()`, which only gawk reproduces. Charm results are
@@ -122,16 +157,22 @@ src_new/            new files: charm_mod.f (charm physics, switches), coal_new.f
                     hqctl.inc (common block), eps09s_f.cpp (bindings to the official EPS09s code), Makefile
 inputs/             input cards: auau200_lf_s6.ampt (reference), auau200_sm.ampt (stock, public AMPT)
 configs/            switch sets (*.env) for each production arm
-scripts/            setup_deps.sh, build.sh, run_job.sh, run_arm.sh, reduce_dmeson_v2.awk, check_prereqs.sh
+scripts/            setup_deps.sh, build.sh, run_job.sh, run_arm.sh, reduce_dmeson_v2.awk, check_prereqs.sh,
+                    combine_arms.sh (paper samples), eps_band.sh (EPS09s band)
 analysis/           analyze_arm.py + dmlib.py (production analysis), indep_check.py (independent re-analysis),
-                    audit_claims.py (all chi2 tables), paper_figs.py, fig_tilt_law.py, compare_bulk.py, ...
+                    audit_claims.py (all chi2 tables), paper_figs.py, fig_tilt_law.py, tilt_shadow.py,
+                    eps_hessian.py, eps09s/ (EPS09s error-set weights), compare_bulk.py, ...
 data/hepdata/       STAR/PHENIX HEPData records used (CSV)
 data/models/        published model curves digitised from the papers' vector graphics; each JSON records its
                     source and its calibration against the experiment's own markers (extract_*.py)
-observation/results json/ (analysis outputs of the paper production), tables/, figures/, bulk/
+observation/results json/ (analysis outputs of the paper production; json/eps/: the 31 EPS09s sets), tables/,
+                    figures/, bulk/
 tests/              the three test suites and the farm reference files
-docs/               CHANGES.pdf (+ .tex and the generator of its code tables)
+docs/               CHANGES.pdf (+ .tex and the generator of its code tables), CHARM_DAT_FORMAT.md (file formats),
+                    FLOW_METHOD.md (flow estimators), CLAIMS_AUDIT.md (like-for-like comparison with the models)
 ```
+Comments in the code such as `src_v14` or `STEP_LOG 97` refer to the development history (the version of the source
+tree and the entry of the development log where a change was made); they are not files of this repository.
 
 ## 6. Provenance of external inputs (downloaded by `make deps`, never modified)
 

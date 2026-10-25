@@ -1,5 +1,5 @@
 # reduce_dmeson_v2.awk -- node-side reduction of ana/ampt.dat for the D-meson
-# framework (D-meson/docs/FRAMEWORK.md sec. 5).
+# framework (file format: docs/CHARM_DAT_FORMAT.md).
 # v2 (2026-10-22): one extra line per event, after the header, with second-order
 #  Q-vectors of ALL charged hadrons (no prescale), 0.2 < pT < 2 GeV:
 #  "Q nch A_w A_x A_y B_w B_x B_y N_w N_x N_y S_w S_x S_y" (14 fields)

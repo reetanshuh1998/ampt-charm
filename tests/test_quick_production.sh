@@ -4,7 +4,9 @@
 # ~10-20 min on 4 cores), then:
 #   1. the production analysis (analysis/analyze_arm.py)
 #   2. an independent re-implementation (analysis/indep_check.py) on the same events: must agree exactly
-#   3. statistical comparison with the published full-statistics results (tests/compare_with_published.py)
+#   3. the EPS09s error-set chain (scripts/eps_band.sh): closure of the offline weights, and the set 1 re-weighting
+#      must reproduce the in-code weighted analysis to < 1 % of the statistical error
+#   4. statistical comparison with the published full-statistics results (tests/compare_with_published.py)
 set -euo pipefail
 ROOT=$(cd "$(dirname "$0")/.." && pwd)
 NA=${1:-4} EA=${2:-20} NP=${3:-2} EP=${4:-2000}
@@ -26,5 +28,23 @@ bad = [l for l in open(sys.argv[1]) if l.startswith('| ') and not l.startswith('
        and l.split('|')[3].strip() not in ('nan', '0.00e+00') and float(l.split('|')[3]) > 1e-12]
 print('PASS  independent re-analysis agrees exactly' if not bad else 'FAIL  independent re-analysis differs:\n' + ''.join(bad))
 sys.exit(1 if bad else 0)
+EOF
+echo ">> EPS09s error-set chain (31 re-weighted analyses)"
+"$ROOT/scripts/eps_band.sh" "$W/quick_aa" "$W/quick_pp.json" "$W/eps" "$J" | sed 's/^/   /'
+python3 -I - "$W/quick_aa.json" "$W/eps/quick_aa__eps01.json" <<'EOF'
+import json, sys
+import numpy as np
+a, b = (json.load(open(f)) for f in sys.argv[1:3])
+d = []
+for k, x in a.items():
+    if isinstance(x, dict) and 'err' in x and k in b and np.shape(x['val']) == np.shape(b[k]['val']):
+        v, w, e = (np.array(t, float) for t in (x['val'], b[k]['val'], x['err']))
+        ok = np.isfinite(v) & np.isfinite(w) & (e > 0)
+        if ok.any():
+            d.append((float(np.max(np.abs(w[ok] - v[ok]) / e[ok])), k))
+m = max(d)
+print(f'{"PASS" if m[0] < 0.01 else "FAIL"}  EPS09s set 1 re-weighting reproduces the in-code weights: '
+      f'max |diff| = {m[0]:.1e} of the stat. error over {len(d)} observables ({m[1]})')
+sys.exit(0 if m[0] < 0.01 else 1)
 EOF
 python3 -I "$ROOT/tests/compare_with_published.py" "$W/quick_aa.json" "$W/quick_pp.json"

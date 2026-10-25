@@ -1,6 +1,6 @@
 # EPS09s NLO error band (Hessian, 90 % CL) on dm25_main (2.4M Au+Au; p+p ref dm25_ppmain)
 
-Same events for every set (offline re-weighting, gluon legs; quark legs, ≈ 4 % of legs, at the central factor). Central = set 1 = the in-code weight. Columns: central, +, −, and the eigen-pair (k = 1..15) with the largest contribution. ana/eps_hessian.py, STEP_LOG 99.
+Same events for every set (offline re-weighting, gluon legs; quark legs, ≈ 4 % of legs, at the central factor). Central = set 1 = the in-code weight. Columns: central, +, −, and the eigen-pair (k = 1..15) with the largest contribution. analysis/eps_hessian.py.
 
 | observable | central | +δ | −δ | dominant pair |
 |---|---|---|---|---|

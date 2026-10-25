@@ -101,7 +101,7 @@ Ref.~\cite{zheng2020}). PYTHIA's maximum search is raised by \sw{AMPT\_HQXSF} (d
 acceptance--rejection step stays valid with the new, larger PDFs.\\
 \textbf{Where.} \code{HQXPDF} (\code{charm\_mod.f}); hooks in \code{hipyset1.35.f} (\code{PYSTFU}, \code{PYSIGH},
 \code{PYMAXI}) and \code{hijing1.383\_ampt.f} (\code{JETINI}). \textbf{Reference:} \sw{AMPT\_HQPDF=1}.\\
-\textbf{Check.} The p+p D$^0$ spectrum shape against STAR gives $\chi^2/\text{ndf}=3.5/5$, against 6.7/5 for public
+\textbf{Check.} The p+p D$^0$ spectrum shape against STAR gives $\chi^2=3.5$ for 5 degrees of freedom (6 points, normalisation fitted), against 6.7 for public
 AMPT (\code{observation/results/tables/PP\_SHAPE.txt}).
 
 \subsection{Impact-parameter-dependent nuclear PDFs (EPS09s) as an event weight}
@@ -216,16 +216,37 @@ comparison: \code{inputs/auau200\_sm.ampt} (the stock card) with only the trigge
 
 \begin{center}\small
 \begin{tabular}{@{}lllll@{}}
-\toprule arm & config & events & HIJING seed base & ZPC seed \\ \midrule
-dm24\_e\_a, dm24\_e\_b & reference\_auau & $2\times1000\times300$ & 20261107, 20261108 & $13i+9$, $13i+10$ \\
+\toprule arm & config & jobs $\times$ events & HIJING seed base & ZPC seed \\ \midrule
+dm24\_e\_a & reference\_auau & $1000\times300$ & 20261107 & $13i+9$ \\
+dm24\_e\_b & reference\_auau & $1000\times300$ & 20261108 & $13i+10$ \\
 dm25\_e\_c\ldots h & reference\_auau & $6\times1000\times300$ & 20261109\ldots14 & $31i+11\ldots16$ \\
-dm24\_epp, dm25\_epp & reference\_pp & $2\times200\times30000$ & 20261107, 20261115 & $13i+9$, $31i+17$ \\
-dm25\_c1 / dm25\_ppc1 & c1\_auau / c1\_pp & $1000\times300$ / $100\times30000$ & 20261116 / 20261117 & $31i+18$ / $31i+19$ \\
-dm25\_pub\_a, b / dm25\_pppub & public\_* & $2\times1000\times300$ / $100\times30000$ & 20261118, 19 / 20261120 & $31i+20, 21$ / $31i+22$ \\
+dm24\_epp & reference\_pp & $200\times30000$ & 20261107 & $13i+9$ \\
+dm25\_epp & reference\_pp & $200\times30000$ & 20261115 & $31i+17$ \\
+dm25\_c1 & c1\_auau & $1000\times300$ & 20261116 & $31i+18$ \\
+dm25\_ppc1 & c1\_pp & $100\times30000$ & 20261117 & $31i+19$ \\
+dm25\_pub\_a, b & public\_auau & $2\times1000\times300$ & 20261118, 20261119 & $31i+20$, $31i+21$ \\
+dm25\_pppub & public\_pp & $100\times30000$ & 20261120 & $31i+22$ \\
+dm23\_a, b & do\_auau & $2\times1000\times300$ & 20261105, 20261106 & $13i+7$, $13i+8$ \\
+dm23\_pp & do\_pp & $200\times30000$ & 20261105 & $13i+7$ \\
 \bottomrule
 \end{tabular}
 \end{center}
-HIJING seed of job $i$ = base $+\,7919\,i$. Au+Au: $0<b<14.5$~fm; p+p: $0<b<2$~fm.
+HIJING seed of job $i$ = base $+\,7919\,i$. Au+Au: $0<b<14.5$~fm; p+p: $0<b<2$~fm. The \code{do\_*} configuration
+(Duke--Owens PDF of HIJING, HIJING shadowing $\times\,0.4$ as the event weight) gives the Duke--Owens points of the
+tilt-law figure.
+
+\textbf{Combined samples} (\code{scripts/combine\_arms.sh}, README Sec.~2.2): job $i$ of the $k$-th arm becomes file
+$1000k+i$. dm25\_main = dm24\_e\_a, dm24\_e\_b, dm25\_e\_c\ldots h (7982 files, 2.39M events); dm25\_ppmain = dm24\_epp,
+dm25\_epp; dm25\_pub = dm25\_pub\_a, dm25\_pub\_b; dm24\_e\_ab = dm24\_e\_a, dm24\_e\_b; dm23\_ab = dm23\_a, dm23\_b. The
+order matters, because the analysis seeds the feed-down decays of a file by its position in the sorted list.
+
+\textbf{Analysis variants} (\code{analysis/analyze\_arm.py --shw}, the same events re-weighted offline from the
+\code{\# hqshw} lines of the logs): dm24\_e\_ab\_\_cteq = dm24\_e\_ab with \code{--shw none} (free CTEQ6.1M, no nPDF);
+dm23\_ab\_\_none and dm23\_ab\_\_hij10 = dm23\_ab with \code{--shw none} and \code{--shw hij:1.0} (no shadowing, full
+HIJING shadowing); dm25\_main\_\_eps$K$ = dm25\_main with \code{--shw tab:$K$}, $K=1\ldots31$, the EPS09s error sets
+(\code{scripts/eps\_band.sh}). The two dm23\_ab variants were made with an earlier analysis version; the shipped one
+gives charm-less events (0.6\,\%) the weight 1, which moves only $\langle w\rangle$ of \code{hij:1.0}, by about 0.1\,\%,
+and no charm observable.
 
 \section{Analysis conventions}\label{sec:analysis}
 \begin{itemize}
@@ -247,14 +268,20 @@ HIJING seed of job $i$ = base $+\,7919\,i$. Au+Au: $0<b<14.5$~fm; p+p: $0<b<2$~f
 \begin{itemize}
 \item \textbf{Stock reproduction (G0).} With no switch set, \code{ana/ampt.dat} is byte-identical to the unmodified
   program.
-\item \textbf{Exact reproduction of the production} (\code{make test-repro}). The first events of Au+Au job~1 and p+p
-  job~1 of the production, regenerated on a different machine and compiler (gfortran 13.3 vs 11.5), give a
-  byte-identical \code{charm.dat} and identical event headers, flow vectors and charm hadrons.
+\item \textbf{Exact reproduction of the production} (\code{make test-repro}). The first events of job~1 of one arm
+  per configuration (reference, c1, public AMPT and Duke--Owens; Au+Au and p+p), regenerated on a different machine
+  and compiler (gfortran 13.3 vs 11.5), give a byte-identical \code{charm.dat} and identical event headers, flow
+  vectors and charm hadrons; with gawk the reduced event files are byte-identical too.
 \item \textbf{Independent re-analysis} (\code{make test-quick}). \code{analysis/indep\_check.py} re-implements the
-  observables from the documentation without importing the production analysis. On 36k Au+Au and 300k p+p events it
-  agrees with \code{analysis/analyze\_arm.py} to $10^{-17}$.
-\item \textbf{Results} (\code{make test-results}). Every table and figure in \code{observation/results/} is
-  regenerated from the shipped analysis outputs.
+  observables from the documentation (\code{docs/CHARM\_DAT\_FORMAT.md}, \code{docs/FLOW\_METHOD.md}) without
+  importing the production analysis. On 36k Au+Au and 300k p+p events it agrees with \code{analysis/analyze\_arm.py}
+  to $10^{-17}$. The same test runs the EPS09s error-set chain on its new events: the offline set-1 weights reproduce
+  the logged ones (to $5\times10^{-4}$), and the set-1 re-weighted analysis reproduces the in-code weighted one to
+  $<1\,\%$ of the statistical error on every observable.
+\item \textbf{Results} (\code{make test-results}). Every table in \code{observation/results/tables/} except
+  \code{INDEP\_CHECK.md} (which needs the raw events) is regenerated identically from the shipped
+  analysis outputs, including the EPS09s band from the 31 per-set outputs; the figures are compared pixel by pixel.
+\item \textbf{Like-for-like comparison} with STAR and the published models: \code{docs/CLAIMS\_AUDIT.md}.
 \end{itemize}
 
 \begin{thebibliography}{99}\small

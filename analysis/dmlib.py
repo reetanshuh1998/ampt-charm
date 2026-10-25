@@ -1,10 +1,10 @@
 """dmlib -- readers, feed-down decays and observables for the D-meson framework.
 
-Inputs per arm directory (as written by kekcc/lsf_job_dm1.sh):
-  red_<arm>_<idx>.dat.gz    reduced ampt.dat (kekcc/reduce_dmeson.awk)
+Inputs per arm directory (as written by scripts/run_job.sh):
+  red_<arm>_<idx>.dat.gz    reduced ampt.dat (scripts/reduce_dmeson_v2.awk)
   charm_<arm>_<idx>.dat.gz  ana/charm.dat (docs/CHARM_DAT_FORMAT.md)
 
-Conventions (same as the kaon work, part6/scripts): reaction plane = +x
+Conventions: reaction plane = +x
 (AMPT puts the projectile at +x moving to +z, iphirp = 0), v_n = <cos n phi>.
 Every event is one job-file member; errors are jackknife over job files,
 and arms run with the same job index share HIJING seeds (paired).

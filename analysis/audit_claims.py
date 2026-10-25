@@ -104,7 +104,7 @@ for cl, t in V2.items():
                 ok = ~unc if ed is not None else (t[:, 0] >= min(c['pt'])) & (t[:, 0] <= max(c['pt']))
                 sd = np.sqrt(st ** 2 + sy ** 2 + np.where(m < d, nf ** 2, 0))
                 T.setdefault(key, []).append((f'{mk} [{how}]', c2_curve(m[ok], d[ok], sd[ok]), int(ok.sum()),
-                                              f'STAR Table I: {MV2["chi2_star"][mk][0]}/{MV2["chi2_star"][mk][1]}'))
+                                              f'STAR Table I: {MV2["chi2_star"][mk][0]} for {MV2["chi2_star"][mk][1]} d.o.f.'))
 
 # ----------------------------------------------------------------- R_AA (8 STAR points, 0.9 < pT < 8)
 for cl, t in RAA.items():

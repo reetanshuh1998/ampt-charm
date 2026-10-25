@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Coalesced fraction of charm mesons vs pT (charm.dat H records, mode 1 = coalescence,
-2 = fragmentation), |y| < 1.  PLAN_v14 step 5: is the R_AA step at pT ~ 2.7 GeV the
+2 = fragmentation), |y| < 1.  Is the R_AA step at pT ~ 2.7 GeV the
 m_T threshold (2.0 in p+p, 3.3 in Au+Au)?
 usage: coal_frac.py LABEL FILE.gz [FILE.gz ...]"""
 import sys, gzip, math

@@ -3,8 +3,8 @@
 
 (a) c-quark v1 vs the charm-to-bulk tilt ratio r = eps1(c)/eps1(u); (b) D0 dv1/dy (10-80 %, pT > 1.5 GeV) vs r with
 STAR.  Duke-Owens points: one 600k sample re-weighted (none / HIJING x 0.4 / full HIJING); CTEQ6.1M points: free and
-EPS09s, the EPS09s point with its Hessian 90 % CL band (EPS09S_BAND.md) added in quadrature to the statistical
-error.  Line: linear fit to the Duke-Owens points (STEP_LOG 98).
+EPS09s, the EPS09s point with its Hessian 90 % CL band (observation/results/tables/EPS09S_BAND_DM25.md) added in quadrature to the statistical
+error.  Line: linear fit to the Duke-Owens points.
 2026-10-25: EPS09s point = final 2.4M sample (dm25_main), plus public AMPT (dm25_pub) as an independent test of the law
 (backup fig_tilt_law_v1.py.bak)."""
 import json

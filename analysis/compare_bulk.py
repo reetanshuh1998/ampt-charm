@@ -166,7 +166,7 @@ for r in R:
         cells.append(f'{np.sum(w * ev) / np.sum(w):+.4f} ± {1 / np.sqrt(np.sum(w)):.4f}')
     lines.append(f"| {r['_name']} | " + ' | '.join(cells) + ' |')
 
-lines += ['', '## Elliptic flow v2(pT), |y| < 1 (χ²/N against interpolated data; model estimator: ' + dict(rp='true reaction plane', ep='event plane as in each experiment', sp='scalar product in each experiment\'s geometry')[V2M] + ')', '',
+lines += ['', '## Elliptic flow v2(pT), |y| < 1 (χ² against interpolated data, number of points in brackets; model estimator: ' + dict(rp='true reaction plane', ep='event plane as in each experiment', sp='scalar product in each experiment\'s geometry')[V2M] + ')', '',
           '| arm | K vs STAR K0S 10–40 | K vs STAR K0S 0–80 | π vs PHENIX 10–40 (pT>1) | K vs PHENIX 10–40 | p vs PHENIX 10–40 |',
           '|---|---|---|---|---|---|']
 D = dict(k1040=k0s_v2('10-40'), k080=k0s_v2('0-80'), ppi=phenix_v2(1), pk=phenix_v2(2), pp=phenix_v2(3))
@@ -176,7 +176,7 @@ for r in R:
          v2_chi2(r, KF + 'p_10-40', D['pp'], 1.0, 3.0)]
     summary[r['_name']]['chi_v2'] = sum(x[0] for x in c)
     summary[r['_name']]['n_v2'] = sum(x[1] for x in c)
-    lines.append(f"| {r['_name']} | " + ' | '.join(f'{a:.1f}/{n}' for a, n in c) + ' |')
+    lines.append(f"| {r['_name']} | " + ' | '.join(f'{a:.1f} ({n})' for a, n in c) + ' |')
 
 lines += ['', '## Bulk chemistry at |y| < 0.5 (analysis v3 yields)', '',
           'STAR K−/π− (PRC 79 034909, HEPData ins793126 Fig. 32): 0.152 ± 0.019 (N_part 299–351), 0.142 ± 0.014 (N_part 78).', '',

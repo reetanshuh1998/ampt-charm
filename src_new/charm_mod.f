@@ -1201,7 +1201,7 @@ c     us Xi_c+, ds Xi_c0, ss Omega_c0
 
 c=======================================================================
 c     src_v14: modern PDFs for the triggered cc-bar (AMPT_HQPDF) and
-c     Cronin broadening of the pair (AMPT_HQCRONIN).  docs/PLAN_v14.md
+c     Cronin broadening of the pair (AMPT_HQCRONIN).  docs/CHANGES.pdf
 c=======================================================================
       SUBROUTINE HQXPDF(X,Q2,XPQ,JBT)
 c     PYSTFU, triggered hard process only: x*f of a proton from CTEQ6.1M

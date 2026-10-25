@@ -40,20 +40,20 @@ weights for every entity; curves evaluated at y = +-0.2, +-0.6 and averaged over
 |---|---|---|---|
 | this work | 14.5 ± 3.5 | 8 | v2{SP}, STAR eta-sub geometry |
 | public AMPT | 15.8 ± 6.4 | 8 | v2{SP}, STAR eta-sub geometry |
-| TAMU_cdiff [pt] | 8.0 | 7 | STAR Table I: 10.0/8 |
-| TAMU_cdiff [bin] | 8.2 | 7 | STAR Table I: 10.0/8 |
-| TAMU_nocdiff [pt] | 25.8 | 7 | STAR Table I: 29.5/8 |
-| TAMU_nocdiff [bin] | 26.1 | 7 | STAR Table I: 29.5/8 |
-| SUBATECH [pt] | 15.2 | 8 | STAR Table I: 15.2/8 |
-| SUBATECH [bin] | 14.0 | 7 | STAR Table I: 15.2/8 |
-| hydro3D [pt] | 3.6 | 6 | STAR Table I: 3.6/6 |
-| hydro3D [bin] | 3.6 | 6 | STAR Table I: 3.6/6 |
-| Duke [pt] | 35.8 | 8 | STAR Table I: 35.7/8 |
-| Duke [bin] | 33.1 | 7 | STAR Table I: 35.7/8 |
-| PHSD [pt] | 8.5 | 7 | STAR Table I: 8.7/7 |
-| PHSD [bin] | 8.0 | 6 | STAR Table I: 8.7/7 |
-| LBT [pt] | 11.0 | 8 | STAR Table I: 11.1/8 |
-| LBT [bin] | 9.0 | 7 | STAR Table I: 11.1/8 |
+| TAMU_cdiff [pt] | 8.0 | 7 | STAR Table I: 10.0 for 8 d.o.f. |
+| TAMU_cdiff [bin] | 8.2 | 7 | STAR Table I: 10.0 for 8 d.o.f. |
+| TAMU_nocdiff [pt] | 25.8 | 7 | STAR Table I: 29.5 for 8 d.o.f. |
+| TAMU_nocdiff [bin] | 26.1 | 7 | STAR Table I: 29.5 for 8 d.o.f. |
+| SUBATECH [pt] | 15.2 | 8 | STAR Table I: 15.2 for 8 d.o.f. |
+| SUBATECH [bin] | 14.0 | 7 | STAR Table I: 15.2 for 8 d.o.f. |
+| hydro3D [pt] | 3.6 | 6 | STAR Table I: 3.6 for 6 d.o.f. |
+| hydro3D [bin] | 3.6 | 6 | STAR Table I: 3.6 for 6 d.o.f. |
+| Duke [pt] | 35.8 | 8 | STAR Table I: 35.7 for 8 d.o.f. |
+| Duke [bin] | 33.1 | 7 | STAR Table I: 35.7 for 8 d.o.f. |
+| PHSD [pt] | 8.5 | 7 | STAR Table I: 8.7 for 7 d.o.f. |
+| PHSD [bin] | 8.0 | 6 | STAR Table I: 8.7 for 7 d.o.f. |
+| LBT [pt] | 11.0 | 8 | STAR Table I: 11.1 for 8 d.o.f. |
+| LBT [bin] | 9.0 | 7 | STAR Table I: 11.1 for 8 d.o.f. |
 
 ## D0 R_AA 0-10 %
 
