@@ -18,7 +18,7 @@ transport models. **No batch farm is needed**: everything runs on a Linux laptop
 
 ### Option A: Docker (any OS, nothing else to install)
 ```bash
-git clone https://github.com/<owner>/ampt-charm.git && cd ampt-charm
+git clone https://github.com/reetanshuh1998/ampt-charm.git && cd ampt-charm
 docker build -t ampt-charm .          # downloads + verifies dependencies, builds LHAPDF and AMPT (~5 min)
 docker run --rm ampt-charm            # runs the three test suites (~15-25 min)
 ```
@@ -28,7 +28,7 @@ Requirements: `gfortran`, `g++`, `make`, `curl`, `unzip`, `patch`, `python3` wit
 is recommended (Sec. 3).
 ```bash
 sudo apt install build-essential gfortran g++ make gawk curl unzip patch python3-numpy python3-matplotlib   # Ubuntu/Debian
-git clone https://github.com/<owner>/ampt-charm.git && cd ampt-charm
+git clone https://github.com/reetanshuh1998/ampt-charm.git && cd ampt-charm
 make deps      # download + SHA-256-check AMPT, LHAPDF 6.5.1, CTEQ6.1M, EPS09s; build LHAPDF into deps/ (~3 min)
 make build     # patch the official AMPT and compile bin/ampt
 make test      # test-results + test-repro + test-quick (Sec. 3)
@@ -142,7 +142,11 @@ docs/               CHANGES.pdf (+ .tex and the generator of its code tables)
 | CTEQ6.1M (`cteq61`) | lhapdfsets.web.cern.ch | `5a6f1393…a620b92` |
 | EPS09s | users.jyu.fi/~kaeskola/EPS09s | `294bce5e…ffdf2c` |
 
-## 7. Citing
+## 7. Licence
+MIT for the files of this repository ([`LICENSE`](LICENSE)). AMPT and the other external inputs are downloaded from
+their authors and stay under their terms.
+
+## 8. Citing
 If you use this code, please cite the AMPT papers (Lin et al., PRC 72 064901 (2005); Lin & Zheng, Nucl. Sci. Tech.
 32, 113 (2021)), the papers listed in `docs/CHANGES.pdf` for the components you use, and our paper (reference to be
 added).
