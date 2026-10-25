@@ -15,8 +15,13 @@ OUTDIR=${11:-$ROOT/prod}
 INPUT='' DMENV=''
 # shellcheck disable=SC1090
 source "$ROOT/configs/${CONFIG%.env}.env"
+# gawk is preferred: the 25 %/10 % light-hadron prescale of the reduced file uses awk's rand(), and only gawk reproduces
+# the farm's choice exactly.  Any other awk gives a statistically equivalent prescale; charm results are unaffected.
 AWK=$(command -v gawk || true)
-[ -n "$AWK" ] || { echo "ERROR: gawk is required (the light-hadron prescale uses gawk's rand())" >&2; exit 1; }
+if [ -z "$AWK" ]; then
+  AWK=$(command -v awk)
+  echo "WARNING: gawk not found, using $AWK (light-hadron prescale not bit-identical to the paper production)" >&2
+fi
 [ -x "$ROOT/bin/ampt" ] || { echo "ERROR: bin/ampt missing, run scripts/build.sh" >&2; exit 1; }
 SEED=$(( SEEDBASE + 10#$IDX * 7919 ))
 SEEDP=$(( 10#$IDX * SEEDPMUL + SEEDPOFF ))

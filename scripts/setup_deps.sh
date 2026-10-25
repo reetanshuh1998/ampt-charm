@@ -8,6 +8,7 @@
 set -euo pipefail
 ROOT=$(cd "$(dirname "$0")/.." && pwd)
 DEPS=$ROOT/deps
+"$ROOT/scripts/check_prereqs.sh"
 mkdir -p "$DEPS/dl"
 cd "$DEPS/dl"
 

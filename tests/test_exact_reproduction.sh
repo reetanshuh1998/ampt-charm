@@ -15,7 +15,8 @@ OUT=$(mktemp -d "${TMPDIR:-/tmp}/ampt_repro_XXXX")
 trap 'rm -rf "$OUT"' EXIT
 fail=0
 check() {   # check LABEL ARM REDREF CHARMREF
-  local lab=$1 arm=$2 red=$OUT/$arm/red_${arm}_0001.dat.gz chm=$OUT/$arm/charm_${arm}_0001.dat.gz
+  local lab=$1 arm=$2
+  local red=$OUT/$arm/red_${arm}_0001.dat.gz chm=$OUT/$arm/charm_${arm}_0001.dat.gz
   if cmp -s <(gzip -dc "$chm") "$REF/$4"; then echo "PASS  $lab charm.dat identical ($(wc -l < "$REF/$4") lines)"
   else echo "FAIL  $lab charm.dat differs"; fail=1; fi
   if cmp -s <(gzip -dc "$red") "$REF/$3"; then echo "PASS  $lab reduced event file identical ($(wc -l < "$REF/$3") lines)"
