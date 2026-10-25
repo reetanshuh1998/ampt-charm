@@ -136,7 +136,7 @@ name = os.path.basename(SETS[0]).split('__')[0]
 nev = R1['counts']['events']
 L = [f'# EPS09s NLO error band (Hessian, 90 % CL) on {name} '
      f'({f"{nev / 1e6:.1f}M" if nev >= 1e5 else f"{nev} events,"} Au+Au; '
-     f'p+p ref {RPP["arm"]})', '',
+     f'p+p ref {os.path.basename(RPP["arm"])})', '',
      'Same events for every set (offline re-weighting, gluon legs; quark legs, ≈ 4 % of legs, at the central factor). '
      'Central = set 1 = the in-code weight. Columns: central, +, −, and the eigen-pair (k = 1..15) with the largest '
      'contribution. analysis/eps_hessian.py.', '',

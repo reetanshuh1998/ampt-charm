@@ -12,7 +12,7 @@ J=${4:-$(nproc 2>/dev/null || echo 2)}
 N=$(basename "$A")
 mkdir -p "$O"
 [ -x "$ROOT/bin/eps09s_rg" ] || make -C "$ROOT" eps-tool > /dev/null
-nred=$(ls "$A"/red_*.dat.gz | wc -l); nerr=$(ls "$A"/hqerr_*.txt.gz 2>/dev/null | wc -l)
+nred=$(find "$A"/ -maxdepth 1 -name 'red_*.dat.gz' | wc -l); nerr=$(find "$A"/ -maxdepth 1 -name 'hqerr_*.txt.gz' | wc -l)
 if [ "$nerr" -eq "$nred" ]; then
   echo "using the existing weights ($nerr hqerr files)"
 else
