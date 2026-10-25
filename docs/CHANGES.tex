@@ -1,0 +1,284 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=2.2cm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype,booktabs,longtable,array,amsmath,xcolor}
+\usepackage[colorlinks=true,linkcolor=blue!50!black,citecolor=blue!50!black,urlcolor=blue!50!black]{hyperref}
+\newcommand{\sw}[1]{\texttt{#1}}
+\newcommand{\code}[1]{\texttt{#1}}
+\setlength{\parskip}{4pt}\setlength{\parindent}{0pt}
+\title{Open-charm extension of AMPT v1.26t9b/v2.26t9b:\\ what was changed, where, and why}
+\author{Reetanshu K. Pandey\\ \small Dr B R Ambedkar National Institute of Technology Jalandhar}
+\date{Release accompanying the repository \code{ampt-charm}, \today}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This note lists every change made to the public AMPT model v1.26t9b/v2.26t9b~\cite{ampt2005,lin2021} to study open charm
+in Au+Au collisions at $\sqrt{s_{NN}}=200$ GeV. For each change it gives the physics motivation and the paper it
+follows, the file, routine and source lines that implement it, the switch that turns it on, and the check that it
+works. All changes are either a patch to the seven stock source files (170 lines added, 17 changed) or four new files
+(\code{charm\_mod.f}, \code{coal\_new.f}, \code{hqctl.inc}, \code{eps09s\_f.cpp}). Every change is behind an
+environment switch that defaults to off, so with no switch set the program behaves as stock AMPT. The appendix tables
+are generated from the repository (\code{docs/tools/code\_map.py}), so the line numbers are those of the patched tree
+that \code{scripts/build.sh} creates in \code{build/ampt-src/}.
+\end{abstract}
+
+\tableofcontents
+
+\section{How to inspect the changes yourself}
+\begin{enumerate}
+\item \code{scripts/setup\_deps.sh} downloads the official AMPT archive from Z.-W.~Lin's web page and checks its
+  SHA-256 (\code{9441b5f7\ldots}). The seven Fortran files of that archive are the base; no other version is used.
+\item \code{scripts/build.sh} unpacks it, applies \code{patches/ampt-v1.26t9b-v2.26t9b\_charm.patch} and copies the
+  four new files of \code{src\_new/}. Read the patch directly: it has 46 hunks (Table~\ref{tab:hunks}), each opening
+  with a comment that starts with \code{cdmeson}. To list them: \code{grep -n cdmeson build/ampt-src/*.f}.
+\item With no \code{AMPT\_*} variable set, every new routine returns at once and every stock branch is taken. This was
+  checked byte for byte on \code{ana/ampt.dat} against the unmodified program (gate G0 of the development log).
+  \code{configs/stock.env} runs the program this way.
+\item \code{tests/test\_exact\_reproduction.sh} regenerates events of the paper production from their seeds and
+  compares them with the files written on the batch farm (Sec.~\ref{sec:verify}).
+\end{enumerate}
+
+\section{Event flow and where the charm code enters}
+The AMPT string-melting chain~\cite{ampt2005} is unchanged in structure:
+HIJING~\cite{hijing} (initial conditions, strings) $\to$ string melting $\to$
+ZPC parton cascade~\cite{zpc} $\to$ quark coalescence $\to$ ART hadron cascade~\cite{art}.
+The framework adds hooks at each stage:
+
+\begin{center}\small
+\begin{tabular}{@{}p{3.4cm}p{6.2cm}p{5.6cm}@{}}
+\toprule stage & what is added & routine (file) \\ \midrule
+initialisation & read all switches & \code{HQINIT} (\code{charm\_mod.f}), called from \code{main.f} \\
+HIJING hard process & triggered $c\bar c$ pair, modern PDFs, nPDF weight, HIJING trigger bug fix & \code{hijing1.383\_ampt.f}, \code{hipyset1.35.f}; \code{HQXPDF}, \code{HQNMOD}, \code{HQSHWT}, \code{HQTRGG} \\
+strings $\to$ partons & charm momenta taken before Lund fragmentation & \code{HQSAVE}, \code{HQPUT}, \code{HQHTOP} \\
+ZPC & charm cross section, isotropic charm scattering, collision counters, local freeze-out fixes & \code{zpc.f}, \code{HQFAC}, \code{HQCOLL}, \code{HQFRZG} \\
+coalescence & He--Lin coalescence with charm $r_{BM}$; charm coalescence criterion and Peterson fragmentation; $D^*/D=1$ & \code{coal\_new.f}; \code{HQFRAG}, \code{HQDSTR} (called from \code{linana.f}) \\
+ART & optional charm-hadron rescattering (not used in the reference configuration) & \code{HQHADR} (called from \code{art1f.f}) \\
+output & \code{ana/charm.dat} with charm records at every stage & \code{HQHTOP}, \code{HQOUTF}, \code{HQOUTH} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section{The changes}
+Each subsection gives: \textbf{why} (motivation and reference), \textbf{what} (the algorithm), \textbf{where} (routine and
+lines; Tables~\ref{tab:hunks}--\ref{tab:switches} give all line numbers), \textbf{switch} and its value in the reference
+configuration, and \textbf{check}.
+
+\subsection{Heavy-quark trigger and a HIJING bug fix}
+\textbf{Why.} Charm is rare: about one $c\bar c$ pair per hundred minimum-bias p+p events at RHIC. Simulating charm
+observables with $10^6$ untriggered Au+Au events would give too few D mesons. HIJING has a built-in trigger
+(\code{IHPR2(3)=3}) that forces one hard $c\bar c$ pair into each event~\cite{hijing}. The improved heavy-flavour AMPT
+of Zheng~\emph{et al.}~\cite{zheng2020} uses it without a transverse-momentum cut on the pair.\\
+\textbf{What.} \sw{AMPT\_HQTRIG=1} sets \code{IHPR2(3)=3} and \code{HIPR1(10)=}\sw{AMPT\_HQPTMIN} (default 0). One
+primary nucleon--nucleon collision, chosen at random, gets a $q\bar q, gg\to c\bar c$ hard scattering (PYTHIA
+\code{MSUB} 81/82). The number of primary NN collisions of the event (HIJING \code{NCOLT}) is written to the event
+record, because the analysis weights each triggered event by it (Sec.~\ref{sec:analysis}).\\
+\textbf{Bug fix.} \code{JETINI} (\code{hijing1.383\_ampt.f}) initialises PYTHIA lazily per collision type. Its
+first-initialisation branch returned without updating the remembered type \code{ilast}. The next untriggered minijet
+call then skipped the reset of \code{MSUB}/\code{CKIN}, so every later minijet of the event was generated with the
+trigger process list: test events carried 24--92 charm quarks instead of about 2. The fix sets \code{ilast=itrig}
+before that \code{RETURN} (tag \code{cdmeson-fix}). It is active only when the trigger is on; public AMPT does not use
+the trigger.\\
+\textbf{Where.} \code{HQINIT}; \code{hijing1.383\_ampt.f} hunks at the NN-collision count and \code{JETINI}
+(Table~\ref{tab:hunks}). \textbf{Reference:} \sw{AMPT\_HQTRIG=1}, \sw{AMPT\_HQPTMIN} unset (0).\\
+\textbf{Check.} Net charm is zero in every event (analysis counter \code{netc\_nonzero\_events}=0 on 2.4M events).
+
+\subsection{One clean pair per event}
+\textbf{Why.} With the trigger, untriggered minijets and parton showers can still produce extra charm. That breaks the
+one-pair-per-event bookkeeping on which the event weight rests.\\
+\textbf{What.} \sw{AMPT\_HQCLEAN=1} removes \code{MSUB} 81/82 from the untriggered minijets and sets
+\code{MSTJ(45)=3} (no $g\to c\bar c$ in final-state showers).
+\textbf{Where.} \code{HQINIT}; \code{hijing1.383\_ampt.f} (\code{AMPT\_HQCLEAN} hunk). \textbf{Reference:} on.
+
+\subsection{Modern proton PDFs for the triggered pair}
+\textbf{Why.} HIJING~1.383 uses the Duke--Owens PDFs at leading order. With them the $c\bar c$ cross section at
+200~GeV is 6.6 times below STAR's, and the D-meson spectrum shape is distorted. Zhang~\emph{et al.}~\cite{zhang2019}
+and Zheng~\emph{et al.}~\cite{zheng2020} replaced them with CTEQ6.1M in AMPT.\\
+\textbf{What.} With \sw{AMPT\_HQPDF}$\geq1$, \code{PYSTFU} returns CTEQ6.1M~\cite{cteq61} (via LHAPDF~6~\cite{lhapdf},
+set \code{cteq61}, member 0) for the \emph{triggered hard process only}; minijets and the bulk keep HIJING's PDFs.
+The factorisation scale is $\mu_F^2=$\sw{AMPT\_HQMUF}$\times Q^2$ (default 2, i.e.\ $2m_T^2$ as in
+Ref.~\cite{zheng2020}). PYTHIA's maximum search is raised by \sw{AMPT\_HQXSF} (default 1.5) so that the
+acceptance--rejection step stays valid with the new, larger PDFs.\\
+\textbf{Where.} \code{HQXPDF} (\code{charm\_mod.f}); hooks in \code{hipyset1.35.f} (\code{PYSTFU}, \code{PYSIGH},
+\code{PYMAXI}) and \code{hijing1.383\_ampt.f} (\code{JETINI}). \textbf{Reference:} \sw{AMPT\_HQPDF=1}.\\
+\textbf{Check.} The p+p D$^0$ spectrum shape against STAR gives $\chi^2/\text{ndf}=3.5/5$, against 6.7/5 for public
+AMPT (\code{observation/results/tables/PP\_SHAPE.txt}).
+
+\subsection{Impact-parameter-dependent nuclear PDFs (EPS09s) as an event weight}
+\textbf{Why.} This is the change behind the main result of the paper. The charm pair is produced at a point in the
+transverse plane, and its nuclear modification depends on the transverse position of the colliding nucleons in
+their nuclei. Position-dependent shadowing therefore changes \emph{where} charm is produced relative to the bulk,
+and hence the charm rapidity-odd ``tilt'' that drives D$^0$ directed flow. EPS09s~\cite{eps09s} is the global nPDF
+fit with a spatial dependence; we use the authors' code and tables unmodified.\\
+\textbf{What.} The pair is sampled with free-nucleon CTEQ6.1M PDFs. Its nuclear modification
+$w=R_1(x_1,Q,s_1)\,R_2(x_2,Q,s_2)$ is then carried as an event weight (\sw{AMPT\_HQSHW=1}). $R$ is the EPS09s NLO
+bound-to-free ratio of the incoming parton flavour, with isospin conjugation for neutrons, at the transverse distance
+$s$ of each nucleon from its own nucleus centre (Ref.~\cite{eps09s}, Eq.~2.9). The weight is written to field 18
+of the \code{charm.dat} event record and applied in the analysis. Sampling plus weighting is equivalent to sampling
+with nuclear PDFs (gate g4 of the development log), keeps the events identical between nPDF variants, and lets the
+31 EPS09s error sets be applied offline to the same events.\\
+\textbf{Where.} \code{HQNMOD}, \code{HQSHWT}, \code{HQTRGG} (\code{charm\_mod.f}); \code{eps09s\_f.cpp} (C bindings to
+the official \code{eps09s.cpp}); hooks in \code{PYSTFU}/\code{PYRAND} (\code{hipyset1.35.f}).
+\textbf{Reference:} \sw{AMPT\_HQSHW=1} with \sw{AMPT\_HQPDF=1}. A related option, \sw{AMPT\_HQSHAD=s}, scales HIJING's
+own shadowing of the triggered process ($R\to1+s(R-1)$). It was used only for the shadowing scan of the paper.
+
+\subsection{Charm momentum taken before string fragmentation (direct charm)}
+\textbf{Why.} In string melting, charm quarks are produced from hadrons made by Lund fragmentation, which softens
+them. Zhang~\emph{et al.}~\cite{zhang2023,zhang2024} and Fan~\emph{et al.}~\cite{fan2026} take the charm quarks directly
+from the HIJING hard scattering. Their spectrum is much harder.\\
+\textbf{What.} \sw{AMPT\_HQDIRECT=1}. Before \code{HIJFRG}, \code{HQSAVE} stores every $c/\bar c$ on each string. After
+string melting, \code{HQHTOP} gives each melted charm quark the momentum of the closest saved charm parton of the same
+flavour on the same string, with formation time $0.197\,E/m_T^2$~fm. The 3-momentum difference goes to the light
+partons of that string, energy-weighted, so string 3-momentum is conserved exactly. The event's energy change (a few
+GeV out of $\sim40$~TeV) and the matching counters are written to the event record.\\
+\textbf{Where.} \code{HQSAVE}, \code{HQPUT}, \code{HQHTOP}; hooks in \code{hijing1.383\_ampt.f} and \code{linana.f}.
+\textbf{Reference:} on. \textbf{Check.} Matching failures \code{nfail}=0 in every event of the production.
+
+\subsection{Charm--parton cross section and isotropic charm scattering in ZPC}
+\textbf{Why.} With the stock forward-peaked cross section, charm couples too weakly to the medium: D$^0$ $v_2\approx0.04$
+against 0.15 in data. The improved AMPT uses separate light- and heavy-quark cross sections~\cite{zhang2024}.\\
+\textbf{What.} \sw{AMPT\_SIGHQ=r} multiplies the closest-approach criterion $d^2<\sigma/\pi$ by $r$ for every pair
+containing a $c$ or $\bar c$, in all twelve \code{isco*} routines (\code{HQFAC}). \sw{AMPT\_HQISO=1} makes charm
+collisions isotropic in the pair c.m.\ frame (same random deviate, so the event sequence is preserved), for pair c.m.\
+momenta below \sw{AMPT\_HQISO\_PCUT}.\\
+\textbf{Reference.} The input screening mass is 1.6016~fm$^{-1}$, i.e.\ $\sigma_{LQ}=6$~mb, and \sw{AMPT\_SIGHQ=1.5},
+i.e.\ $\sigma_{HQ}=9$~mb, isotropic below 0.5~GeV. These values were chosen jointly on D$^0$ $v_2$ and $R_{AA}$.
+
+\subsection{Local parton freeze-out}
+\textbf{Why.} The reference input uses AMPT's \code{ISOFT=5} option (``local freeze-out'' in Lin's \code{linana.f}): a
+parton freezes when its local energy density falls below a critical value, rather than after its last collision. In
+the stock code, a parton that never satisfies the criterion before the cascade ends is hadronised with its
+\emph{initial} momentum. We fix that.\\
+\textbf{What.} \sw{AMPT\_ECRIT} sets the critical energy density (stock 1.0~GeV/fm$^3$). \code{HQFRZG} freezes a
+never-frozen parton at its last interaction, as \code{ISOFT=4} does (0.07\,\% of partons are affected). With
+\sw{AMPT\_HQLATE=0}, charm quarks never freeze by the density criterion. They keep scattering, changing only their own
+momentum, until the cascade ends, and are then frozen at their last interaction.\\
+\textbf{Where.} \code{amptsub.f} (\code{ARTSET}), \code{HQFRZG}, \code{zpc.f}, \code{linana.f} \code{LOCAL}.
+\textbf{Reference:} \code{ISOFT=5}, \sw{AMPT\_ECRIT=1.0}, \sw{AMPT\_HQLATE=0}.
+
+\subsection{Hadronisation: improved coalescence, charm coalescence criterion and fragmentation}
+\textbf{Why.} The public AMPT coalescence forms mesons and baryons from fixed quark groupings and builds antibaryons from
+antiquarks a median 13~fm apart. He and Lin's improved coalescence~\cite{helin2017} chooses the closest partners and
+lets a parameter $r_{BM}$ decide between baryon and meson formation; it is published but not distributed, so we
+reimplemented it. For charm, Zheng~\emph{et al.}~\cite{zheng2020} use a larger $r_{BM}$ to produce enough $\Lambda_c$.
+Zhang~\emph{et al.}~\cite{zhang2024} and Fan~\emph{et al.}~\cite{fan2026} add a coalescence criterion: charm hadrons
+whose constituents are too far apart, too massive or at too high $m_T$ fragment instead (Peterson
+fragmentation~\cite{peterson}).\\
+\textbf{What.}
+\begin{itemize}
+\item \sw{AMPT\_COALNEW=1}: He--Lin coalescence (\code{coal\_new.f}) with $r_{BM}=0.61$ for light flavours and
+  $r_{BM}^c=$\sw{AMPT\_RBMHQ} for groups containing charm. \sw{AMPT\_CNORDER=2} sweeps the partons in a random order
+  per event, removing a projectile/target bias of the stored order.
+\item \sw{AMPT\_HQFRAG=1} (\code{HQFRAG}): an open-charm candidate coalesces if $m_T<m_T^{\max}$ (\sw{AMPT\_HQMTMAX}),
+  or if its largest constituent separation is below $p_r$ (\sw{AMPT\_HQPR}) and $m_{\rm inv}<\sum m_q+p_m(m_H-\sum m_q)$
+  (\sw{AMPT\_HQPM}), with constituent quark masses (\sw{AMPT\_HQCONST=1}, Fan~\emph{et al.} Eq.~2) (\sw{AMPT\_HQMTMODE=1}:
+  the ``or'' of Ref.~\cite{fan2026}). Otherwise the charm quark fragments. $z$ is drawn from the Peterson function
+  ($\epsilon_c=0.05$), the light antiquark comes from a vacuum pair ($u:d:s=1:1:0.3$), and the remaining momentum goes
+  to a light hadron, so 3-momentum is conserved per candidate. The hadron record carries a mode flag
+  (1 coalescence, 2 fragmentation). \sw{AMPT\_HQBDIST=1} (systematic variant c1) uses the Jacobi distance
+  $\sqrt{2/3}\,|r_c-(r_{q_1}+r_{q_2})/2|$ for baryons.
+\item \sw{AMPT\_DSTAR1=1} (\code{HQDSTR}): primordial $D^*/D=1$ (and $D_s^*/D_s=1$), as in Ref.~\cite{zheng2020}. The
+  charm--light candidates are ordered by excess mass; the lower half become $D$, the upper half $D^*$.
+\end{itemize}
+\textbf{Reference:} \sw{AMPT\_COALNEW=1}, \sw{AMPT\_RBMHQ=3}, \sw{AMPT\_CNORDER=2}, \sw{AMPT\_HQFRAG=1}, $p_r=0.5$~fm,
+$p_m=0.5$, $m_T^{\max}=3.3$ (Au+Au) and 2.0~GeV (p+p), \sw{AMPT\_HQCONST=1}, \sw{AMPT\_DSTAR1=1}.
+
+\subsection{Output}
+\sw{AMPT\_CHARM\_OUT=1} writes \code{ana/charm.dat} with one record type per stage. E: event, with $b$, the
+participants, $N_{\rm coll}$, the energy change, the triggered $\sigma_{c\bar c}$ and the nPDF weight. I/L: charm and
+a light-parton sample at formation. F/G: the same at freeze-out. H: charm hadrons after coalescence, with mode and
+constituent separation. Z: the end of the parton phase. A private random generator is used, so writing the file never
+changes the events. \sw{AMPT\_LQFRAC} sets the light-parton sampling fraction. The node-side reduction
+\code{scripts/reduce\_dmeson\_v2.awk} keeps every charm hadron, all charged kaons and protons, a 25\,\% (10\,\%
+forward) sample of pions with weights, and the full second-order flow vectors of all charged hadrons in the STAR and
+PHENIX event-plane windows.
+
+\subsection{Options implemented but not used in the reference configuration}
+\begin{itemize}
+\item \sw{AMPT\_HQHAD=1} (\code{HQHADR}): elastic, isotropic charm--hadron rescattering in ART with the He--Fries--Rapp
+  cross sections (7~mb with mesons, 10~mb with baryons)~\cite{hfr2011}. It was tested on the reference configuration:
+  0.17 collisions per charm hadron, $v_2$ unchanged, $R_{AA}$ worse by 4--14\,\%. Not adopted; quoted as a
+  systematic in the paper.
+\item \sw{AMPT\_HQCRONIN=$\delta$} (\code{HQCKICK}): Cronin $k_T$ broadening of the pair, Zhang~\emph{et
+  al.}~\cite{zhang2023} Eqs.~1--3 (used by Fan~\emph{et al.}; a candidate improvement for $R_{AA}$).
+\item \sw{AMPT\_ZPC\_TSTOP}: hard stop of the parton cascade, Zhang and Xu~\cite{zhangxu2017}.
+\item \sw{AMPT\_TILT}: a sensitivity knob (light partons shifted by $\lambda\eta_s$), not a physics model.
+\item \sw{AMPT\_SOUT}, \sw{AMPT\_HQDREST}, \sw{AMPT\_HQFBAR}, \sw{AMPT\_HQPDFSET}, \sw{AMPT\_HQCDBG}: diagnostics and
+  variants.
+\end{itemize}
+
+\section{Reference configuration}
+Input card \code{inputs/auau200\_lf\_s6.ampt} = the stock \code{input.ampt} with \code{ISOFT=5} and screening mass
+1.6016~fm$^{-1}$ (the event count, impact parameter range and seeds are set per job). Switches:
+\code{configs/reference\_auau.env} and \code{configs/reference\_pp.env} (Table~\ref{tab:switches}). Public AMPT for
+comparison: \code{inputs/auau200\_sm.ampt} (the stock card) with only the trigger and the output switches
+(\code{configs/public\_*.env}).
+
+\begin{center}\small
+\begin{tabular}{@{}lllll@{}}
+\toprule arm & config & events & HIJING seed base & ZPC seed \\ \midrule
+dm24\_e\_a, dm24\_e\_b & reference\_auau & $2\times1000\times300$ & 20261107, 20261108 & $13i+9$, $13i+10$ \\
+dm25\_e\_c\ldots h & reference\_auau & $6\times1000\times300$ & 20261109\ldots14 & $31i+11\ldots16$ \\
+dm24\_epp, dm25\_epp & reference\_pp & $2\times200\times30000$ & 20261107, 20261115 & $13i+9$, $31i+17$ \\
+dm25\_c1 / dm25\_ppc1 & c1\_auau / c1\_pp & $1000\times300$ / $100\times30000$ & 20261116 / 20261117 & $31i+18$ / $31i+19$ \\
+dm25\_pub\_a, b / dm25\_pppub & public\_* & $2\times1000\times300$ / $100\times30000$ & 20261118, 19 / 20261120 & $31i+20, 21$ / $31i+22$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+HIJING seed of job $i$ = base $+\,7919\,i$. Au+Au: $0<b<14.5$~fm; p+p: $0<b<2$~fm.
+
+\section{Analysis conventions}\label{sec:analysis}
+\begin{itemize}
+\item \textbf{Feed-down.} $D^{*0}\to D^0$, $D^{*+}\to D^0\pi^+$ (67.7\,\%), $D_s^*\to D_s$, $\Sigma_c\to\Lambda_c$
+  (PDG branching ratios, \code{analysis/dmlib.py}), as in the measured yields.
+\item \textbf{Weights.} Each triggered Au+Au event carries one pair, while real charm production scales with
+  $N_{\rm coll}$. Charm observables are therefore weighted by the event's \code{NCOLT} times the EPS09s weight; the
+  charm-quark count by \code{NCOLT} only. Light hadrons are never weighted.
+\item \textbf{$R_{AA}$} $=$ (D$^0$ per $c$ quark, Au+Au) / (D$^0$ per $c$ quark, p+p). This equals the usual definition
+  when the total charm yield scales with $N_{\rm coll}$ times the nPDF factor.
+\item \textbf{Centrality.} Charged-particle multiplicity in $|\eta|<0.5$, as STAR.
+\item \textbf{Flow.} $v_2$: the scalar product in STAR's $\eta$-sub-event geometry, with the resolution taken per 5\,\%
+  bin; $v_1$: relative to the reaction plane (STAR uses the spectator plane), with the sign fixed by HIJING's projectile
+  at $x=+b/2$.
+\item \textbf{Errors.} Jackknife over job files (delete-a-block, at most 2000 blocks).
+\end{itemize}
+
+\section{Verification}\label{sec:verify}
+\begin{itemize}
+\item \textbf{Stock reproduction (G0).} With no switch set, \code{ana/ampt.dat} is byte-identical to the unmodified
+  program.
+\item \textbf{Exact reproduction of the production} (\code{make test-repro}). The first events of Au+Au job~1 and p+p
+  job~1 of the production, regenerated on a different machine and compiler (gfortran 13.3 vs 11.5), give a
+  byte-identical \code{charm.dat} and identical event headers, flow vectors and charm hadrons.
+\item \textbf{Independent re-analysis} (\code{make test-quick}). \code{analysis/indep\_check.py} re-implements the
+  observables from the documentation without importing the production analysis. On 36k Au+Au and 300k p+p events it
+  agrees with \code{analysis/analyze\_arm.py} to $10^{-17}$.
+\item \textbf{Results} (\code{make test-results}). Every table and figure in \code{observation/results/} is
+  regenerated from the shipped analysis outputs.
+\end{itemize}
+
+\begin{thebibliography}{99}\small
+\bibitem{ampt2005} Z.-W. Lin, C. M. Ko, B.-A. Li, B. Zhang, S. Pal, Phys. Rev. C \textbf{72}, 064901 (2005).
+\bibitem{lin2021} Z.-W. Lin, L. Zheng, Nucl. Sci. Tech. \textbf{32}, 113 (2021), arXiv:2110.02989.
+\bibitem{hijing} X.-N. Wang, M. Gyulassy, Phys. Rev. D \textbf{44}, 3501 (1991); M. Gyulassy, X.-N. Wang, Comput.
+  Phys. Commun. \textbf{83}, 307 (1994).
+\bibitem{zpc} B. Zhang, Comput. Phys. Commun. \textbf{109}, 193 (1998).
+\bibitem{art} B.-A. Li, C. M. Ko, Phys. Rev. C \textbf{52}, 2037 (1995).
+\bibitem{zheng2020} L. Zheng, C. Zhang, S. S. Shi, Z.-W. Lin, Phys. Rev. C \textbf{101}, 034905 (2020).
+\bibitem{zhang2019} C. Zhang, L. Zheng, F. Liu, S. Shi, Z.-W. Lin, Phys. Rev. C \textbf{99}, 064906 (2019).
+\bibitem{zhang2023} C. Zhang, L. Zheng, S. Shi, Z.-W. Lin, Phys. Lett. B \textbf{846}, 138219 (2023).
+\bibitem{zhang2024} C. Zhang, L. Zheng, S. Shi, Z.-W. Lin, Eur. Phys. J. C \textbf{84}, 942 (2024).
+\bibitem{fan2026} B. Fan, S. Shi, C. Zhang, L. Zheng, arXiv:2601.12287 (2026).
+\bibitem{helin2017} Y. He, Z.-W. Lin, Phys. Rev. C \textbf{96}, 014910 (2017).
+\bibitem{peterson} C. Peterson, D. Schlatter, I. Schmitt, P. M. Zerwas, Phys. Rev. D \textbf{27}, 105 (1983).
+\bibitem{cteq61} D. Stump \emph{et al.}, JHEP \textbf{10} (2003) 046.
+\bibitem{lhapdf} A. Buckley \emph{et al.}, Eur. Phys. J. C \textbf{75}, 132 (2015).
+\bibitem{eps09s} I. Helenius, K. J. Eskola, H. Honkanen, C. A. Salgado, JHEP \textbf{07} (2012) 073.
+\bibitem{hfr2011} M. He, R. J. Fries, R. Rapp, Phys. Lett. B \textbf{701}, 445 (2011).
+\bibitem{zhangxu2017} C.-J. Zhang, J. Xu, Phys. Rev. C \textbf{96}, 044907 (2017).
+\end{thebibliography}
+
+\appendix
+\section{Code map (generated from the repository)}
+\input{code_map.tex}
+\end{document}

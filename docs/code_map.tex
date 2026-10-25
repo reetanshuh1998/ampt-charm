@@ -1,0 +1,140 @@
+{\small\begin{longtable}{@{}p{2.7cm}p{1.5cm}p{1.3cm}p{9.4cm}@{}}
+\caption{Every hunk of \texttt{patches/ampt-v1.26t9b-v2.26t9b\_charm.patch}. Lines = the added lines in the patched file \texttt{build/ampt-src/}; $+/-$ = lines added/removed. The note is the first comment of the hunk (tagged \texttt{cdmeson} in the source).}\label{tab:hunks}\\
+\toprule file & lines & $+/-$ & note \\ \midrule \endfirsthead
+\toprule file & lines & $+/-$ & note \\ \midrule \endhead
+\texttt{amptsub.f} & 44 & +1/$-$0 & code: include 'hqctl.inc' \\
+\texttt{amptsub.f} & 52--53 & +2/$-$0 & cdmeson (src\_\allowbreak{}v9): AMPT\_\allowbreak{}ECRIT overrides it (read by HQINIT) \\
+\texttt{amptsub.f} & 4923--4925 & +3/$-$1 & cdmeson (src\_\allowbreak{}v9): partons never frozen keep their final, not initial, \\
+\texttt{art1f.f} & 619--621 & +3/$-$1 & dmeson src\_\allowbreak{}v17: charm-hadron rescattering (returns at once unless \\
+\texttt{hijing1.383\_\allowbreak{}ampt.f} & 199--200 & +2/$-$0 & cdmeson src\_\allowbreak{}v13: ihqtrx (trigger context of AMPT\_\allowbreak{}HQSHAD) \\
+\texttt{hijing1.383\_\allowbreak{}ampt.f} & 583--599 & +12/$-$0 & cdmeson: number of primary NN collisions of this event (E record) \\
+\texttt{hijing1.383\_\allowbreak{}ampt.f} & 648--655 & +6/$-$0 & cdmeson src\_\allowbreak{}v14: with AMPT\_\allowbreak{}HQPDF the triggered PYINIT (maximum search) \\
+\texttt{hijing1.383\_\allowbreak{}ampt.f} & 1346--1349 & +3/$-$0 & cdmeson: record charm partons on the strings before Lund fragmentation \\
+\texttt{hijing1.383\_\allowbreak{}ampt.f} & 4298--4299 & +2/$-$0 & cdmeson: \\
+\texttt{hijing1.383\_\allowbreak{}ampt.f} & 4396--4400 & +5/$-$0 & cdmeson: AMPT\_\allowbreak{}HQCLEAN, no heavy-quark pair production in untriggered jets \\
+\texttt{hijing1.383\_\allowbreak{}ampt.f} & 4527--4547 & +18/$-$1 & cdmeson src\_\allowbreak{}v14: AMPT\_\allowbreak{}HQPDF raises every triggered maximum by hqxsf: \\
+\texttt{hipyset1.35.f} & 7603--7604 & +2/$-$0 & cdmeson src\_\allowbreak{}v14: \\
+\texttt{hipyset1.35.f} & 7874--7875 & +2/$-$0 & cdmeson src\_\allowbreak{}v14: largest weight/maximum inside the triggered process \\
+\texttt{hipyset1.35.f} & 7970--7971 & +2/$-$0 & cdmeson src\_\allowbreak{}v15: AMPT\_\allowbreak{}HQSHW=1, nuclear modification as event weight \\
+\texttt{hipyset1.35.f} & 12017--12018 & +2/$-$0 & cdmeson src\_\allowbreak{}v14: \\
+\texttt{hipyset1.35.f} & 12144--12147 & +3/$-$0 & cdmeson src\_\allowbreak{}v14: hard-process call (AMPT\_\allowbreak{}HQMUF scales muF\^\{\}2 here only) \\
+\texttt{hipyset1.35.f} & 13981--13982 & +2/$-$0 & cdmeson src\_\allowbreak{}v13: \\
+\texttt{hipyset1.35.f} & 14331--14336 & +6/$-$0 & cdmeson src\_\allowbreak{}v14: AMPT\_\allowbreak{}HQPDF, triggered hard process: CTEQ6.1M (x EPS09s \\
+\texttt{hipyset1.35.f} & 14575--14578 & +4/$-$0 & cdmeson src\_\allowbreak{}v14: AMPT\_\allowbreak{}HQPDF already applied EPS09s (no HIJING shadowing) \\
+\texttt{hipyset1.35.f} & 14597--14598 & +2/$-$1 & cdmeson src\_\allowbreak{}v13: AMPT\_\allowbreak{}HQSHAD scales the triggered hard process only \\
+\texttt{linana.f} & 656--657 & +2/$-$0 & cdmeson: direct-charm option, ZPC charm counters, charm.dat records \\
+\texttt{linana.f} & 734--738 & +5/$-$1 & cdmeson: charm partons at ZPC freeze-out \\
+\texttt{linana.f} & 929--930 & +2/$-$0 & cdmeson: AMPT\_\allowbreak{}DSTAR1, primordial D*/D = 1 (Zheng et al. 2020) \\
+\texttt{linana.f} & 1099--1102 & +4/$-$0 & cdmeson: AMPT\_\allowbreak{}HQFRAG, coalescence criterion + Peterson fragmentation \\
+\texttt{linana.f} & 1998 & +1/$-$0 & code: include 'hqctl.inc' \\
+\texttt{linana.f} & 2047--2057 & +11/$-$2 & cdmeson src\_\allowbreak{}v12b (AMPT\_\allowbreak{}HQLATE=x>=0): a charm quark freezes only below \\
+\texttt{main.f} & 179--180 & +2/$-$1 & cdmeson: D-meson framework switches (charm\_\allowbreak{}mod.f), all default off \\
+\texttt{zpc.f} & 1121 & +1/$-$0 & code: include 'hqctl.inc' \\
+\texttt{zpc.f} & 1134--1140 & +7/$-$0 & cdmeson (src\_\allowbreak{}v9): AMPT\_\allowbreak{}ZPC\_\allowbreak{}TSTOP, hard stop of the partonic cascade at \\
+\texttt{zpc.f} & 1864--1865 & +2/$-$0 & cdmeson: count charm scatterings \\
+\texttt{zpc.f} & 1972--2001 & +24/$-$3 & cdmeson src\_\allowbreak{}v12 (AMPT\_\allowbreak{}HQLATE>=0): an unfrozen charm quark still scatters \\
+\texttt{zpc.f} & 2196--2207 & +12/$-$0 & cdmeson src\_\allowbreak{}v12: the frozen partner of a late charm collision is untouched \\
+\texttt{zpc.f} & 2223 & +1/$-$0 & code: logical hqisof \\
+\texttt{zpc.f} & 2239--2240 & +2/$-$0 & cdmeson: AMPT\_\allowbreak{}HQISO, isotropic scattering for charm (same deviate rx) \\
+\texttt{zpc.f} & 3936 & +1/$-$1 & code: allok = allok .and. dm2 .lt. cutof2*hqfac(i, j) \\
+\texttt{zpc.f} & 4064 & +1/$-$1 & code: allok = allok .and. dm2 .lt. cutof2*hqfac(i, j) \\
+\texttt{zpc.f} & 4199 & +1/$-$1 & code: allok = allok .and. dm2 .lt. cutof2*hqfac(i, j) \\
+\texttt{zpc.f} & 4349 & +1/$-$1 & code: allok = allok .and. dm2 .lt. cutof2*hqfac(i, j) \\
+\texttt{zpc.f} & 4505 & +1/$-$1 & code: allok = allok .and. dm2 .lt. cutof2*hqfac(i, j) \\
+\texttt{zpc.f} & 4669 & +1/$-$1 & code: allok = allok .and. dm2 .lt. cutof2*hqfac(i, j) \\
+\texttt{zpc.f} & 4802 & +1/$-$1 & code: allokp = allokp .and. dm2 .lt. cutof2*hqfac(i, j) \\
+\texttt{zpc.f} & 4966 & +1/$-$1 & code: allokp = allokp .and. dm2 .lt. cutof2*hqfac(i, j) \\
+\texttt{zpc.f} & 5146 & +1/$-$1 & code: allokp = allokp .and. dm2 .lt. cutof2*hqfac(i, j) \\
+\texttt{zpc.f} & 5294 & +1/$-$1 & code: allokp = allokp .and. dm2 .lt. cutof2*hqfac(i, j) \\
+\texttt{zpc.f} & 5462 & +1/$-$1 & code: allokp = allokp .and. dm2 .lt. cutof2*hqfac(i, j) \\
+\texttt{zpc.f} & 5646 & +1/$-$1 & code: allokp = allokp .and. dm2 .lt. cutof2*hqfac(i, j) \\
+\bottomrule \end{longtable}}
+
+{\small\begin{longtable}{@{}p{1.9cm}p{2.0cm}p{1.6cm}p{9.4cm}@{}}
+\caption{Routines of the new files (\texttt{src\_new/}), with their line ranges and the first line of their header comment.}\label{tab:routines}\\
+\toprule file & routine & lines & purpose \\ \midrule \endfirsthead
+\toprule file & routine & lines & purpose \\ \midrule \endhead
+\texttt{charm\_mod.f} & \texttt{HQBLK} & 72--92 &  \\
+\texttt{charm\_mod.f} & \texttt{HQINIT} & 93--258 & read the switches; called from main.f before HIJSET \\
+\texttt{charm\_mod.f} & \texttt{HQFAC} & 259--273 & ZPC: factor on cutof2 (=sigma/pi) for the pair (i,j) in /prec2/ \\
+\texttt{charm\_mod.f} & \texttt{HQCOLL} & 274--306 & ZPC: count 2-body scatterings of charm partons (/prec2/ index) \\
+\texttt{charm\_mod.f} & \texttt{HQFRZG} & 307--348 & ISOFT=5, end of ZPC (zpstrg, before /frzprc/ replaces /prec2/): \\
+\texttt{charm\_mod.f} & \texttt{HQSAVE} & 349--398 & HIJING, string-melting branch.  ISG=0: reset for this event and \\
+\texttt{charm\_mod.f} & \texttt{HQPUT} & 399--419 &  \\
+\texttt{charm\_mod.f} & \texttt{HQHTOP} & 420--592 & end of HTOP: (a) AMPT\_\allowbreak{}HQDIRECT replacement, (b) reset ZPC charm \\
+\texttt{charm\_mod.f} & \texttt{hqrand} & 593--605 & private LCG for output subsampling; never touches RANART/NSEED so \\
+\texttt{charm\_mod.f} & \texttt{HQOUTF} & 606--646 & start of PTOH (ZPC finished): charm partons at freeze-out (F) with \\
+\texttt{charm\_mod.f} & \texttt{HQOUTH} & 647--715 & end of PTOH: charm hadrons right after coalescence (H) with the \\
+\texttt{charm\_mod.f} & \texttt{HQNCOL} & 716--723 & HIJING: store the number of primary NN collisions of the event \\
+\texttt{charm\_mod.f} & \texttt{HQDSTR} & 724--827 & AMPT\_\allowbreak{}DSTAR1 (PTOH, right after the flavour/species loop): set the \\
+\texttt{charm\_mod.f} & \texttt{HQFRAG} & 828--1156 & end of PTOH (hadron momenta/positions set): coalescence criterion \\
+\texttt{charm\_mod.f} & \texttt{KBARY} & 1157--1186 & lightest ground-state baryon (KF > 0) of three light flavours \\
+\texttt{charm\_mod.f} & \texttt{KCBARY} & 1187--1205 & ground-state singly-charmed baryon (KF > 0) c + light diquark \\
+\texttt{charm\_mod.f} & \texttt{HQXPDF} & 1206--1248 & PYSTFU, triggered hard process only: x*f of a proton from CTEQ6.1M \\
+\texttt{charm\_mod.f} & \texttt{HQNMOD} & 1249--1299 & src\_\allowbreak{}v15 (moved out of HQXPDF, same arithmetic): EPS09s NLO bound- \\
+\texttt{charm\_mod.f} & \texttt{HQSHWT} & 1300--1353 & src\_\allowbreak{}v15 AMPT\_\allowbreak{}HQSHW=1, PYRAND after the channel choice of the \\
+\texttt{charm\_mod.f} & \texttt{HQRRX} & 1354--1383 & src\_\allowbreak{}v15: HIJING 1.383 nuclear shadowing factor exactly as PYSTFU \\
+\texttt{charm\_mod.f} & \texttt{hqrnp} & 1384--1391 & EPS09s power series 1 + c1 T + c2 T\^\{\}2 + c3 T\^\{\}3 + c4 T\^\{\}4 \\
+\texttt{charm\_mod.f} & \texttt{HQTRGG} & 1392--1409 & HIJING, at the choice of the triggered NN collision: number of \\
+\texttt{charm\_mod.f} & \texttt{HQCKICK} & 1410--1569 & AMPT\_\allowbreak{}HQCRONIN=delta, end of HTOP after the HQDIRECT replacement: \\
+\texttt{charm\_mod.f} & \texttt{HQLBST} & 1570--1585 & Lorentz boost of the four-vector q (px,py,pz,E) by velocity b \\
+\texttt{charm\_mod.f} & \texttt{HQVMAX} & 1586--1602 & once per event: report a new maximum of SIGS/XSEC\_\allowbreak{}max inside the \\
+\texttt{charm\_mod.f} & \texttt{HQHADR} & 1603--1815 & src\_\allowbreak{}v17 AMPT\_\allowbreak{}HQHAD=1: hadronic rescattering of charm hadrons in \\
+\texttt{charm\_mod.f} & \texttt{HQBST4} & 1816--1835 & src\_\allowbreak{}v17: Lorentz boost of the 4-vector x = (x1,x2,x3,x0) into the \\
+\texttt{charm\_mod.f} & \texttt{hqrnh} & 1836--1846 & src\_\allowbreak{}v17: private Park-Miller generator of the charm rescattering \\
+\texttt{coal\_new.f} & \texttt{CNPAR} & 1--72 & He \& Lin's improved quark coalescence, PRC 96 014910 (arXiv:1703.02673), \\
+\texttt{coal\_new.f} & \texttt{CNDIS2} & 73--115 & Relative distance between two flat-list partons in AMPT's own convention: \\
+\texttt{coal\_new.f} & \texttt{CNDIS3} & 116--163 & He \& Lin's d\_\allowbreak{}B: the average of the three relative distances among three \\
+\texttt{coal\_new.f} & \texttt{COALNEW} & 164--366 & Replaces `coales` when AMPT\_\allowbreak{}COALNEW=1. \\
+\texttt{coal\_new.f} & \texttt{CNCHK} & 367--462 & Gate 1: parton bookkeeping, as an assertion. A hadronisation rewrite that \\
+\texttt{coal\_new.f} & \texttt{CNWRIT} & 463--527 & Write the chosen groups back into the SOFT arrays and reset NSG, so that \\
+\bottomrule \end{longtable}}
+
+{\small\begin{longtable}{@{}p{4.2cm}p{3.4cm}p{2.8cm}p{2.8cm}@{}}
+\caption{Environment switches: the source line that reads each one, and its value in the reference Au+Au and p+p configurations (\texttt{configs/reference\_*.env}). Unset = the stock behaviour.}\label{tab:switches}\\
+\toprule switch & read at & reference Au+Au & reference p+p \\ \midrule \endfirsthead
+\toprule switch & read at & reference Au+Au & reference p+p \\ \midrule \endhead
+\texttt{AMPT\_\allowbreak{}HQTRIG} & \texttt{charm\_\allowbreak{}mod.f:100} & 1 & 1 \\
+\texttt{AMPT\_\allowbreak{}HQCLEAN} & \texttt{charm\_\allowbreak{}mod.f:102} & 1 & 1 \\
+\texttt{AMPT\_\allowbreak{}HQDIRECT} & \texttt{charm\_\allowbreak{}mod.f:104} & 1 & 1 \\
+\texttt{AMPT\_\allowbreak{}CHARM\_\allowbreak{}OUT} & \texttt{charm\_\allowbreak{}mod.f:106} & 1 & 1 \\
+\texttt{AMPT\_\allowbreak{}DSTAR1} & \texttt{charm\_\allowbreak{}mod.f:108} & 1 & 1 \\
+\texttt{AMPT\_\allowbreak{}HQISO} & \texttt{charm\_\allowbreak{}mod.f:110} & 1 & unset \\
+\texttt{AMPT\_\allowbreak{}HQISO\_\allowbreak{}PCUT} & \texttt{charm\_\allowbreak{}mod.f:112} & 0.5 & unset \\
+\texttt{AMPT\_\allowbreak{}TILT} & \texttt{charm\_\allowbreak{}mod.f:114} & unset & unset \\
+\texttt{AMPT\_\allowbreak{}ECRIT} & \texttt{charm\_\allowbreak{}mod.f:119} & 1.0 & 1.0 \\
+\texttt{AMPT\_\allowbreak{}SOUT} & \texttt{charm\_\allowbreak{}mod.f:124} & unset & unset \\
+\texttt{AMPT\_\allowbreak{}HQLATE} & \texttt{charm\_\allowbreak{}mod.f:126} & 0 & 0 \\
+\texttt{AMPT\_\allowbreak{}HQSHAD} & \texttt{charm\_\allowbreak{}mod.f:132} & unset & unset \\
+\texttt{AMPT\_\allowbreak{}HQPDF} & \texttt{charm\_\allowbreak{}mod.f:138} & 1 & 1 \\
+\texttt{AMPT\_\allowbreak{}HQPDFSET} & \texttt{charm\_\allowbreak{}mod.f:140} & unset & unset \\
+\texttt{AMPT\_\allowbreak{}HQMUF} & \texttt{charm\_\allowbreak{}mod.f:142} & unset & unset \\
+\texttt{AMPT\_\allowbreak{}HQXSF} & \texttt{charm\_\allowbreak{}mod.f:144} & unset & unset \\
+\texttt{AMPT\_\allowbreak{}HQDREST} & \texttt{charm\_\allowbreak{}mod.f:158} & unset & unset \\
+\texttt{AMPT\_\allowbreak{}HQSHW} & \texttt{charm\_\allowbreak{}mod.f:163} & 1 & unset \\
+\texttt{AMPT\_\allowbreak{}HQCONST} & \texttt{charm\_\allowbreak{}mod.f:168} & 1 & 1 \\
+\texttt{AMPT\_\allowbreak{}HQBDIST} & \texttt{charm\_\allowbreak{}mod.f:174} & unset & unset \\
+\texttt{AMPT\_\allowbreak{}HQHAD} & \texttt{charm\_\allowbreak{}mod.f:177} & unset & unset \\
+\texttt{AMPT\_\allowbreak{}HQHADM} & \texttt{charm\_\allowbreak{}mod.f:179} & unset & unset \\
+\texttt{AMPT\_\allowbreak{}HQHADB} & \texttt{charm\_\allowbreak{}mod.f:181} & unset & unset \\
+\texttt{AMPT\_\allowbreak{}HQHADDS} & \texttt{charm\_\allowbreak{}mod.f:183} & unset & unset \\
+\texttt{AMPT\_\allowbreak{}HQHADLC} & \texttt{charm\_\allowbreak{}mod.f:185} & unset & unset \\
+\texttt{AMPT\_\allowbreak{}HQHADREC} & \texttt{charm\_\allowbreak{}mod.f:187} & unset & unset \\
+\texttt{AMPT\_\allowbreak{}HQCRONIN} & \texttt{charm\_\allowbreak{}mod.f:197} & unset & unset \\
+\texttt{AMPT\_\allowbreak{}ZPC\_\allowbreak{}TSTOP} & \texttt{charm\_\allowbreak{}mod.f:202} & unset & unset \\
+\texttt{AMPT\_\allowbreak{}HQMTMODE} & \texttt{charm\_\allowbreak{}mod.f:207} & 1 & 1 \\
+\texttt{AMPT\_\allowbreak{}HQFBAR} & \texttt{charm\_\allowbreak{}mod.f:209} & unset & unset \\
+\texttt{AMPT\_\allowbreak{}HQFRAG} & \texttt{charm\_\allowbreak{}mod.f:211} & 1 & 1 \\
+\texttt{AMPT\_\allowbreak{}HQPR} & \texttt{charm\_\allowbreak{}mod.f:213} & 0.5 & 0.5 \\
+\texttt{AMPT\_\allowbreak{}HQPM} & \texttt{charm\_\allowbreak{}mod.f:215} & 0.5 & 0.5 \\
+\texttt{AMPT\_\allowbreak{}HQMTMAX} & \texttt{charm\_\allowbreak{}mod.f:217} & 3.3 & 2.0 \\
+\texttt{AMPT\_\allowbreak{}HQEPS} & \texttt{charm\_\allowbreak{}mod.f:219} & unset & unset \\
+\texttt{AMPT\_\allowbreak{}HQPTMIN} & \texttt{charm\_\allowbreak{}mod.f:221} & unset & unset \\
+\texttt{AMPT\_\allowbreak{}SIGHQ} & \texttt{charm\_\allowbreak{}mod.f:223} & 1.5 & 1.5 \\
+\texttt{AMPT\_\allowbreak{}LQFRAC} & \texttt{charm\_\allowbreak{}mod.f:225} & 0.05 & unset \\
+\texttt{AMPT\_\allowbreak{}HQCDBG} & \texttt{charm\_\allowbreak{}mod.f:879} & unset & unset \\
+\texttt{AMPT\_\allowbreak{}COALNEW} & \texttt{coal\_\allowbreak{}new.f:24} & 1 & 1 \\
+\texttt{AMPT\_\allowbreak{}CNORDER} & \texttt{coal\_\allowbreak{}new.f:40} & 2 & 2 \\
+\texttt{AMPT\_\allowbreak{}RBM} & \texttt{coal\_\allowbreak{}new.f:47} & unset & unset \\
+\texttt{AMPT\_\allowbreak{}RBMHQ} & \texttt{coal\_\allowbreak{}new.f:57} & 3 & 3 \\
+\bottomrule \end{longtable}}
