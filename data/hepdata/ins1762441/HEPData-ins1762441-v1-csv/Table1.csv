@@ -1,0 +1,11 @@
+#: table_doi: 10.17182/hepdata.94228.v1/t5
+#: name: Table 1
+#: description: The $\Lambda_c^{\pm}$ invariant yields measured in the 10-80% centrality class for the different $p_T$ bins, in Au+Au collisions at √sNN = 200 GeV. The $p_T$ bins are 2.5 < $p_T$ < 3.5 GeV/c, 3.5 < $p_T$ < 5.0 GeV/c and 5.0 < $p_T$ < 8.0 GeV/c.
+#: data_file: Table_5.yaml
+#: keyword reactions: AU AU --> CHARGED X
+#: keyword cmenergies: 200.0 GeV
+p_T range,\Lambda_c^{\pm} invariant yields,$stat$ +,$stat$ -,$sys$ +,$sys$ -
+2.5-3.5,8.2e−4,1.4e−4,-1.4e−4,2.4e−4,-2.4e−4
+3.5-5.0,6.0e−5,7.7e−6,-7.7e−6,1.5e−5,-1.5e−5
+5.0-8.0,2.1e−6,3.8e−7,-3.8e−7,5.5e−7,-5.5e−7
+

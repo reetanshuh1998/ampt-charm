@@ -1,0 +1,10 @@
+#: table_doi: 10.17182/hepdata.95750.v1/t16
+#: name: mT fit parameters Teff Omega
+#: description: mT fit parameters Teff Omega
+#: data_file: mT fit parameters Teff Omega.yaml
+#: keyword reactions: AU AU --> NEUTRAL X
+#: keyword cmenergies: 200.0
+#: Mass,$\Omega$
+Mass,Teff,Teff Err. +,Teff Err. -
+1.67,0.398,0.0423,-0.0423
+

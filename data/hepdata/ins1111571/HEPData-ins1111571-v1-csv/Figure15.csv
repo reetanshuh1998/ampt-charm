@@ -1,0 +1,17 @@
+#: table_doi: 10.17182/hepdata.101344.v1/t1
+#: name: Figure 15
+#: description: $c\bar{c}$ production cross section as inferred from D$^0$ and D$^\star$ production in p+p collisions at $\sqrt{s} = 200$ GeV at $|\eta| < 1$ compared with FONLL calculations. The D$^0$ and D$^\star$ data points were divided by the charm quark fragmentation ratios 0.565 ($c \rightarrow$ D$^0$) and 0.224 ($c \rightarrow$ D$^{\star +}$) [34], respectively, to convert to the $c\bar{c}$ production cross section.
+#: data_file: Fig15.yaml
+#: keyword reactions: p+p $\rightarrow$ D$^0$ (D$^\star$) + X
+#: keyword cmenergies: 200
+#: keyword phrases: open charm mesons | p+p collisions | STAR | RHIC
+#: keyword observables: $c\bar{c}$ production cross section
+#: ,D$^0$/0.565 and D$^\star$/0.224 in p+p at 200 GeV
+$p_T$ [GeV/$c$],$d^2\sigma^{c\bar{c}}/(2\pi p_T dp_T dy)$ [mb/(GeV/$c$)$^2$],stat +,stat -,sys +,sys -
+0.908,0.0152,0.00511,-0.00511,0.00299,-0.00522
+1.57,0.00538,0.00168,-0.00168,0.00103,-0.00108
+2.45,0.00101,0.000277,-0.000277,0.000182,-0.000182
+3.44,0.000175,6.19e-05,-6.19e-05,2.65e-05,-2.65e-05
+4.45,2.92e-05,1.16e-05,-1.16e-05,4.99e-06,-4.99e-06
+5.45,9.51e-06,3.14e-06,-3.14e-06,1.28e-06,-1.28e-06
+

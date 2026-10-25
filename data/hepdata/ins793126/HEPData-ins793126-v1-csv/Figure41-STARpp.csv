@@ -1,0 +1,10 @@
+#: table_doi: 10.17182/hepdata.104931.v1/t66
+#: name: Figure 41 - STAR pp
+#: description: Phase diagram plot of chemical freezeout temperature versus baryon chemical potential extracted from chemical equilibrium models. Errors shown are the total statistical and systematic errors.
+#: data_file: Fig41_phase_diag_Tch_vs_muB_STAR_pp.yaml
+#: keyword reactions: pp --> EX
+#: keyword phrases: identified particles | RHIC | STAR
+#: $\mu_B [MeV]$,,,STAR pp
+$\mu_B [MeV]$,$\mu_B [MeV]$ LOW,$\mu_B [MeV]$ HIGH,$T_{chem} [MeV]$,total +,total -
+8.9,5.1,12.7,157.5,3.6,-3.6
+

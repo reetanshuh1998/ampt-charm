@@ -1,0 +1,15 @@
+#: table_doi: 10.17182/hepdata.96906.v1/t21
+#: name: Figure 7a ($\Omega^{-}+\bar{\Omega}^{+}$)
+#: description: $v_{2}$ of $\Omega^{-}+\bar{\Omega}^{+}$ (filled circles) as a function of $p_{T}$ for (a) $0–80\%$ centrality in $Au+Au$ collisions at $\sqrt{s_{NN}} = 200$ GeV.
+#: data_file: fig7_omega_0_80.yaml
+#: keyword reactions: Au Au --> NEUTRAL X | AuAu -->
+#: keyword cmenergies: 200
+#: keyword phrases: Identified particles | Elliptic flow | $Au+Au$ collisions
+#: Centrality,$0-80\%$
+$p_T$(GeV/c),$\Omega^{-}+\bar{\Omega}^{+}$ $v_{2}{EP}$,stat +,stat -
+1.32915,0.0661981,0.0241724,-0.0241724
+2.05904,0.0999717,0.0132867,-0.0132867
+2.72859,0.137056,0.0193252,-0.0193252
+3.30277,0.187048,0.022867,-0.022867
+4.12384,0.171189,0.0456596,-0.0456596
+

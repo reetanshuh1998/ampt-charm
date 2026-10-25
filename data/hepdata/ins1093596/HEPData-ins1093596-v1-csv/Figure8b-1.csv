@@ -1,0 +1,47 @@
+#: table_doi: 10.17182/hepdata.141645.v1/t4
+#: name: Figure 8b-1
+#: description: Identified hadron $v_2$ in midcentral (20–60%, right panels) Au + Au collisions at $\sqrt{s_{NN}}$ = 200 GeV. Panels (a) and (b) show $v_2$ as a function of transverse momentum $p_T$. The $v_2$ of all species for centrality 0–20% has been scaled up by a factor of 1.6 for better comparison with results of 20–60% centrality. The error bars (shaded boxes) represent the statistical (systematic) uncertainties. The systematic uncertainties shown are type A and B only.
+#: data_file: fig8b1pion_20_60.yaml
+#: keyword reactions: Au Au —> $\pi^+$ $\pi^-$
+#: keyword cmenergies: 200.0
+#: keyword phrases: ppg123 | midrapidity | centrality | transverse momentum | transverse kinetic energy
+#: Centrality (%),,,20-60
+#: Particle,,,$\pi^+$ + $\pi^-$
+$p_T$ (GeV/$c$),$p_T$ (GeV/$c$) LOW,$p_T$ (GeV/$c$) HIGH,$\langle p_T \rangle$ (GeV/$c$)
+1.1,1.0,1.2,1.07506
+1.2999999999999998,1.2,1.4,1.27008
+1.5,1.4,1.6,1.4651
+1.7000000000000002,1.6,1.8,1.6611
+1.9,1.8,2.0,1.85612
+2.1,2.0,2.2,2.05114
+2.3,2.2,2.4,2.24812
+2.5,2.4,2.6,2.44412
+2.7,2.6,2.8,2.63914
+2.9,2.8,3.0,2.83612
+3.2,3.0,3.4,3.13698
+3.65,3.4,3.9,3.62698
+4.15,3.9,4.4,4.12286
+4.65,4.4,4.9,4.6158
+5.15,4.9,5.4,5.10972
+5.65,5.4,5.9,5.60658
+
+#: Centrality (%),,,20-60
+#: Particle,,,$\pi^+$ + $\pi^-$
+$p_T$ (GeV/$c$),$p_T$ (GeV/$c$) LOW,$p_T$ (GeV/$c$) HIGH,$v_2$,stat. +,stat. -,sys. +,sys. -
+1.1,1.0,1.2,0.13029,0.00015,-0.00015,0.004,-0.004
+1.2999999999999998,1.2,1.4,0.14678,0.0002,-0.0002,0.005,-0.005
+1.5,1.4,1.6,0.16022,0.00026,-0.00026,0.005,-0.005
+1.7000000000000002,1.6,1.8,0.1701,0.00035,-0.00035,0.006,-0.006
+1.9,1.8,2.0,0.1776,0.0005,-0.0005,0.006,-0.006
+2.1,2.0,2.2,0.1823,0.0006,-0.0006,0.006,-0.006
+2.3,2.2,2.4,0.1845,0.0008,-0.0008,0.006,-0.006
+2.5,2.4,2.6,0.1854,0.001,-0.001,0.006,-0.006
+2.7,2.6,2.8,0.1831,0.0014,-0.0014,0.006,-0.006
+2.9,2.8,3.0,0.1832,0.002,-0.002,0.006,-0.006
+3.2,3.0,3.4,0.1817,0.0018,-0.0018,0.006,-0.006
+3.65,3.4,3.9,0.1674,0.0028,-0.0028,0.006,-0.006
+4.15,3.9,4.4,0.169,0.004,-0.004,0.006,-0.006
+4.65,4.4,4.9,0.15,0.006,-0.006,0.005,-0.005
+5.15,4.9,5.4,0.136,0.009,-0.009,0.008,-0.008
+5.65,5.4,5.9,0.137,0.011,-0.011,0.009,-0.009
+

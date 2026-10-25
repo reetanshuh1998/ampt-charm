@@ -1,0 +1,10 @@
+#: table_doi: 10.17182/hepdata.95750.v1/t15
+#: name: mT fit parameters Teff Lambda
+#: description: mT fit parameters Teff Lambda
+#: data_file: mT fit parameters Teff Lambda.yaml
+#: keyword reactions: AU AU --> NEUTRAL X
+#: keyword cmenergies: 200.0
+#: Mass,$\Lambda$
+Mass,Teff,Teff Err. +,Teff Err. -
+1.12,0.358,0.00919,-0.00919
+

@@ -1,0 +1,26 @@
+#: table_doi: 10.17182/hepdata.95750.v1/t21
+#: name: Nbin and Npart
+#: description: Nbin and Npart for different centralities in AuAu collisions
+#: data_file: Nbin and Npart for different centralities in AuAu collisions.yaml
+#: keyword reactions: AU AU --> NEUTRAL X
+#: keyword cmenergies: 200.0
+#: Centrality,,,Nbin for different centralities in Au+Au collisions (for R_AA, R_CP and X_sec)
+Centrality,Centrality LOW,Centrality HIGH,Nbin,Uncern. +,Uncern. -
+5.0,0,10,938.8,26.28,-26.28
+15.0,10,20,579.89,28.86,-28.86
+30.0,20,40,288.35,30.39,-30.39
+50.0,40,60,91.37,21.05,-21.05
+70.0,60,80,21.37,8.93,-8.93
+25.0,10,40,386.08,29.86,-29.86
+60.0,40,80,56.99,14.85,-14.85
+
+#: Centrality,,,Npart for different centralities in Au+Au collisions (for R_AA, R_CP and X_sec)
+Centrality,Centrality LOW,Centrality HIGH,Npart,Uncern. +,Uncern. -
+5.0,0,10,319.4,3.38,-3.38
+15.0,10,20,227.6,7.96,-7.96
+30.0,20,40,137.6,10.41,-10.41
+50.0,40,60,60.5,10.11,-10.11
+70.0,60,80,20.4,6.61,-6.61
+25.0,10,40,167.82,9.56,-9.56
+60.0,40,80,40.83,8.21,-8.21
+

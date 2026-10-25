@@ -1,0 +1,18 @@
+#: table_doi: 10.17182/hepdata.96906.v1/t25
+#: name: Figure 12d inset ($K_{S}^{0}$)
+#: description: Fig12d inset for $K_{S}^{0}$ (filled circles) expansion at low $p_{T}$
+#: data_file: fig12d_inset_kshort.yaml
+#: keyword reactions: Au Au --> NEUTRAL X | AuAu -->
+#: keyword cmenergies: 200
+#: keyword phrases: Identified particles | Elliptic flow | $Au+Au$ collisions
+#: Particle,$K_{S}^{0}$
+$p_T$(GeV/c),$v_{2}$,stat +,stat -
+0.25,-0.00829987,0.0124875,-0.0124875
+0.35,-0.0063051,0.00618741,-0.00618741
+0.45,0.00511618,0.00349805,-0.00349805
+0.55,0.00833931,0.00240646,-0.00240646
+0.65,0.0148362,0.00187736,-0.00187736
+0.75,0.0226785,0.00156796,-0.00156796
+0.85,0.0274998,0.00144415,-0.00144415
+0.95,0.0319449,0.00142249,-0.00142249
+

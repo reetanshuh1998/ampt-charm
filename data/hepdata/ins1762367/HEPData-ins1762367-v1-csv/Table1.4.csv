@@ -1,0 +1,15 @@
+#: table_doi: 10.17182/hepdata.95654.v1/t4
+#: name: Table 1.4
+#: description: Directed flow D0 meson 10-40%
+
+#: data_file: yamlFile_v1_D0meson.yaml
+#: keyword observables: D0 meson | Directed flow
+#: keyword cmenergies: 5023.0
+#: RE,,,PBPB--> D0 meson 10-40% centrality class
+#: SQRT(S),,,5020.0 GeV
+ETA [-],ETA [-] LOW,ETA [-] HIGH,v_1 for D0 meson [-],stat +,stat -,sys +,sys -
+-0.6000000000000001,-0.8,-0.4,-0.05,0.12,-0.12,0.04,-0.04
+-0.2,-0.4,0.0,-0.26,0.1,-0.1,0.04,-0.04
+0.2,0.0,0.4,-0.01,0.09,-0.09,0.04,-0.04
+0.6000000000000001,0.4,0.8,0.21,0.11,-0.11,0.04,-0.04
+

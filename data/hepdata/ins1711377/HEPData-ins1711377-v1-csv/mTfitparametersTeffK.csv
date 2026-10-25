@@ -1,0 +1,10 @@
+#: table_doi: 10.17182/hepdata.95750.v1/t14
+#: name: mT fit parameters Teff K
+#: description: mT fit parameters Teff K
+#: data_file: mT fit parameters Teff K.yaml
+#: keyword reactions: AU AU --> NEUTRAL X
+#: keyword cmenergies: 200.0
+#: Mass,K
+Mass,Teff,Teff Err. +,Teff Err. -
+0.494,0.34,0.0262,-0.0262
+

@@ -1,0 +1,15 @@
+#: table_doi: 10.17182/hepdata.105914.v1/t2
+#: name: Figure 3a, D0 + D0bar v1
+#: description: Directed flow $\langle v_1 \rangle$ for the combined samples of $D^0$ and $\bar{D^0}$ mesons at $p_T>1.5$ GeV/c for 10–80% centrality Au+Au collisions at $\sqrt{s_{NN}}=200$ GeV.
+#: data_file: Fig3a.yaml
+#: keyword reactions: AU AU -->D
+#: keyword observables: directed flow
+#: keyword cmenergies: 200.0
+#: keyword phrases: D meson | directed flow | RHIC | STAR
+#: Rapidity (y),Directed flow averaged over $D^0$ and $\bar{D^0}$ ($\langle v_1 \rangle$)
+Rapidity (y),$\langle v_1 \rangle$,stat +,stat -,syst +,syst -
+-0.6,0.069,0.017,-0.017,0.015,-0.015
+-0.2,0.018,0.014,-0.014,0.012,-0.012
+0.2,-0.03,0.013,-0.013,0.012,-0.012
+0.6,-0.025,0.015,-0.015,0.013,-0.013
+

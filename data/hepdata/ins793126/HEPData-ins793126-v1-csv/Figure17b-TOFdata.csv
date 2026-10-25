@@ -1,0 +1,17 @@
+#: table_doi: 10.17182/hepdata.104931.v1/t40
+#: name: Figure 17b - TOF data
+#: description: Mid-rapidity identified antiproton spectra in 200 GeV minimum bias d+Au (a) and 62.4 GeV central Au+Au collisions (b) measured by dE/dx together with those by TOF [46, 47]. The dE/dx data are from |y| < 0.1 and the TOF data are from |y| < 0.5. The curves are various fits to the dE/dx data for extrapolation. The quadratic sum of statistical errors and point-to-point systematic errors are plotted, but are smaller than the point size.
+#: data_file: Fig17b_compare_TOF_data.yaml
+#: keyword reactions: AuAu --> charged hadrons
+#: keyword cmenergies: 62.4
+#: keyword phrases: identified particles | RHIC | STAR
+#: $p_t [GeV/c]$,TOF data
+$p_t [GeV/c]$,$d^2N/(2\pi*p_t*dp_t*dy)[(GeV/c)^{-2}]$,stat +,stat -
+1.1,1.262,0.0365,-0.0365
+1.3,0.715,0.022,-0.022
+1.5,0.393,0.0141,-0.0141
+1.7,0.208,0.0093,-0.0093
+1.9,0.107,0.0065,-0.0065
+2.25,0.037,0.0022,-0.0022
+2.75,0.0058,0.00043,-0.00043
+

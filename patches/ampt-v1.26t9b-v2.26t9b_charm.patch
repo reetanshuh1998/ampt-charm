@@ -1,0 +1,548 @@
+diff -ruN a/amptsub.f b/amptsub.f
+--- a/amptsub.f	2026-10-25 08:48:53.876290096 +0530
++++ b/amptsub.f	2026-10-25 08:48:53.880757433 +0530
+@@ -41,6 +41,7 @@
+       common/embed/iembed,nsembd,pxqembd,pyqembd,xembd,yembd,
+      1     psembd,tmaxembd,phidecomp
+       common/xyembed/nxyjet,xyjet(nxymax,2)
++      include 'hqctl.inc'
+       SAVE   
+ clin-10/03/03  ecritl: local energy density below which a parton 
+ c     will freeze out (in GeV/fm^3), for improvements on string melting, 
+@@ -48,6 +49,8 @@
+ clin-4/2008
+ c      data ecritl/1.d0/
+       ecritl=1.d0
++cdmeson (src_v9): AMPT_ECRIT overrides it (read by HQINIT)
++      if(hqecr.gt.0.) ecritl=dble(hqecr)
+ c
+ c     combine ART initialization into ampt.ini:
+ c     (Note that the following values are relics from the old ART structure)
+@@ -4917,6 +4920,9 @@
+ clin-6/06/02 test local freezeout for string melting,
+ c     use space-time values at local freezeout saved in /frzprc/:
+       if(isoft.eq.5) then
++cdmeson (src_v9): partons never frozen keep their final, not initial,
++c     values (charm_mod.f HQFRZG)
++         call hqfrzg
+          do 1001 I = 1, MUL
+             ITYP5(i)=idfrz(i)
+             GX5(i)=gxfrz(i)
+diff -ruN a/art1f.f b/art1f.f
+--- a/art1f.f	2026-10-25 08:48:53.885375139 +0530
++++ b/art1f.f	2026-10-25 08:48:53.889157335 +0530
+@@ -616,6 +616,9 @@
+      &    LNNOM,numnt,ntmax,sp,akaon,sk)
+ c     &    LNNOM,NT,ntmax,sp,akaon,sk)
+ clin-10/25/02-end
++c     dmeson src_v17: charm-hadron rescattering (returns at once unless
++c     AMPT_HQHAD=1)
++          call hqhadr(nt,ntmax)
+ *-----------------------------------------------------------------------
+ 
+ c dilepton production from Dalitz decay
+diff -ruN a/hijing1.383_ampt.f b/hijing1.383_ampt.f
+--- a/hijing1.383_ampt.f	2026-10-25 08:48:53.893445267 +0530
++++ b/hijing1.383_ampt.f	2026-10-25 08:48:53.896685292 +0530
+@@ -196,6 +196,8 @@
+ 
+ cbz1/25/99
+         PARAMETER (MAXPTN=400001)
++cdmeson src_v13: ihqtrx (trigger context of AMPT_HQSHAD)
++        include 'hqctl.inc'
+ clin-4/20/01        PARAMETER (MAXSTR = 1600)
+         PARAMETER (MAXSTR=150001)
+ cbz1/25/99end
+@@ -578,11 +580,23 @@
+ C                       interaction at all. For NN collision
+ C                       repeat the event until interaction happens
+ C
++cdmeson: number of primary NN collisions of this event (E record)
++        call hqncol(NCOLT)
+         IF(IHPR2(3).NE.0) THEN
+            NHARD=1+INT(RANART(NSEED)*(NCOLT-1)+0.5)
+            NHARD=MIN(NHARD,NCOLT)
+            JPHARD=IPCOL(NHARD)
+            JTHARD=ITCOL(NHARD)
++cdmeson src_v14: collisions of the two nucleons of the triggered NN
++c     collision and their positions (AMPT_HQCRONIN width)
++           NHQP=0
++           NHQT=0
++           DO 5801 IHQ=1,NCOLT
++              IF(IPCOL(IHQ).EQ.JPHARD) NHQP=NHQP+1
++              IF(ITCOL(IHQ).EQ.JTHARD) NHQT=NHQT+1
++ 5801      CONTINUE
++           CALL HQTRGG(NHQP,NHQT,YP(1,JPHARD),YP(2,JPHARD),
++     &          YT(1,JTHARD),YT(2,JTHARD))
+ clin-6/2009 ctest off:
+ c           write(99,*) IAEVT,NHARD,NCOLT,JPHARD,JTHARD
+         ENDIF
+@@ -631,8 +645,14 @@
+         NJET=0
+ 
+         IF(IHPR2(3).NE.0 .AND. JP.EQ.JPHARD .AND. JT.EQ.JTHARD) THEN
++cdmeson src_v14: with AMPT_HQPDF the triggered PYINIT (maximum search)
++c     uses the same proton PDF as the generation
++           IF(ihqpdf.GT.0) ihqtrx=1
+            CALL JETINI(JP,JT,1)
++cdmeson src_v13: PYSTFU applies AMPT_HQSHAD only inside this call
++           ihqtrx=1
+            CALL HIJHRD(JP,JT,0,JFLG,0)
++           ihqtrx=0
+            HINT1(26)=HINT1(47)
+            HINT1(27)=HINT1(48)
+            HINT1(28)=HINT1(49)
+@@ -1323,7 +1343,10 @@
+ c        write(99,*) 'IAEVT,NSG,NDR=',IAEVT,NSG,NDR
+ 
+         IF(IHPR2(20).NE.0) THEN
++cdmeson: record charm partons on the strings before Lund fragmentation
++           call hqsave(0)
+            DO 560 ISG=1,NSG
++                call hqsave(ISG)
+                 CALL HIJFRG(ISG,3,IERROR)
+ C
+                 nsbst=1
+@@ -4272,6 +4295,8 @@
+         CHARACTER BEAM*16,TARG*16
+         DIMENSION XSEC0(8,0:200),COEF0(8,200,20),INI(8),
+      &                MINT44(8),MINT45(8)
++cdmeson:
++        include 'hqctl.inc'
+         COMMON/hjcrdn/YP(3,300),YT(3,300)
+ cc      SAVE /hjcrdn/
+         COMMON/HPARNT/HIPR1(100),IHPR2(50),HINT1(100),IHNT2(50)
+@@ -4368,6 +4393,11 @@
+         MSUB(68)=1
+         MSUB(81)=1
+         MSUB(82)=1
++cdmeson: AMPT_HQCLEAN, no heavy-quark pair production in untriggered jets
++        if(ihqcln.eq.1) then
++           MSUB(81)=0
++           MSUB(82)=0
++        endif
+         DO 110 J=1,MIN(8,MDCY(21,3))
+  110    MDME(MDCY(21,2)+J-1,1)=0
+         ISEL=4
+@@ -4494,9 +4524,27 @@
+                         ATCO(I,J)=COEF(I,J)
+                         COEF0(itype,I,J)=COEF(I,J)
+ 500        CONTINUE
++cdmeson src_v14: AMPT_HQPDF raises every triggered maximum by hqxsf:
++c     the EPS09s factor is off during PYINIT; acceptance-rejection stays
++c     exact for any factor above the true maximum (VINT(108) is logged)
++        IF(itrig.EQ.1.AND.ihqpdf.GT.0) THEN
++           DO 501 I=0,200
++              XSEC(I,1)=XSEC(I,1)*hqxsf
++              ATXS(I)=XSEC(I,1)
++              XSEC0(itype,I)=XSEC(I,1)
++501        CONTINUE
++        ENDIF
+ C
+         IHNT2(16)=0
+ C
++cdmeson-fix: this first-initialisation path returned without updating
++c     ilast.  After the first triggered call of a collision type the
++c     next normal call then saw itrig.EQ.ilast, skipped the MSUB/CKIN
++c     reset (GO TO 150) and generated every later minijet of the event
++c     with the trigger list (MSUB 81/82 only, CKIN(3)=0): 24-92 c-cbar
++c     pairs per event instead of ~2 (found 2026-10-17, tests/T1).
++c     Only active with a trigger, so untriggered runs are unchanged.
++        IF(IHPR2(3).NE.0) ilast=itrig
+         RETURN
+ C                ********Store the initialization information for
+ C                                late use
+diff -ruN a/hipyset1.35.f b/hipyset1.35.f
+--- a/hipyset1.35.f	2026-10-25 08:48:53.900217174 +0530
++++ b/hipyset1.35.f	2026-10-25 08:48:53.903619275 +0530
+@@ -7600,6 +7600,8 @@
+ C*********************************************************************  
+     
+       SUBROUTINE PYRAND 
++cdmeson src_v14:
++      include 'hqctl.inc'
+     
+ C...Generates quantities characterizing the high-pT scattering at the   
+ C...parton level according to the matrix elements. Chooses incoming,    
+@@ -7869,6 +7871,8 @@
+ C...Weighting using estimate of maximum of differential cross-section.  
+       VIOL=SIGS/XSEC(ISUB,1)    
+       IF(VIOL.LT.RLU(0)) GOTO 100   
++cdmeson src_v14: largest weight/maximum inside the triggered process
++      IF(ihqtrx.EQ.1.AND.VIOL.GT.hqvio) hqvio=VIOL
+     
+ C...Check for possible violation of estimated maximum of differential   
+ C...cross-section used in weighting.    
+@@ -7963,6 +7967,8 @@
+       MINT(14)=MINT(16) 
+       VINT(141)=VINT(41)    
+       VINT(142)=VINT(42)    
++cdmeson src_v15: AMPT_HQSHW=1, nuclear modification as event weight
++      IF(ihqtrx.EQ.1.AND.ihqshw.EQ.1) CALL HQSHWT
+     
+ C...Format statements for differential cross-section maximum violations.    
+  1000 FORMAT(1X,'Error: maximum violated by',1P,E11.3,1X,   
+@@ -12008,6 +12014,8 @@
+ C***********************************************************************    
+     
+       SUBROUTINE PYSIGH(NCHN,SIGS)  
++cdmeson src_v14:
++      include 'hqctl.inc'
+     
+ C...Differential matrix elements for all included subprocesses. 
+ C...Note that what is coded is (disregarding the COMFAC factor) 
+@@ -12133,7 +12141,10 @@
+         DO 100 I=3-MINT(41),MINT(42)    
+         XSF=X(I)    
+         IF(ISET(ISUB).EQ.5) XSF=X(I)/VINT(142+I)    
++cdmeson src_v14: hard-process call (AMPT_HQMUF scales muF^2 here only)
++        ihqhrd=1
+         CALL PYSTFU(MINT(10+I),XSF,Q2SF,XPQ,I)    
++        ihqhrd=0
+         DO 100 KFL=-6,6 
+   100   XSFX(I,KFL)=XPQ(KFL)
+       ENDIF 
+@@ -13967,6 +13978,8 @@
+ C*********************************************************************  
+     
+       SUBROUTINE PYSTFU(KF,X,Q2,XPQ,JBT)    
++cdmeson src_v13:
++      include 'hqctl.inc'
+ 
+ C                        *******JBT specifies beam or target of the particle
+ C...Gives proton and pi+ parton structure functions according to a few  
+@@ -14315,6 +14328,12 @@
+         RETURN  
+       ENDIF 
+     
++cdmeson src_v14: AMPT_HQPDF, triggered hard process: CTEQ6.1M (x EPS09s
++c     for a bound nucleon) replaces Duke-Owens; conjugations below
++      IF(ihqtrx.EQ.1.AND.ihqpdf.GT.0.AND.KFA.NE.211) THEN
++        CALL HQXPDF(X,Q2,XPQ,JBT)
++        GOTO 230
++      ENDIF
+ C...Call user-supplied structure function. Select proton/neutron/pion.  
+       IF(MSTP(51).EQ.0.OR.MSTP(52).GE.2) THEN   
+         KFE=KFA 
+@@ -14553,6 +14572,10 @@
+   250 IF(IABS(KFL).GT.MSTP(54)) XPQ(KFL)=0. 
+ 
+ C...consider nuclear effect on the structure function
++cdmeson src_v14: AMPT_HQPDF already applied EPS09s (no HIJING shadowing)
++              IF(ihqtrx.EQ.1.AND.ihqpdf.GT.0) GO TO 400
++cdmeson src_v15: AMPT_HQSHW=1, HIJING shadowing carried as event weight
++              IF(ihqtrx.EQ.1.AND.ihqshw.EQ.1) GO TO 400
+               IF((JBT.NE.1.AND.JBT.NE.2).OR.IHPR2(6).EQ.0
+      &                  .OR.IHNT2(16).EQ.1) GO TO 400
+               ATNM=IHNT2(2*JBT-1)
+@@ -14571,6 +14594,8 @@
+               RRX=AAX*(X**3-1.2*X**2+0.21*X)+1.0
+      &           -(APX-1.079*ABX*SQRT(X)/ALOG(ATNM+1.0))
+      1           *EXP(-X**2.0/0.01)
++cdmeson src_v13: AMPT_HQSHAD scales the triggered hard process only
++              IF(ihqtrx.EQ.1.AND.hqshad.GE.0.) RRX=1.0+hqshad*(RRX-1.0)
+               DO 300 KFL=-6,6
+                 XPQ(KFL)=XPQ(KFL)*RRX
+ 300           CONTINUE
+diff -ruN a/linana.f b/linana.f
+--- a/linana.f	2026-10-25 08:48:53.907737157 +0530
++++ b/linana.f	2026-10-25 08:48:53.911195176 +0530
+@@ -653,6 +653,8 @@
+ c
+            endif
+  100        continue
++cdmeson: direct-charm option, ZPC charm counters, charm.dat records
++      call hqhtop(npar)
+       MUL=NPAR
+ c      
+ clin-5b/2008:
+@@ -729,7 +731,11 @@
+       dimension xmdiag(MAXSTR),indx(MAXSTR),ndiag(MAXSTR)
+       SAVE   
+ c
+-      call coales
++cdmeson: charm partons at ZPC freeze-out
++      call hqoutf
++cdmeson: AMPT_COALNEW=1 -> He & Lin improved coalescence (coal_new.f, ported
++c     from part5, + AMPT_RBMHQ); off -> coalnew calls the stock coales
++      call coalnew
+ c     obtain particle mass here without broadening by Breit-Wigner width:
+       mstj24=MSTJ(24)
+       MSTJ(24)=0
+@@ -920,6 +926,8 @@
+ c           endif
+ clin-7/2011-end
+  1001   CONTINUE
++cdmeson: AMPT_DSTAR1, primordial D*/D = 1 (Zheng et al. 2020)
++      call hqdstr
+ c     assume Npi0=(Npi+ + Npi-)/2, Nrho0=(Nrho+ + Nrho-)/2 on the average:
+         if(nuudd.ne.0) then
+          ppi0=float(npich/2)/float(nuudd)
+@@ -1088,6 +1096,10 @@
+            endif
+  1006   CONTINUE
+ c     number of hadrons formed from partons inside ZPC:
++cdmeson: AMPT_HQFRAG, coalescence criterion + Peterson fragmentation
++      call hqfrag
++cdmeson: charm hadrons right after coalescence
++      call hqouth
+       nattzp=natt
+       MSTJ(24)=mstj24
+ c      
+@@ -1983,6 +1995,7 @@
+ cc      SAVE /prec5/
+         common /coal/dpcoal,drcoal,ecritl
+ cc      SAVE /coal/
++        include 'hqctl.inc'
+         SAVE   
+ c
+       do 1001 it=1,301
+@@ -2031,7 +2044,17 @@
+  100     continue
+          detdy=detdy*(dcosh(eta0)**2)/(t*3.1416d0*r0**2*dcosh(rap0))
+ c     when density is below critical density for phase transition, freeze out:
+- 150     if(detdy.le.etcrit) then
++cdmeson src_v12b (AMPT_HQLATE=x>=0): a charm quark freezes only below
++c     x times the bulk criterion (strict, so x=0 never freezes it).  It is
++c     also exempt from the 3000 fm/c catch-all (it=301): that path would
++c     free-stream its position to the current time (src_v12 bug, charm at
++c     t~3000 fm/c, STEP_LOG 71); an unfrozen charm quark is frozen instead
++c     at its LAST INTERACTION by HQFRZG at the end of ZPC, as in ISOFT=4
++ 150     if(hqlate.ge.0..and.iabs(ITYP5(ip)).eq.4) then
++            if(it.eq.301) goto 200
++            if(detdy.ge.etcrit*dble(hqlate)) goto 200
++         endif
++         if(detdy.le.etcrit) then
+             ifrz(ip)=1
+             idfrz(ip)=ITYP5(ip)
+             pxfrz(ip)=PX5(ip)
+diff -ruN a/main.f b/main.f
+--- a/main.f	2026-10-25 08:48:53.915240034 +0530
++++ b/main.f	2026-10-25 08:48:53.919244833 +0530
+@@ -176,6 +176,8 @@
+ ctest off for resonance (phi, K*) studies:
+ c      OPEN (17, FILE = 'ana/res-gain.dat', STATUS = 'UNKNOWN')
+ c      OPEN (18, FILE = 'ana/res-loss.dat', STATUS = 'UNKNOWN')
++cdmeson: D-meson framework switches (charm_mod.f), all default off
++      CALL HQINIT
+       CALL HIJSET(EFRM, FRAME, PROJ, TARG, IAP, IZP, IAT, IZT)
+       CALL ARTSET
+       CALL INIZPC
+diff -ruN a/zpc.f b/zpc.f
+--- a/zpc.f	2026-10-25 08:48:53.922585531 +0530
++++ b/zpc.f	2026-10-25 08:48:53.926173065 +0530
+@@ -1118,6 +1118,7 @@
+         common/anim/nevent,isoft,isflag,izpc
+ cc      SAVE /anim/
+         COMMON /AREVT/ IAEVT, IARUN, MISS
++        include 'hqctl.inc'
+         SAVE   
+ 
+ c       save last collision info
+@@ -1130,6 +1131,13 @@
+         call getict(t1)
+ c2      check freezeout condition
+         if (iconfg .eq. 1 .and. t1 .gt. tlarge / 2d0) return 1
++cdmeson (src_v9): AMPT_ZPC_TSTOP, hard stop of the partonic cascade at
++c     a fixed lab time, Zhang & Xu PRC 96 044907 sec II A (ported from
++c     ampt_field/investigating_density_issue/zpc_scan).  Partons keep the
++c     space-time of their last interaction, as if the cascade had run out
++c     of collisions there.
++        if (iconfg .eq. 1 .and. hqtstp .gt. 0. .and.
++     &       t1 .gt. dble(hqtstp)) return 1
+         if (iconfg .eq. 2 .or. iconfg .eq. 3) then
+            if (t1 .gt. tend1) return 1
+ c           if (ichkpt .eq. mul) then
+@@ -1853,6 +1861,8 @@
+         implicit double precision (a-h, o-z)
+         SAVE   
+ 
++cdmeson: count charm scatterings
++        call hqcoll(iscat, jscat)
+         call newpos(t, iscat)
+         call newpos(t, jscat)
+         call newmom(t)
+@@ -1959,15 +1969,36 @@
+      &       xmfrz(MAXPTN), 
+      &       tfrz(302), ifrz(MAXPTN), idfrz(MAXPTN), itlast
+ cc      SAVE /frzprc/
++        include 'hqctl.inc'
+         SAVE   
+ 
+ clin-6/06/02 no momentum change for partons already frozen out,
+ c     however, spatial upgrade is needed to ensure overall system freezeout:
++cdmeson src_v12 (AMPT_HQLATE>=0): an unfrozen charm quark still scatters
++c     off a frozen parton; the frozen one keeps its momentum (restored
++c     below, kfz), i.e. no back-reaction on the frozen bulk
++      kfz = 0
+       if(isoft.eq.5) then
+          if(ifrz(iscat).eq.1.or.ifrz(jscat).eq.1) then
+-            last(iscat) = jscat
+-            last(jscat) = iscat
+-            return
++            if(hqlate.ge.0..and.ifrz(iscat).ne.1.and.
++     &           iabs(ityp(iscat)).eq.4) then
++               kfz = jscat
++            elseif(hqlate.ge.0..and.ifrz(jscat).ne.1.and.
++     &              iabs(ityp(jscat)).eq.4) then
++               kfz = iscat
++            else
++               last(iscat) = jscat
++               last(jscat) = iscat
++               return
++            endif
++            pxk = px(kfz)
++            pyk = py(kfz)
++            pzk = pz(kfz)
++            ek = e(kfz)
++            vxk = vx(kfz)
++            vyk = vy(kfz)
++            vzk = vz(kfz)
++            rapk = rap(kfz)
+          endif
+       endif
+ clin-6/06/02-end
+@@ -2162,6 +2193,18 @@
+ clin-11/2015-ctest off
+ c        write(99,*) 'iscat,jscat,xmp,xmu,that=',iscat,jscat,xmp,xmu,that
+ 
++cdmeson src_v12: the frozen partner of a late charm collision is untouched
++        if (kfz .gt. 0) then
++           px(kfz) = pxk
++           py(kfz) = pyk
++           pz(kfz) = pzk
++           e(kfz) = ek
++           vx(kfz) = vxk
++           vy(kfz) = vyk
++           vz(kfz) = vzk
++           rap(kfz) = rapk
++        end if
++
+         return
+         end
+ 
+@@ -2177,6 +2220,7 @@
+ cc      SAVE /para2/
+         common/anim/nevent,isoft,isflag,izpc
+ cc      SAVE /anim/
++        logical hqisof
+         external ran1
+         common /rndm3/ iseedp
+ cc      SAVE /rndm3/
+@@ -2192,6 +2236,8 @@
+ c     &     + 1d0/((1d0 - xm2 / (4d0 * pp2 + xm2)) * ran1(2) - 1d0))
+ c        if(izpc.eq.100) that=-4d0*pp2*ran1(2)
+         if(izpc.eq.100) that=-4d0*pp2*rx
++cdmeson: AMPT_HQISO, isotropic scattering for charm (same deviate rx)
++        if(hqisof(iscat,jscat,pp2)) that=-4d0*pp2*rx
+ 
+         return
+         end
+@@ -3887,7 +3933,7 @@
+            dm2 = - f - (a ** 2 * d + b ** 2 * c - 2d0 * a * b * ee) /
+      &           (ee ** 2 - c * d)
+ 
+-           allok = allok .and. dm2 .lt. cutof2
++           allok = allok .and. dm2 .lt. cutof2*hqfac(i, j)
+ 
+         end if
+ 
+@@ -4015,7 +4061,7 @@
+            dm2 = - f - (a ** 2 * d + b ** 2 * c - 2d0 * a * b * ee) /
+      &          (ee ** 2 - c * d)
+ 
+-           allok = allok .and. dm2 .lt. cutof2
++           allok = allok .and. dm2 .lt. cutof2*hqfac(i, j)
+ 
+         end if
+ 
+@@ -4150,7 +4196,7 @@
+ 
+            dm2 = - v2 * tm ** 2  + dgx * dgx + dgy * dgy + dgz * dgz
+ 
+-           allok = allok .and. dm2 .lt. cutof2
++           allok = allok .and. dm2 .lt. cutof2*hqfac(i, j)
+ 
+         end if
+         
+@@ -4300,7 +4346,7 @@
+            dm2 = - f - (a ** 2 * d + b ** 2 * c - 2d0 * a * b * ee) /
+      &           (ee ** 2 - c * d)
+ 
+-           allok = allok .and. dm2 .lt. cutof2
++           allok = allok .and. dm2 .lt. cutof2*hqfac(i, j)
+ 
+         end if
+ 
+@@ -4456,7 +4502,7 @@
+            dm2 = - f - (a ** 2 * d + b ** 2 * c - 2d0 * a * b * ee) /
+      &           (ee ** 2 - c * d)
+ 
+-           allok = allok .and. dm2 .lt. cutof2
++           allok = allok .and. dm2 .lt. cutof2*hqfac(i, j)
+ 
+         end if
+ 
+@@ -4620,7 +4666,7 @@
+ 
+            dm2 = - v2p * tm ** 2  + dgx * dgx + dgy * dgy + dgz * dgz
+ 
+-           allok = allok .and. dm2 .lt. cutof2
++           allok = allok .and. dm2 .lt. cutof2*hqfac(i, j)
+ 
+         end if
+         
+@@ -4753,7 +4799,7 @@
+                  if (allokp) then
+            dm2 = - f - (a ** 2 * d + b ** 2 * c - 2d0 * a * b * ee) /
+      &            (ee ** 2 - c * d)
+-                    allokp = allokp .and. dm2 .lt. cutof2
++                    allokp = allokp .and. dm2 .lt. cutof2*hqfac(i, j)
+                  end if
+ 
+ c       check the time criteria
+@@ -4917,7 +4963,7 @@
+                  if (allokp) then
+            dm2 = - f - (a ** 2 * d + b ** 2 * c - 2d0 * a * b * ee) /
+      &            (ee ** 2 - c * d)
+-                    allokp = allokp .and. dm2 .lt. cutof2
++                    allokp = allokp .and. dm2 .lt. cutof2*hqfac(i, j)
+                  end if
+ 
+ c       check the time criteria
+@@ -5097,7 +5143,7 @@
+                     dm2 = - v2 * tmp ** 2  + dgx * dgx +
+      &                    dgy * dgy + dgz * dgz
+ 
+-                    allokp = allokp .and. dm2 .lt. cutof2
++                    allokp = allokp .and. dm2 .lt. cutof2*hqfac(i, j)
+ 
+                  end if
+ 
+@@ -5245,7 +5291,7 @@
+                  if (allokp) then
+            dm2 = - f - (a ** 2 * d + b ** 2 * c - 2d0 * a * b * ee) /
+      &            (ee ** 2 - c * d)
+-                    allokp = allokp .and. dm2 .lt. cutof2
++                    allokp = allokp .and. dm2 .lt. cutof2*hqfac(i, j)
+                  end if
+ 
+ c       check the time criteria
+@@ -5413,7 +5459,7 @@
+                  if (allokp) then
+            dm2 = - f - (a ** 2 * d + b ** 2 * c - 2d0 * a * b * ee) /
+      &            (ee ** 2 - c * d)
+-                    allokp = allokp .and. dm2 .lt. cutof2
++                    allokp = allokp .and. dm2 .lt. cutof2*hqfac(i, j)
+                  end if
+ 
+ c       check the time criteria
+@@ -5597,7 +5643,7 @@
+                     dm2 = - v2 * tmp ** 2  + dgx * dgx +
+      &                    dgy * dgy + dgz * dgz
+ 
+-                    allokp = allokp .and. dm2 .lt. cutof2
++                    allokp = allokp .and. dm2 .lt. cutof2*hqfac(i, j)
+ 
+                  end if
+ 

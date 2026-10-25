@@ -1,0 +1,13 @@
+#: table_doi: 10.17182/hepdata.101172.v1/t6
+#: name: Figure 2a (10-40%)
+#: description: $D_{s}/D^{0}$ yield ratio as a function of $p_{T}$ in 10-40% centrality bin of Au+Au collisions at $\sqrt{s_{_{\rm NN}}}$ = 200 GeV. The $p_T$ bins are 1.0 < $p_T$ < 2.0 GeV/c, 2.0 < $p_T$ < 2.5 GeV/c, 2.5 < $p_T$ < 3.5 GeV/c, 3.5 < $p_T$ < 5.0 GeV/c and 5.0 < $p_T$ < 8.0 GeV/c.
+#: data_file: TableDs_6.yaml
+#: keyword reactions: AU AU --> CHARGED X
+#: keyword cmenergies: 200
+$p_{T}$ position,$D_{s}/D^{0}$ yield ratio,$stat$ +,$stat$ -,$sys$ +,$sys$ -
+1.485,0.378,0.0552,-0.0552,0.05047,-0.05047
+2.235,0.353,0.02962,-0.02962,0.03031,-0.03031
+2.935,0.3422,0.01652,-0.01652,0.02418,-0.02626
+4.116,0.4211,0.01937,-0.01937,0.03284,-0.03599
+6.09,0.4178,0.03134,-0.03134,0.04162,-0.04656
+

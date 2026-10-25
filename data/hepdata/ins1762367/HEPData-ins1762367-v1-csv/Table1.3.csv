@@ -1,0 +1,16 @@
+#: table_doi: 10.17182/hepdata.95654.v1/t3
+#: name: Table 1.3
+#: description: Delta Directed flow hadrons
+
+#: data_file: yamlFile_Deltav1_chHadrons_.yaml
+#: keyword observables: hadrons | Delta Directed flow
+#: keyword cmenergies: 5023.0
+#: RE,,,PBPB--> Delta_v1 hadrons 5-40% centrality class
+#: SQRT(S),,,5020.0 GeV
+ETA [-],ETA [-] LOW,ETA [-] HIGH,Delta_v_1 for hadrons systematic correlated uncertainty 1.5e-05 [-],stat +,stat -,sys +,sys -
+-0.64,-0.8,-0.48,-7.72e-05,4.95e-05,-4.95e-05,4.4e-05,-4.4e-05
+-0.32,-0.48,-0.16,9.6e-06,4.89e-05,-4.89e-05,3.6e-05,-3.6e-05
+0.0,-0.16,0.16,-2.01e-05,4.9e-05,-4.9e-05,3.45e-05,-3.45e-05
+0.32,0.16,0.48,5.82e-05,4.91e-05,-4.91e-05,3.55e-05,-3.55e-05
+0.64,0.48,0.8,0.000175,5.06e-05,-5.06e-05,4.45e-05,-4.45e-05
+

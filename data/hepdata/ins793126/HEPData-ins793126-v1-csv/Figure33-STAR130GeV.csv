@@ -1,0 +1,18 @@
+#: table_doi: 10.17182/hepdata.104931.v1/t58
+#: name: Figure 33 - STAR 130 GeV
+#: description: The K−/π− ratio as a function of dNπ/dy/S⊥ in heavy-ion collisions at RHIC. Errors shown are the quadratic sum of statistical and systematic uncertainties.
+#: data_file: Fig33_kpi_130GeV.yaml
+#: keyword reactions: AuAu --> charged hadrons
+#: keyword cmenergies: 130
+#: keyword phrases: identified particles | RHIC | STAR
+#: $(dN_{\pi}/dy)/S [fm^{-2}]$,STAR Au+Au 130 GeV
+$(dN_{\pi}/dy)/S [fm^{-2}]$,$K^-/\pi^-$,stat +,stat -
+1.5,0.1395,0.0176,-0.0176
+1.9,0.1369,0.0113,-0.0113
+2.4,0.1421,0.013,-0.013
+2.7,0.1448,0.0135,-0.0135
+3.0,0.1463,0.0136,-0.0136
+3.4,0.142,0.0122,-0.0122
+3.6,0.1447,0.0105,-0.0105
+3.7,0.1525,0.0101,-0.0101
+

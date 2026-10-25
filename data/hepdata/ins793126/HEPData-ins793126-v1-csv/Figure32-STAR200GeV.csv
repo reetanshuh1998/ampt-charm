@@ -1,0 +1,19 @@
+#: table_doi: 10.17182/hepdata.104931.v1/t56
+#: name: Figure 32 - STAR 200 GeV
+#: description: The K−/π− ratio as a function of the number of participants Npart in heavy-ion collisions at RHIC. Errors shown are the quadratic sum of statistical and systematic uncertainties.
+#: data_file: Fig32_kpi_vs_Npart_200GeV.yaml
+#: keyword reactions: AuAu --> charged hadrons
+#: keyword cmenergies: 200
+#: keyword phrases: identified particles | RHIC | STAR
+#: $N_{part}$,STAR Au+Au 200 GeV
+$N_{part}$,$K^-/\pi^-$,stat +,stat -
+15.7,0.1271,0.0121,-0.0121
+28.8,0.1368,0.0129,-0.0129
+49.3,0.1429,0.0135,-0.0135
+78.3,0.1422,0.0138,-0.0138
+117.1,0.147,0.0147,-0.0147
+167.6,0.1446,0.015,-0.015
+234.3,0.1465,0.0164,-0.0164
+298.6,0.1526,0.0183,-0.0183
+350.6,0.1513,0.0196,-0.0196
+

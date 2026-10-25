@@ -1,0 +1,10 @@
+#: table_doi: 10.17182/hepdata.95750.v1/t13
+#: name: mT fit parameters Teff Jpsi
+#: description: mT fit parameters Teff Jpsi
+#: data_file: mT fit parameters Teff Jpsi.yaml
+#: keyword reactions: AU AU --> NEUTRAL X
+#: keyword cmenergies: 200.0
+#: Mass,$J/\psi$
+Mass,Teff,Teff Err. +,Teff Err. -
+3.1,0.424,0.0348,-0.0348
+

@@ -1,0 +1,15 @@
+#: table_doi: 10.17182/hepdata.95750.v1/t2
+#: name: $D^0$ spectra in pp collisions
+#: description: $D^0$ spectra in pp collisions
+#: data_file: spectra pp.yaml
+#: keyword reactions: AU AU --> NEUTRAL X
+#: keyword cmenergies: 200.0
+#: $p_T$,$D^0$ spectra in p+p collisions
+$p_T$,Yield,Stat error +,Stat error -,Sys error +,Sys error -
+0.908,0.000284,9.53e-05,-9.53e-05,9.74e-05,5.58e-05
+1.57,0.0001,3.13e-05,-3.13e-05,2.02e-05,1.92e-05
+2.45,1.6e-05,4.4e-06,-4.4e-06,2.89e-06,2.89e-06
+3.44,2.52e-06,8.9e-07,-8.9e-07,3.81e-07,3.81e-07
+4.45,3.81e-07,1.51e-07,-1.51e-07,6.51e-08,6.51e-08
+5.45,1.13e-07,3.74e-08,-3.74e-08,1.53e-08,1.53e-08
+

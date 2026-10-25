@@ -1,0 +1,17 @@
+#: table_doi: 10.17182/hepdata.96905.v1/t6
+#: name: Figure 4
+#: description: Proton $v_1$($y^{\prime}$) slope (d$v_1$/d$y^{\prime}$) at midrapidity as a function of center of mass collision energy, where $y^{\prime} = y/y_{beam}$.
+#: data_file: fig4.yaml
+#: keyword reactions: Au Au --> NEUTRAL X | AuAu -->
+#: keyword cmenergies: 200
+#: keyword phrases: Identified particles | Directed flow | $Au+Au$ collisions
+#: Centrality,10-20$\%$
+$\sqrt{s_{NN}}$ [$\textrm{GeV}$],$dv_{1}/dy^{\prime} (y^{\prime}=0)$,stat +,stat -
+2.64,0.31,0.005,-0.005
+3.29,0.19,0.005,-0.005
+3.82,0.12,0.006,-0.006
+4.28,0.06,0.005,-0.005
+8.86,0.001,0.015,-0.015
+17.3,-0.018,0.009,-0.009
+200.0,-0.005,0.011,-0.011
+

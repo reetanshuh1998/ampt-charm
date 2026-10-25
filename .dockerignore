@@ -1,0 +1,6 @@
+deps/
+build/
+bin/
+prod/
+quick/
+.git/

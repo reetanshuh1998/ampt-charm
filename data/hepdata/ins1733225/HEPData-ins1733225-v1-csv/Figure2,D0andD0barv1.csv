@@ -1,0 +1,22 @@
+#: table_doi: 10.17182/hepdata.105914.v1/t1
+#: name: Figure 2, D0 and D0bar v1
+#: description: Directed flow $v_1$ as a function of rapidity for $D^0$ and $\bar{D^0}$ mesons at $p_T>1.5$ GeV/c for 10–80% centrality Au+Au collisions at $\sqrt{s_{NN}}=200$ GeV.
+#: data_file: Fig2.yaml
+#: keyword reactions: AU AU -->D
+#: keyword observables: directed flow
+#: keyword cmenergies: 200.0
+#: keyword phrases: D meson | directed flow | RHIC | STAR
+#: Rapidity (y),Directed flow ($v_1$)
+Rapidity (y),$D^0$ $v_1$,stat +,stat -,syst +,syst -
+-0.6,0.067,0.024,-0.024,0.018,-0.018
+-0.2,0.029,0.02,-0.02,0.013,-0.013
+0.2,-0.032,0.018,-0.018,0.012,-0.012
+0.6,-0.029,0.021,-0.021,0.018,-0.018
+
+#: Rapidity (y),Directed flow ($v_1$)
+Rapidity (y),$\bar{D^0}$ $v_1$,stat +,stat -,syst +,syst -
+-0.6,0.07,0.024,-0.024,0.02,-0.02
+-0.2,0.008,0.019,-0.019,0.017,-0.017
+0.2,-0.029,0.018,-0.018,0.016,-0.016
+0.6,-0.022,0.02,-0.02,0.02,-0.02
+

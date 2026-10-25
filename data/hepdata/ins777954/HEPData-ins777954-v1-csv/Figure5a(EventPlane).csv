@@ -1,0 +1,19 @@
+#: table_doi: 10.17182/hepdata.96906.v1/t6
+#: name: Figure 5a (Event Plane)
+#: description: $p_{T}$ integrated charged hadron $v_{2}$ in the TPC as a function of geometrical cross section. Shown are the Event Plane method ($v_{2}${EP}) (open circles). All data are from $Au+Au$ collisions, at $\sqrt{s_{NN}} = 200$ GeV. For the TPC, $|\eta|< 1.0$ was used.
+#: data_file: fig5_ep.yaml
+#: keyword reactions: Au Au --> NEUTRAL X | AuAu -->
+#: keyword cmenergies: 200
+#: keyword phrases: Identified particles | Elliptic flow | $Au+Au$ collisions
+#: Method,,,EP
+Centrality$\%$,Centrality$\%$ LOW,Centrality$\%$ HIGH,$v_{2}(\%)$,stat +,stat -
+75.0,70,80,6.96,0.089,-0.089
+65.0,60,70,7.23,0.049,-0.049
+55.0,50,60,7.44,0.028,-0.028
+45.0,40,50,7.4,0.019,-0.019
+35.0,30,40,7.03,0.014,-0.014
+25.0,20,30,6.18,0.011,-0.011
+15.0,10,20,4.76,0.01,-0.01
+7.5,5,10,3.39,0.014,-0.014
+2.5,0,5,2.32,0.017,-0.017
+

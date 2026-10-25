@@ -1,0 +1,22 @@
+#: table_doi: 10.17182/hepdata.95750.v1/t3
+#: name: X-section in AuAu collisions
+#: description: Integrated $D^0$ cross section per nucleon-nucleon collision at mid-rapidity for $p_T >0$ (a) and $p_T >4$ GeV/c (b) as a function of centrality $N_{part}$. The statistical and systematic uncertainties are shown as error bars and brackets on the data points. The green boxes on the data points depict the overall normalization uncertainties in p+p and Au+Au data respectively.
+#: data_file: Fig24_X-section in AuAu collisions.yaml
+#: keyword reactions: AU AU --> NEUTRAL X
+#: keyword cmenergies: 200.0
+#: Centrality,,,Xsec ($p_T > 0.0$ GeV/c) in AuAu
+Centrality,Centrality LOW,Centrality HIGH,X-section,Stat error +,Stat error -,Sys error +,Sys error -
+5.0,0,10,39.0,1.22,-1.22,5.94,-5.94
+15.0,10,20,39.9,0.98,-0.98,4.76,-4.76
+30.0,20,40,41.2,0.725,-0.725,4.76,-4.76
+50.0,40,60,38.0,0.82,-0.82,3.94,-3.94
+70.0,60,80,40.2,1.46,-1.46,7.79,-7.79
+
+#: Centrality,,,Xsec ($p_T > 4.0$ GeV/c) in AuAu
+Centrality,Centrality LOW,Centrality HIGH,X-section,Stat error +,Stat error -,Sys error +,Sys error -
+5.0,0,10,0.275,0.00846,-0.00846,0.0418,-0.0418
+15.0,10,20,0.332,0.00911,-0.00911,0.0481,-0.0481
+30.0,20,40,0.399,0.00871,-0.00871,0.055,-0.055
+50.0,40,60,0.499,0.0155,-0.0155,0.0791,-0.0791
+70.0,60,80,0.489,0.0308,-0.0308,0.112,-0.112
+

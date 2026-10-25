@@ -1,0 +1,27 @@
+#: table_doi: 10.17182/hepdata.96905.v1/t1
+#: name: Figure 1 (left)
+#: description: $v_1$ for $\pi^{\pm}$, $K^{\pm}$, $K_{S}^{0}$ (left panel), p and $\bar{p}$ (right panel) as a function of rapidity for 10-70$\%$ $Au + Au$ collisions at $\sqrt{s_{NN}} = 200$ GeV. The lines present the linear fit to the $\pi^{\pm}$, $K^{\pm}$, $K_{S}^{0}$, p and $\bar{p}$’s $v_1$(y) respectively. Data points around $y = 0.29$ are slightly shifted horizontally to avoid overlapping.
+#: data_file: fig1l.yaml
+#: keyword reactions: Au Au --> NEUTRAL X | AuAu -->
+#: keyword cmenergies: 200
+#: keyword phrases: Identified particles | Directed flow | $Au+Au$ collisions
+#: Centrality,10-70$\%$
+#: Particle,$\pi^{\pm}$
+Rapidity(y),$v_{1}(\%)$,stat +,stat -
+-0.74,0.19,0.01,-0.01
+-0.45,0.12,0.01,-0.01
+-0.15,0.03,0.01,-0.01
+0.15,-0.04,0.01,-0.01
+0.45,-0.15,0.01,-0.01
+0.74,-0.2,0.01,-0.01
+
+#: Centrality,10-70$\%$
+#: Particle,$K_{S}^{0}$
+Rapidity(y),$v_{1}(\%)$,stat +,stat -
+-0.74,0.19,0.03,-0.03
+-0.45,0.05,0.02,-0.02
+-0.15,-0.02,0.02,-0.02
+0.15,-0.08,0.02,-0.02
+0.45,-0.07,0.02,-0.02
+0.74,-0.11,0.03,-0.03
+

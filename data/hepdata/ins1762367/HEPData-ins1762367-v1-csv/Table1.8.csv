@@ -1,0 +1,12 @@
+#: table_doi: 10.17182/hepdata.95654.v1/t8
+#: name: Table 1.8
+#: description: Slope Dv1 D0 meson 540%
+
+#: data_file: yamlFile_Deltav1_DmesonSlope.yaml
+#: keyword observables: D0 meson | slope Dv1
+#: keyword cmenergies: 5023.0
+#: RE,,,PBPB--> Slope of Deltav1 D meson 10-40% centrality class
+#: SQRT(S),,,5020.0 GeV
+centrality [-],centrality [-] LOW,centrality [-] HIGH,Slope of Deltav1 for D meson [-],stat +,stat -,sys +,sys -
+25.0,10,40,0.49,0.17,-0.17,0.06,-0.06
+

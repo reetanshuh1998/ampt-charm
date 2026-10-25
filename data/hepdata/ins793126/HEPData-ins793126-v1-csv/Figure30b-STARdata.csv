@@ -1,0 +1,22 @@
+#: table_doi: 10.17182/hepdata.104931.v1/t53
+#: name: Figure 30b - STAR data
+#: description: The K+/K− ratio as a function of the collision energy in central heavy-ion collisions.
+#: data_file: Fig30b_kp2km_vs_roots.yaml
+#: keyword reactions: AuAu --> charged hadrons
+#: keyword phrases: identified particles | RHIC | STAR
+#: $\sqrt(s_{NN}) [GeV]$,$K^{+}/K^{-}$
+$\sqrt(s_{NN}) [GeV]$,$K^{+}/K^{-}$,stat +,stat -
+3.32,12.32,0.7,-0.7
+3.84,7.93,0.3,-0.3
+4.3,6.23,0.26,-0.26
+4.86,5.23,0.13,-0.13
+4.76,4.66,0.61,-0.61
+6.3,2.939,0.146,-0.146
+7.6,2.718,0.231,-0.231
+8.8,2.652,0.201,-0.201
+12.3,2.103,0.151,-0.151
+17.3,1.762,0.126,-0.126
+62.4,1.163,0.048,-0.048
+130.0,1.084,0.043,-0.043
+200.0,1.036,0.052,-0.052
+

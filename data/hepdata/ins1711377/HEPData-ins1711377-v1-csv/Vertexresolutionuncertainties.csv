@@ -1,0 +1,32 @@
+#: table_doi: 10.17182/hepdata.95750.v1/t22
+#: name: Vertex resolution uncertainties
+#: description: Vertex resolution uncertainties for different centralities in Au+Au collisions (for $R_{CP}$ plot)
+#: data_file: Vertex resolution uncertainties for different centralities in Au+Au collisions (for R_CP plot).yaml
+#: keyword reactions: AU AU --> NEUTRAL X
+#: keyword cmenergies: 200.0
+#: $p_T$,$40-60\%$ centralities in AuAu collisions (for $R_{CP}$ plot)
+$p_T$,Vertex resolution uncertainties
+0.242,0.0922
+0.728,0.0715
+1.22,0.0561
+1.71,0.0595
+2.21,0.0553
+2.71,0.0619
+3.36,0.0539
+4.36,0.0554
+5.37,0.0654
+6.59,0.0775
+
+#: $p_T$,$60-80\%$ centralities in AuAu collisions (for $R_{CP}$ plot)
+$p_T$,Vertex resolution uncertainties
+0.242,0.168
+0.728,0.128
+1.22,0.172
+1.71,0.116
+2.21,0.129
+2.71,0.146
+3.36,0.128
+4.36,0.124
+5.37,0.105
+6.59,0.152
+

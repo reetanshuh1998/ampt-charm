@@ -1,0 +1,20 @@
+#: table_doi: 10.17182/hepdata.102949.v1/t10
+#: name: Table 5c
+#: description: Charged particle $v_1$ versus $\eta-y_{beam}$, for 30 − 60% Au+Au collisions at 62.4 GeV.
+#: data_file: Fig5c.yaml
+#: keyword reactions: AuAu --> X
+#: keyword cmenergies: 62.4
+#: keyword phrases: Inclusive | Hadrons | Directed flow | v1
+#: $\eta-y_{beam}$,Au+Au 62.4 GeV
+$\eta-y_{beam}$,$v_1${ZDC-SMD} (%),stat +,stat -
+-4.05,-0.12,0.048,-0.048
+-3.75,-0.337,0.048,-0.048
+-3.54,-0.651,0.048,-0.048
+-3.18,-0.903,0.062,-0.062
+-1.56,-3.234,0.27,-0.27
+-1.34,-3.917,0.092,-0.092
+-1.1,-4.646,0.109,-0.109
+-0.9,-5.246,0.119,-0.119
+-0.66,-5.74,0.113,-0.113
+-0.38,-6.062,0.168,-0.168
+

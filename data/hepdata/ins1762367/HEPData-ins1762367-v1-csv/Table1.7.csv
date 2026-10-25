@@ -1,0 +1,12 @@
+#: table_doi: 10.17182/hepdata.95654.v1/t7
+#: name: Table 1.7
+#: description: Slope Dv1 charged hadrons 540%
+
+#: data_file: yamlFile_Deltav1_hadronsSlope.yaml
+#: keyword observables: hadrons | slope Dv1
+#: keyword cmenergies: 5023.0
+#: RE,,,PBPB--> Slope of Deltav1 hadrons 5-40% centrality class
+#: SQRT(S),,,5020.0 GeV
+centrality [-],centrality [-] LOW,centrality [-] HIGH,Slope of Deltav1 for charged hadrons [-],stat +,stat -,sys +,sys -
+22.5,5,40,0.000168,4.9e-05,-4.9e-05,4.1e-05,-4.1e-05
+

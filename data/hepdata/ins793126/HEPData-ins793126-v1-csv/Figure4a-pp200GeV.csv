@@ -1,0 +1,11 @@
+#: table_doi: 10.17182/hepdata.104931.v1/t8
+#: name: Figure 4a - pp 200 GeV
+#: description: The ratio of the transverse overlap area $S_{⊥}$ to $(N_{part}/2)^{2/3}$ versus $(N_{part}/2)^{2/3}$.
+#: data_file: Fig04a_S_ppMB200.yaml
+#: keyword reactions: pp --> EX
+#: keyword cmenergies: 200
+#: keyword phrases: identified particles | RHIC | STAR
+#: $(N_{part}/2)^{2/3}$,pp MB 200 GeV
+$(N_{part}/2)^{2/3}$,$S/(N_{part}/2)^{2/3} [fm^2]$,stat +,stat -
+1.0,4.1,0.2,-0.2
+

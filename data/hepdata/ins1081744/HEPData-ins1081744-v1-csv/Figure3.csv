@@ -1,0 +1,43 @@
+#: table_doi: 10.17182/hepdata.96905.v1/t5
+#: name: Figure 3
+#: description: Charged pions (solid stars), protons (solid circles) and antiprotons (solid squares) $v_1$(y) slope (d$v_1$/dy) at midrapidity as a function of centrality for $Au + Au$ collisions at $\sqrt{s_{NN}} = 200$ GeV.
+#: data_file: fig3.yaml
+#: keyword reactions: Au Au --> NEUTRAL X | AuAu -->
+#: keyword cmenergies: 200
+#: keyword phrases: Identified particles | Directed flow | $Au+Au$ collisions
+#: Particle,$p$
+Centrality ($\%$),$dv_{1}/dy(\%)$,stat +,stat -
+2.2,0.05,0.24,-0.24
+7.2,-0.08,0.15,-0.15
+14.5,-0.04,0.09,-0.09
+24.5,-0.05,0.09,-0.09
+34.5,-0.23,0.11,-0.11
+44.5,-0.45,0.13,-0.13
+54.5,-0.38,0.18,-0.18
+64.5,-1.02,0.29,-0.29
+74.5,-1.2,0.47,-0.47
+
+#: Particle,$\bar{p}$
+Centrality ($\%$),$dv_{1}/dy(\%)$,stat +,stat -
+2.2,0.16,0.29,-0.29
+7.2,-0.6,0.18,-0.18
+14.5,-0.42,0.11,-0.11
+24.5,-0.51,0.11,-0.11
+34.5,-0.43,0.13,-0.13
+44.5,-0.58,0.16,-0.16
+54.5,-0.57,0.21,-0.21
+64.5,-0.43,0.33,-0.33
+74.5,-1.27,0.51,-0.51
+
+#: Particle,$\pi^{\pm}$
+Centrality ($\%$),$dv_{1}/dy(\%)$,stat +,stat -
+2.2,-0.07,0.05,-0.05
+7.2,-0.2,0.03,-0.03
+14.5,-0.26,0.02,-0.02
+24.5,-0.29,0.02,-0.02
+34.5,-0.31,0.02,-0.02
+44.5,-0.33,0.03,-0.03
+54.5,-0.25,0.04,-0.04
+64.5,-0.32,0.07,-0.07
+74.5,-0.21,0.11,-0.11
+

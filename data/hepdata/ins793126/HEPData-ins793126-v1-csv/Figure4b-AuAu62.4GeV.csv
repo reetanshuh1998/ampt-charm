@@ -1,0 +1,20 @@
+#: table_doi: 10.17182/hepdata.104931.v1/t9
+#: name: Figure 4b - AuAu 62.4 GeV
+#: description: The ratio of the charged pion multiplicity to the transverse overlap area $dN_{\pi}/dy/S_{⊥}$ versus $N_{coll}/N_{part}$. Errors shown are total errors, dominated by systematic uncertainties. The systematic uncertainties are correlated between Npart, Ncoll, and S⊥, and are largely canceled in the plotted ratio quantities.
+#: data_file: Fig04b_S_AuAu62.yaml
+#: keyword reactions: AuAu --> charged hadrons
+#: keyword observables: MULT
+#: keyword cmenergies: 62.4
+#: keyword phrases: identified particles | RHIC | STAR
+#: $N_{coll}/(N_{part}/2)$,,,Au+Au 62.4 GeV
+$N_{coll}/(N_{part}/2)$,$N_{coll}/(N_{part}/2)$ LOW,$N_{coll}/(N_{part}/2)$ HIGH,$(dN_{\pi}/dy/S [fm^{-2}]$,stat +,stat -
+1.84,1.76,1.92,0.92,0.14,-0.14
+2.15,2.06,2.24,1.19,0.16,-0.16
+2.55,2.46,2.64,1.49,0.17,-0.17
+3.0,2.89,3.11,1.79,0.17,-0.17
+3.47,3.34,3.6,2.11,0.18,-0.18
+3.97,3.82,4.12,2.45,0.19,-0.19
+4.45,4.24,4.66,2.76,0.22,-0.22
+4.83,4.58,5.08,3.01,0.22,-0.22
+5.14,4.85,5.43,3.18,0.24,-0.24
+

@@ -1,0 +1,19 @@
+#: table_doi: 10.17182/hepdata.104931.v1/t51
+#: name: Figure 24 - 200 GeV
+#: description: Estimate of the product of the Bjorken energy density and the formation time ($\epsilon_{B_j}\tau$) as a function of centrality Npart. Errors shown are the quadratic sum of statistical and systematic uncertainties.
+#: data_file: Fig24_Bj_energy_density_200GeV.yaml
+#: keyword reactions: AuAu --> charged hadrons
+#: keyword cmenergies: 200
+#: keyword phrases: identified particles | RHIC | STAR
+#: $N_{part}$,,,Au+Au 200 GeV
+$N_{part}$,$N_{part}$ LOW,$N_{part}$ HIGH,Bj_energy_density*tau[GeV/fm^2],stat +,stat -
+15.7,13.1,18.3,1.22,0.17,-0.17
+28.8,25.1,32.5,1.63,0.18,-0.18
+49.3,44.6,54,2.05,0.19,-0.19
+78.3,73,83.6,2.49,0.2,-0.2
+117.1,111.9,122.3,3.0,0.23,-0.23
+167.6,162.2,173,3.63,0.27,-0.27
+234.3,229.7,238.9,4.15,0.3,-0.3
+298.6,294.5,302.7,4.69,0.34,-0.34
+350.6,348.2,353,5.13,0.38,-0.38
+

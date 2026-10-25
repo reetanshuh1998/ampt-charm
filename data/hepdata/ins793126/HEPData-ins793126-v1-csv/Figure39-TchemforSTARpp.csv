@@ -1,0 +1,10 @@
+#: table_doi: 10.17182/hepdata.104931.v1/t62
+#: name: Figure 39 - Tchem for STAR pp
+#: description: The extracted chemical freeze-out temperatures for central heavy-ion collisions as a function of the collision energy. Errors shown are the total statistical and systematic errors.
+#: data_file: Fig39_Tch_vs_roots_STAR_pp.yaml
+#: keyword reactions: pp --> EX
+#: keyword phrases: identified particles | RHIC | STAR
+#: $\sqrt(S_{NN}) [GeV]$,$T_{ch} $STAR pp
+$\sqrt(S_{NN}) [GeV]$,$T_{chem} [MeV]$,total +,total -
+200.0,157.5,3.6,-3.6
+

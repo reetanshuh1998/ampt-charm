@@ -1,0 +1,12 @@
+#: table_doi: 10.17182/hepdata.104931.v1/t11
+#: name: Figure 4b - pp 200 GeV
+#: description: The ratio of the charged pion multiplicity to the transverse overlap area $dN_{\pi}/dy/S_{⊥}$ versus $N_{coll}/N_{part}$. Errors shown are total errors, dominated by systematic uncertainties. The systematic uncertainties are correlated between Npart, Ncoll, and S⊥, and are largely canceled in the plotted ratio quantities.
+#: data_file: Fig04b_S_ppMB200.yaml
+#: keyword reactions: pp --> EX
+#: keyword observables: MULT
+#: keyword cmenergies: 200
+#: keyword phrases: identified particles | RHIC | STAR
+#: $N_{coll}/(N_{part}/2)$,pp MB 200 GeV
+$N_{coll}/(N_{part}/2)$,$(dN_{\pi}/dy/S [fm^{-2}]$,stat +,stat -
+1.0,0.7,0.06,-0.06
+

@@ -1,0 +1,16 @@
+#: table_doi: 10.17182/hepdata.95654.v1/t2
+#: name: Table 1.2
+#: description: Directed flow negative hadrons 5-40%
+
+#: data_file: yamlFile_v1_hminus.yaml
+#: keyword observables: positive hadrons | Directed flow
+#: keyword cmenergies: 5023.0
+#: RE,,,PBPB--> negative hadrons 5-40% centrality class
+#: SQRT(S),,,5020.0 GeV
+ETA [-],ETA [-] LOW,ETA [-] HIGH,v_1 for negative hadrons systematic correlated uncertainty 3.8e-05 [-],stat +,stat -,sys +,sys -
+-0.64,-0.8,-0.48,0.000542,3.49e-05,-3.49e-05,4.4e-05,-4.4e-05
+-0.32,-0.48,-0.16,0.000256,3.45e-05,-3.45e-05,3.45e-05,-3.45e-05
+0.0,-0.16,0.16,3.89e-05,3.46e-05,-3.46e-05,3.48e-05,-3.48e-05
+0.32,0.16,0.48,-0.00025,3.46e-05,-3.46e-05,3.4e-05,-3.4e-05
+0.64,0.48,0.8,-0.000465,3.57e-05,-3.57e-05,4.25e-05,-4.25e-05
+

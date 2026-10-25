@@ -1,0 +1,17 @@
+#: table_doi: 10.17182/hepdata.96906.v1/t27
+#: name: Figure 14 ($K_{S}^{0}$)
+#: description: Fig14 $p_{T}$ dependence of $v_{2}$ of $K_{S}^{0}$ at 200 GeV.
+#: data_file: fig14a.yaml
+#: keyword reactions: Au Au --> NEUTRAL X | AuAu -->
+#: keyword cmenergies: 200
+#: keyword phrases: Identified particles | Elliptic flow | $Au+Au$ collisions
+#: $p_{T}$ (GeV/c),$v_{2}$ of $K_{S}^{0}$ at 200 GeV
+$p_T$(GeV/c),$K_{S}^{0}$ $v_{2}$,stat +,stat -
+0.1752,-0.026008,0.0214718,-0.0214718
+0.5007,0.0108871,0.0133065,-0.0133065
+0.8012,0.0078629,0.013004,-0.013004
+1.10172,0.0290323,0.019354,-0.019354
+1.40219,0.0508065,0.0296371,-0.0296371
+1.72144,0.0840726,0.0462702,-0.0462702
+2.1471,0.104032,0.0967742,-0.0967742
+

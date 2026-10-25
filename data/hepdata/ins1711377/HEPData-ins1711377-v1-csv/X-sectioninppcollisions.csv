@@ -1,0 +1,11 @@
+#: table_doi: 10.17182/hepdata.95750.v1/t4
+#: name: X-section in pp collisions
+#: description: Integrated $D^0$ cross section per nucleon-nucleon collision at mid-rapidity for $p_T >0$ (a) and $p_T >4$ GeV/c (b) as a function of centrality $N_{part}$. The statistical and systematic uncertainties are shown as error bars and brackets on the data points. The green boxes on the data points depict the overall normalization uncertainties in p+p and Au+Au data respectively.
+#: data_file: Fig24_X-section in pp collisions.yaml
+#: keyword reactions: AU AU --> NEUTRAL X
+#: keyword cmenergies: 200.0
+#: $p_T$,Xsec $p_T > 0.0$ GeV/c and $p_T > 4.0$ GeV/c in pp
+$p_T$,X-section,Stat error +,Stat error -,Sys error +,Sys error -
+0,79.26,18.42,-18.42,13.96,-13.96
+4,0.538,0.124,-0.124,0.0517,-0.0517
+

@@ -1,0 +1,19 @@
+#: table_doi: 10.17182/hepdata.104931.v1/t49
+#: name: Figure 24 - 62.4 GeV
+#: description: Estimate of the product of the Bjorken energy density and the formation time ($\epsilon_{B_j}\tau$) as a function of centrality Npart. Errors shown are the quadratic sum of statistical and systematic uncertainties.
+#: data_file: Fig24_Bj_energy_density_62GeV.yaml
+#: keyword reactions: AuAu --> charged hadrons
+#: keyword cmenergies: 62.4
+#: keyword phrases: identified particles | RHIC | STAR
+#: $N_{part}$,,,Au+Au 62.4 GeV
+$N_{part}$,$N_{part}$ LOW,$N_{part}$ HIGH,Bj_energy_density*tau[GeV/fm^2],stat +,stat -
+15.3,12.9,17.7,0.86,0.12,-0.12
+27.8,24.1,31.5,1.17,0.14,-0.14
+47.9,43.2,52.6,1.51,0.15,-0.15
+76.3,71.1,81.5,1.88,0.16,-0.16
+114.3,109.2,119.4,2.29,0.18,-0.18
+164.1,158.7,169.5,2.75,0.19,-0.19
+229.8,225.2,234.4,3.09,0.22,-0.22
+293.9,289.7,298.1,3.42,0.23,-0.23
+346.5,343.7,349.3,3.59,0.25,-0.25
+

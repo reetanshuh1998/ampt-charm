@@ -1,0 +1,11 @@
+#: table_doi: 10.17182/hepdata.94228.v1/t7
+#: name: Figure 3
+#: description: The $\Lambda_c/D^0$ yield ratio measured in 3.0 < $p_T$ < 6.0 GeV/c for different centrality classes, in Au+Au collisions at √sNN = 200 GeV. The centrality bins are 50-80%, 20-50% and 0-20%.
+#: data_file: Table_7.yaml
+#: keyword reactions: AU AU --> CHARGED X
+#: keyword cmenergies: 200.0 GeV
+<N_{part}>,\Lambda_c/D^0 yield ratio ,$stat$ +,$stat$ -,$sys$ +,$sys$ -
+30.1,0.4991,0.1245,-0.1245,0.1448,-0.1448
+119.6,0.7948,0.0962,-0.0962,0.1681,-0.1681
+279.8,1.0772,0.1643,-0.1643,0.2647,-0.2647
+

@@ -1,0 +1,7 @@
+deps/
+build/
+bin/
+prod/
+quick/
+__pycache__/
+*.pyc

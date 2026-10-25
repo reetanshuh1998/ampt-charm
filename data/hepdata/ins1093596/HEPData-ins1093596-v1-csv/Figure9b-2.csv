@@ -1,0 +1,39 @@
+#: table_doi: 10.17182/hepdata.141645.v1/t11
+#: name: Figure 9b-2
+#: description: The quark-number-scaled $v_2$ ($v_2/n_q$) of identified hadrons are shown as a function of the kinetic energy per quark, KE$_T/n_q$ in 10–20% centrality [panel (b)] in Au + Au collisions at $\sqrt{s_{NN}}$ = 200 GeV. The error bars (shaded boxes) represent the statistical (systematic) uncertainties. The systematic uncertainties shown are type A and B only.
+#: data_file: fig9b2kaon_10_20.yaml
+#: keyword reactions: Au Au —> $K^+$ $K^-$
+#: keyword cmenergies: 200.0
+#: keyword phrases: ppg123 | midrapidity | centrality | transverse momentum | transverse kinetic energy
+#: Centrality (%),,,10-20
+#: Particle,,,$K^+$ + $K^-$
+$p_T$ (GeV/$c$),$p_T$ (GeV/$c$) LOW,$p_T$ (GeV/$c$) HIGH,$\langle p_T \rangle$ (GeV/$c$)
+1.1,1.0,1.2,1.08164
+1.2999999999999998,1.2,1.4,1.27786
+1.5,1.4,1.6,1.47506
+1.7000000000000002,1.6,1.8,1.67127
+1.9,1.8,2.0,1.86748
+2.1,2.0,2.2,2.0637
+2.3,2.2,2.4,2.26188
+2.5,2.4,2.6,2.45908
+2.7,2.6,2.8,2.6553
+2.9,2.8,3.0,2.85348
+3.2,3.0,3.4,3.15619
+3.65,3.4,3.9,3.64919
+
+#: Centrality (%),,,10-20
+#: Particle,,,$K^+$ + $K^-$
+$p_T$ (GeV/$c$),$p_T$ (GeV/$c$) LOW,$p_T$ (GeV/$c$) HIGH,$v_2$,stat. +,stat. -,sys. +,sys. -
+1.1,1.0,1.2,0.0693,0.0004,-0.0004,0.004,-0.004
+1.2999999999999998,1.2,1.4,0.0829,0.0005,-0.0005,0.004,-0.004
+1.5,1.4,1.6,0.0962,0.0006,-0.0006,0.005,-0.005
+1.7000000000000002,1.6,1.8,0.1053,0.0008,-0.0008,0.005,-0.005
+1.9,1.8,2.0,0.1125,0.001,-0.001,0.006,-0.006
+2.1,2.0,2.2,0.12,0.0012,-0.0012,0.006,-0.006
+2.3,2.2,2.4,0.1252,0.0014,-0.0014,0.007,-0.007
+2.5,2.4,2.6,0.1244,0.0018,-0.0018,0.006,-0.006
+2.7,2.6,2.8,0.1258,0.0023,-0.0023,0.007,-0.007
+2.9,2.8,3.0,0.1319,0.0028,-0.0028,0.007,-0.007
+3.2,3.0,3.4,0.121,0.006,-0.006,0.007,-0.007
+3.65,3.4,3.9,0.106,0.011,-0.011,0.007,-0.007
+

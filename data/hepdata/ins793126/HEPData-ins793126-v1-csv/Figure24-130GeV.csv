@@ -1,0 +1,18 @@
+#: table_doi: 10.17182/hepdata.104931.v1/t50
+#: name: Figure 24 - 130 GeV
+#: description: Estimate of the product of the Bjorken energy density and the formation time ($\epsilon_{B_j}\tau$) as a function of centrality Npart. Errors shown are the quadratic sum of statistical and systematic uncertainties.
+#: data_file: Fig24_Bj_energy_density_130GeV.yaml
+#: keyword reactions: AuAu --> charged hadrons
+#: keyword cmenergies: 130
+#: keyword phrases: identified particles | RHIC | STAR
+#: $N_{part}$,,,Au+Au 130 GeV
+$N_{part}$,$N_{part}$ LOW,$N_{part}$ HIGH,Bj_energy_density*tau[GeV/fm^2],stat +,stat -
+22.6,17.5,27.7,1.47,0.27,-0.27
+61.0,53.2,68.8,2.02,0.22,-0.22
+100.9,92.5,109.3,2.52,0.22,-0.22
+141.9,133.5,150.3,3.0,0.25,-0.25
+187.7,180.2,195.2,3.36,0.25,-0.25
+237.8,231,244.6,3.71,0.28,-0.28
+289.0,283.6,294.4,3.89,0.26,-0.26
+344.3,341.2,347.4,4.27,0.29,-0.29
+

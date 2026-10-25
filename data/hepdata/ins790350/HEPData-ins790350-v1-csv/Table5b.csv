@@ -1,0 +1,16 @@
+#: table_doi: 10.17182/hepdata.102949.v1/t9
+#: name: Table 5b
+#: description: Charged particle $v_1$ versus $\eta-y_{beam}$, for 30 − 60% Cu+Cu collisions at 200 GeV.
+#: data_file: Fig5b.yaml
+#: keyword reactions: CuCu --> X
+#: keyword cmenergies: 200
+#: keyword phrases: Inclusive | Hadrons | Directed flow | v1
+#: $\eta-y_{beam}$,Cu+Cu 200 GeV
+$\eta-y_{beam}$,$v_1${ZDC-SMD} (%),stat +,stat -
+-5.07,-0.071,0.025,-0.025
+-4.52,-0.229,0.028,-0.028
+-2.66,-1.271,0.094,-0.094
+-2.37,-1.626,0.046,-0.046
+-1.98,-2.148,0.051,-0.051
+-1.61,-2.772,0.07,-0.07
+

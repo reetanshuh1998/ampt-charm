@@ -1,0 +1,19 @@
+#: table_doi: 10.17182/hepdata.104931.v1/t6
+#: name: Figure 4a - AuAu 62.4 GeV
+#: description: The ratio of the transverse overlap area $S_{⊥}$ to $(N_{part}/2)^{2/3}$ versus $(N_{part}/2)^{2/3}$.
+#: data_file: Fig04a_S_AuAu62.yaml
+#: keyword reactions: AuAu --> charged hadrons
+#: keyword cmenergies: 62.4
+#: keyword phrases: identified particles | RHIC | STAR
+#: $(N_{part}/2)^{2/3}$,,,Au+Au 62.4 GeV
+$(N_{part}/2)^{2/3}$,$(N_{part}/2)^{2/3}$ LOW,$(N_{part}/2)^{2/3}$ HIGH,$S/(N_{part}/2)^{2/3} [fm^2]$,stat +,stat -
+3.89,3.48,4.3,4.13,0.09,-0.09
+5.79,5.28,6.3,4.29,0.04,-0.04
+8.31,7.77,8.85,4.31,0.03,-0.03
+11.33,10.82,11.84,4.29,0.04,-0.04
+14.84,14.4,15.28,4.29,0.07,-0.07
+18.89,18.47,19.3,4.32,0.07,-0.07
+23.64,23.33,23.95,4.43,0.08,-0.08
+27.84,27.57,28.11,4.57,0.08,-0.08
+31.08,30.91,31.25,4.75,0.11,-0.11
+

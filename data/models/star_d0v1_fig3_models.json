@@ -1,0 +1,12 @@
+{
+ "source": "STAR, PRL 123 162301 (2019), arXiv:1905.02052, Fig. 3; curves extracted from the PDF vector paths (pdftocairo -svg, page 5) on 2026-10-21, axis calibrated on the STAR data points (v1 = (233.5 - y_svg)/717, dv1 = (366.25 - y_svg)/707, y = (x_svg - 457.35)/99.05). Precision ~0.002 in v1.",
+ "centrality": "10-80 %", "pt": "> 1.5 GeV/c",
+ "v1_D0avg": {
+   "hydro_EM_Chatterjee_Bozek": {"y": [-1.03, -0.75, -0.25, 0.25, 0.75, 1.03], "v1": [0.0196, 0.0144, 0.0044, -0.0052, -0.0158, -0.0199], "ref": "S. Chatterjee, P. Bozek, PRL 120 192301 (2018); arXiv:1804.04893"},
+   "AMPT_Nasim_Singha": {"y": [-1.03, -0.75, -0.25, 0.25, 0.75, 1.03], "v1": [0.0130, 0.0124, 0.0008, -0.0009, -0.0147, -0.0204], "ref": "M. Nasim, S. Singha, PRC 97 064917 (2018)"}
+ },
+ "dv1_D0_minus_D0bar": {
+   "hydro_EM_Chatterjee_Bozek": {"y": [-1.03, -0.75, -0.25, 0.25, 0.75, 1.03], "dv1": [0.0118, 0.0101, 0.0040, -0.0030, -0.0055, -0.0076], "ref": "arXiv:1804.04893"},
+   "EM_Das_et_al": {"y": [-1.0, -0.8, -0.6, -0.4, 0.0, 0.2, 0.4, 0.6, 0.8, 1.0], "dv1": [0.0085, 0.0074, 0.0051, 0.0027, -0.0004, -0.0019, -0.0035, -0.0046, -0.0066, -0.0084], "ref": "S. K. Das et al., PLB 768 260 (2017)"}
+ }
+}

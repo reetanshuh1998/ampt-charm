@@ -1,0 +1,19 @@
+#: table_doi: 10.17182/hepdata.104931.v1/t59
+#: name: Figure 33 - STAR 200 GeV
+#: description: The K−/π− ratio as a function of dNπ/dy/S⊥ in heavy-ion collisions at RHIC. Errors shown are the quadratic sum of statistical and systematic uncertainties.
+#: data_file: Fig33_kpi_200GeV.yaml
+#: keyword reactions: AuAu --> charged hadrons
+#: keyword cmenergies: 200
+#: keyword phrases: identified particles | RHIC | STAR
+#: $(dN_{\pi}/dy)/S [fm^{-2}]$,STAR Au+Au 200 GeV
+$(dN_{\pi}/dy)/S [fm^{-2}]$,$K^-/\pi^-$,stat +,stat -
+1.2,0.1271,0.0121,-0.0121
+1.5,0.1368,0.0129,-0.0129
+1.9,0.1429,0.0135,-0.0135
+2.3,0.1422,0.0138,-0.0138
+2.6,0.147,0.0147,-0.0147
+3.1,0.1446,0.015,-0.015
+3.6,0.1465,0.0164,-0.0164
+3.9,0.1526,0.0183,-0.0183
+4.2,0.1513,0.0196,-0.0196
+

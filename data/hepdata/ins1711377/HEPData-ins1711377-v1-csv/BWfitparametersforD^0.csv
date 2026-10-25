@@ -1,0 +1,22 @@
+#: table_doi: 10.17182/hepdata.95750.v1/t10
+#: name: BW fit parameters for $D^0$
+#: description: BW fit parameters for $D^0$
+#: data_file: BW fit parameters for D0.yaml
+#: keyword reactions: AU AU --> NEUTRAL X
+#: keyword cmenergies: 200.0
+#: BW,,,$\beta$
+BW,BW LOW,BW HIGH,$\beta$,error +,error -
+5.0,0,10,0.399,0.00784,-0.00784
+15.0,10,20,0.397,0.0078,-0.0078
+30.0,20,40,0.383,0.00779,-0.00779
+50.0,40,60,0.353,0.0112,-0.0112
+70.0,60,80,0.333,0.021,-0.021
+
+#: BW,,,Tkin
+BW,BW LOW,BW HIGH,Tkin,error +,error -
+5.0,0,10,0.17,0.0184,-0.0184
+15.0,10,20,0.18,0.037,-0.037
+30.0,20,40,0.2,0.0392,-0.0392
+50.0,40,60,0.23,0.0368,-0.0368
+70.0,60,80,0.245,0.0494,-0.0494
+

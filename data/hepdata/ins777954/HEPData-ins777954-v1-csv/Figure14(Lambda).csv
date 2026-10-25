@@ -1,0 +1,20 @@
+#: table_doi: 10.17182/hepdata.96906.v1/t28
+#: name: Figure 14 ($\Lambda$)
+#: description: Fig14 $p_{T}$ dependence of $v_{2}$ of $\Lambda$ at 200 GeV.
+#: data_file: fig14b.yaml
+#: keyword reactions: Au Au --> NEUTRAL X | AuAu -->
+#: keyword cmenergies: 200
+#: keyword phrases: Identified particles | Elliptic flow | $Au+Au$ collisions
+#: $p_{T}$ (GeV/c),$v_{2}$ of $\Lambda$ at 200 GeV
+$p_T$(GeV/c),$\Lambda$ $v_{2}$,stat +,stat -
+0.54545,-0.0169355,0.0157258,-0.0157258
+0.92163,0.0024193,0.009375,-0.009375
+1.17241,0.007258,0.0081653,-0.0081653
+1.4232,0.0314516,0.00877016,-0.00877016
+1.67398,0.0514113,0.0117944,-0.0117944
+1.92476,0.0592742,0.0148185,-0.0148185
+2.17555,0.0774194,0.0193548,-0.0193548
+2.42006,0.0737903,0.0257056,-0.0257056
+2.79624,0.131855,0.0266129,-0.0266129
+3.29154,0.138508,0.0462702,-0.0462702
+

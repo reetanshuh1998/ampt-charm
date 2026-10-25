@@ -1,0 +1,15 @@
+#: table_doi: 10.17182/hepdata.95654.v1/t6
+#: name: Table 1.6
+#: description: Delta Directed flow D0 meson 10-40%
+
+#: data_file: yamlFile_Deltav1_Dmeson.yaml
+#: keyword observables: D0 meson | Delta Directed flow
+#: keyword cmenergies: 5023.0
+#: RE,,,PBPB--> D meson 10-40% centrality class
+#: SQRT(S),,,5020.0 GeV
+ETA [-],ETA [-] LOW,ETA [-] HIGH,Delta v_1 for D meson [-],stat +,stat -,sys +,sys -
+-0.6000000000000001,-0.8,-0.4,-0.24,0.17,-0.17,0.05,-0.05
+-0.2,-0.4,0.0,-0.33,0.13,-0.13,0.05,-0.05
+0.2,0.0,0.4,0.02,0.13,-0.13,0.05,-0.05
+0.6000000000000001,0.4,0.8,0.28,0.12,-0.12,0.05,-0.05
+

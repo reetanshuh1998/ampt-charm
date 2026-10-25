@@ -1,0 +1,10 @@
+#: table_doi: 10.17182/hepdata.95750.v1/t12
+#: name: mT fit parameters Teff $D^0$
+#: description: mT fit parameters Teff $D^0$
+#: data_file: mT fit parameters Teff D0.yaml
+#: keyword reactions: AU AU --> NEUTRAL X
+#: keyword cmenergies: 200.0
+#: Mass,$D^{0}$
+Mass,Teff,Teff Err. +,Teff Err. -
+1.86,0.416,0.0176,-0.0176
+

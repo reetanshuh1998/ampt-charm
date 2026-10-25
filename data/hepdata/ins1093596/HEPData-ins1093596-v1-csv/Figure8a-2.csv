@@ -1,0 +1,39 @@
+#: table_doi: 10.17182/hepdata.141645.v1/t2
+#: name: Figure 8a-2
+#: description: Identified hadron $v_2$ in central (0–20% centrality, left panels) Au + Au collisions at $\sqrt{s_{NN}}$ = 200 GeV. Panels (a) and (b) show $v_2$ as a function of transverse momentum $p_T$. The $v_2$ of all species for centrality 0–20% has been scaled up by a factor of 1.6 for better comparison with results of 20–60% centrality. The error bars (shaded boxes) represent the statistical (systematic) uncertainties. The systematic uncertainties shown are type A and B only.
+#: data_file: fig8a2kaon_0_20.yaml
+#: keyword reactions: Au Au —> $K^+$ $K^-$
+#: keyword cmenergies: 200.0
+#: keyword phrases: ppg123 | midrapidity | centrality | transverse momentum | transverse kinetic energy
+#: Centrality (%),,,0-20
+#: Particle,,,$K^+$ + $K^-$
+$p_T$ (GeV/$c$),$p_T$ (GeV/$c$) LOW,$p_T$ (GeV/$c$) HIGH,$\langle p_T \rangle$ (GeV/$c$)
+1.1,1.0,1.2,1.08384
+1.2999999999999998,1.2,1.4,1.28045
+1.5,1.4,1.6,1.47805
+1.7000000000000002,1.6,1.8,1.67466
+1.9,1.8,2.0,1.87127
+2.1,2.0,2.2,2.06788
+2.3,2.2,2.4,2.26647
+2.5,2.4,2.6,2.46407
+2.7,2.6,2.8,2.66068
+2.9,2.8,3.0,2.85927
+3.2,3.0,3.4,3.16259
+3.65,3.4,3.9,3.65659
+
+#: Centrality (%),,,0-20
+#: Particle,,,$K^+$ + $K^-$
+$p_T$ (GeV/$c$),$p_T$ (GeV/$c$) LOW,$p_T$ (GeV/$c$) HIGH,$v_2$,stat. +,stat. -,sys. +,sys. -
+1.1,1.0,1.2,0.05112,0.00033,-0.00033,0.0027,-0.0027
+1.2999999999999998,1.2,1.4,0.0622,0.0004,-0.0004,0.0032,-0.0032
+1.5,1.4,1.6,0.0718,0.0005,-0.0005,0.004,-0.004
+1.7000000000000002,1.6,1.8,0.079,0.0006,-0.0006,0.004,-0.004
+1.9,1.8,2.0,0.0849,0.0007,-0.0007,0.004,-0.004
+2.1,2.0,2.2,0.0907,0.0009,-0.0009,0.005,-0.005
+2.3,2.2,2.4,0.094,0.0011,-0.0011,0.005,-0.005
+2.5,2.4,2.6,0.0936,0.0014,-0.0014,0.005,-0.005
+2.7,2.6,2.8,0.096,0.0018,-0.0018,0.005,-0.005
+2.9,2.8,3.0,0.0956,0.0023,-0.0023,0.005,-0.005
+3.2,3.0,3.4,0.095,0.005,-0.005,0.005,-0.005
+3.65,3.4,3.9,0.089,0.009,-0.009,0.006,-0.006
+

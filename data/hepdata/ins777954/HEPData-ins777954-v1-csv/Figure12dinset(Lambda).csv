@@ -1,0 +1,16 @@
+#: table_doi: 10.17182/hepdata.96906.v1/t24
+#: name: Figure 12d inset ($\Lambda$)
+#: description: Fig12d inset $\Lambda$ (open squares) expansion at low $p_{T}$
+#: data_file: fig12d_inset_lambda.yaml
+#: keyword reactions: Au Au --> NEUTRAL X | AuAu -->
+#: keyword cmenergies: 200
+#: keyword phrases: Identified particles | Elliptic flow | $Au+Au$ collisions
+#: Particle,$\Lambda$
+$p_T$(GeV/c),$v_{2}$,stat +,stat -
+0.45,-0.0124351,0.0184532,-0.0184532
+0.55,-0.0116623,0.00796461,-0.00796461
+0.65,-0.00686117,0.00484526,-0.00484526
+0.75,-0.00361544,0.00355683,-0.00355683
+0.85,0.00636274,0.00267256,-0.00267256
+0.95,0.0100045,0.00233125,-0.00233125
+

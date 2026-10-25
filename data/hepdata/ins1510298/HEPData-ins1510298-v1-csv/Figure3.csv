@@ -1,0 +1,18 @@
+#: table_doi: 10.17182/hepdata.101749.v1/t1
+#: name: Figure 3
+#: description: Azimuthal anisotropy $v_2$ as a function of $p_{\rm T}$ for $D^0$ in 10%–40% centrality Au+Au collisions.
+#: data_file: Fig3_formatted.yaml
+#: keyword observables: Elliptic Flow v2
+#: keyword reactions: AuAu -->D0 + X
+#: keyword cmenergies: 200
+#: keyword phrases: Au+Au Scattering
+$p_{T}$,$v_2$ in 10-40% central Au+Au collisions,stat +,stat -,sys +,sys -,non-flow +,non-flow -
+1.25,0.045,0.022,-0.022,0.019,-0.019,0.0,-0.021
+1.73,0.089,0.017,-0.017,0.007,-0.007,0.0,-0.022
+2.23,0.137,0.015,-0.015,0.006,-0.006,0.0,-0.022
+2.72,0.132,0.016,-0.016,0.009,-0.009,0.0,-0.022
+3.22,0.159,0.019,-0.019,0.007,-0.007,0.0,-0.022
+3.73,0.187,0.025,-0.025,0.019,-0.019,0.0,-0.023
+4.4,0.082,0.026,-0.026,0.015,-0.015,0.0,-0.023
+6.01,0.102,0.033,-0.033,0.025,-0.025,0.0,-0.025
+

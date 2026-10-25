@@ -1,0 +1,18 @@
+#: table_doi: 10.17182/hepdata.102949.v1/t11
+#: name: Table 5d
+#: description: Charged particle $v_1$ versus $\eta-y_{beam}$, for 30 − 60% Cu+Cu collisions at 62.4 GeV.
+#: data_file: Fig5d.yaml
+#: keyword reactions: CuCu --> X
+#: keyword cmenergies: 62.4
+#: keyword phrases: Inclusive | Hadrons | Directed flow | v1
+#: $\eta-y_{beam}$,Cu+Cu 62.4 GeV
+$\eta-y_{beam}$,$v_1${ZDC-SMD} (%),stat +,stat -
+-4.05,-0.228,0.217,-0.217
+-3.75,-0.396,0.22,-0.22
+-3.45,-0.483,0.219,-0.219
+-3.16,-1.111,0.261,-0.261
+-1.38,-3.874,0.365,-0.365
+-1.05,-5.616,0.446,-0.446
+-0.76,-6.019,0.496,-0.496
+-0.44,-7.781,0.61,-0.61
+

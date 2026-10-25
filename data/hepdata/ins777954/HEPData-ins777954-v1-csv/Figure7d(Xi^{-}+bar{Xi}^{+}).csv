@@ -1,0 +1,17 @@
+#: table_doi: 10.17182/hepdata.96906.v1/t20
+#: name: Figure 7d ($\Xi^{-}+\bar{\Xi}^{+}$)
+#: description: $v_{2}$ of $\Xi^{-}+\bar{\Xi}^{+}$ (filled triangles) as a function of $p_{T}$ for (d) $0–10\%$ centrality in $Au+Au$ collisions at $\sqrt{s_{NN}} = 200$ GeV.
+#: data_file: fig7_cascade_0_10.yaml
+#: keyword reactions: Au Au --> NEUTRAL X | AuAu -->
+#: keyword cmenergies: 200
+#: keyword phrases: Identified particles | Elliptic flow | $Au+Au$ collisions
+#: Centrality,$0-10\%$
+$p_T$(GeV/c),$\Xi^{-}+\bar{\Xi}^{+}$ $v_{2}${EP},stat +,stat -
+0.843151,-0.00306532,0.00969649,-0.00969649
+1.31722,0.0253973,0.00412047,-0.00412047
+1.7942,0.0498181,0.00273099,-0.00273099
+2.32384,0.0838206,0.00333611,-0.00333611
+2.88204,0.097858,0.00430378,-0.00430378
+3.6897,0.101919,0.00786869,-0.00786869
+4.89013,0.104234,0.0273729,-0.0273729
+
