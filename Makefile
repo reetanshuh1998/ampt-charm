@@ -10,7 +10,7 @@ test-results:   ## regenerate all published tables and figures from the shipped 
 	tests/test_results.sh
 test-repro:     ## regenerate events of the paper production and compare byte for byte (~2 min)
 	tests/test_exact_reproduction.sh
-test-quick:     ## small new production + analysis + independent re-analysis + comparison with published (~5-10 min)
+test-quick:     ## small new production + analysis + independent re-analysis + comparison with published (~10-20 min)
 	tests/test_quick_production.sh
 test: test-results test-repro test-quick
 clean:

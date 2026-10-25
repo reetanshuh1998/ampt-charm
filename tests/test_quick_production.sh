@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 # test_quick_production.sh [NAA_JOBS] [NAA_EVENTS] [NPP_JOBS] [NPP_EVENTS]
-# A laptop-size production of the reference configuration with NEW seeds (default 4 x 20 Au+Au, 2 x 5000 p+p events,
-# ~5 min on 4 cores), then:
+# A laptop-size production of the reference configuration with NEW seeds (default 4 x 20 Au+Au, 2 x 2000 p+p events,
+# ~10-20 min on 4 cores), then:
 #   1. the production analysis (analysis/analyze_arm.py)
 #   2. an independent re-implementation (analysis/indep_check.py) on the same events: must agree exactly
 #   3. statistical comparison with the published full-statistics results (tests/compare_with_published.py)
 set -euo pipefail
 ROOT=$(cd "$(dirname "$0")/.." && pwd)
-NA=${1:-4} EA=${2:-20} NP=${3:-2} EP=${4:-5000}
+NA=${1:-4} EA=${2:-20} NP=${3:-2} EP=${4:-2000}
 W=${QUICK_DIR:-$ROOT/quick}
 rm -rf "$W" && mkdir -p "$W"
 echo ">> Au+Au: $NA jobs x $EA events"

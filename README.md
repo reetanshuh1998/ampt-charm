@@ -20,7 +20,7 @@ transport models. **No batch farm is needed**: everything runs on a Linux laptop
 ```bash
 git clone https://github.com/<owner>/ampt-charm.git && cd ampt-charm
 docker build -t ampt-charm .          # downloads + verifies dependencies, builds LHAPDF and AMPT (~5 min)
-docker run --rm ampt-charm            # runs the three test suites (~10 min)
+docker run --rm ampt-charm            # runs the three test suites (~15-25 min)
 ```
 
 ### Option B: native Linux
@@ -87,7 +87,7 @@ out.md` and `python3 analysis/paper_figs.py figs/`.
 |---|---|---|---|
 | `make test-results` | 30 s | regenerates every table and figure of `observation/results/` from the shipped analysis outputs | `PASS` (tables identical) |
 | `make test-repro` | 2 min | regenerates the first events of Au+Au job 1 (arm dm24_e_a) and p+p job 1 (dm24_epp) of the paper production and compares them with the files written on the farm (`tests/reference/`) | `PASS` for `charm.dat`; `PASS` for the event file with gawk, `PASS*` without gawk |
-| `make test-quick` | 5–10 min | a new small production (4×20 Au+Au, 2×5000 p+p events, new seeds) → production analysis → an **independent re-implementation** of the observables on the same events (must agree exactly) → comparison of charm yields and ⟨pT⟩ with the published full-statistics results (pulls < 3.5) | `PASS` |
+| `make test-quick` | 10–20 min | a new small production (4×20 Au+Au, 2×2000 p+p events, new seeds) → production analysis → an **independent re-implementation** of the observables on the same events (must agree exactly) → comparison of charm yields and ⟨pT⟩ with the published full-statistics results (pulls < 3.5) | `PASS` |
 
 `PASS*` means the event headers, flow vectors and every charm hadron are identical, but the 25 % pion sample in the
 reduced file differs. That sample is drawn with awk's `rand()`, which only gawk reproduces. Charm results are
