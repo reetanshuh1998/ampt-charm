@@ -4,8 +4,10 @@ published full-statistics results (observation/results/json/dm25_main.json, 2.4M
 
 Compared: charm-hadron yields per c quark (D0, D+, Ds, Lambda_c; all rapidities) and the D0 mean pT at |y| < 1, in p+p
 and in 0-80 % Au+Au, plus the event-level gates (charm conservation, matching).  pull = (new - published) / sqrt(e_new^2
-+ e_pub^2) with jackknife errors.  PASS when every |pull| < 3.5 (ten quantities: a 3.5 sigma fluctuation has ~0.5 %
-probability) and the gates hold."""
++ e_pub^2).  e_new is the larger of its own jackknife error and the published error scaled to the new sample size,
+e_pub sqrt(N_pub / N_new): a jackknife over a handful of job files has too few degrees of freedom to be trusted
+(it underestimated a binomial error by a factor 2 for 2 files).  PASS when every |pull| < 3.5 (ten quantities: a
+3.5 sigma fluctuation has ~0.5 % probability) and the gates hold."""
 import json
 import math
 import sys
@@ -17,11 +19,11 @@ pa = json.load(open(ROOT / 'observation/results/json/dm25_main.json'))
 pp = json.load(open(ROOT / 'observation/results/json/dm25_ppmain.json'))
 rows, ok = [], True
 for sysn, q, p, cl in (('p+p', qp, pp, 'mb'), ('Au+Au 0-80 %', qa, pa, '0-80')):
-    for nm in ('D0', 'Dp', 'Ds', 'Lc'):
-        k = f'N_{nm}_{cl}_perc'
-        rows.append((sysn, f'{nm} per c quark', q[k]['val'][0], q[k]['err'][0], p[k]['val'][0], p[k]['err'][0]))
-    k = f'meanpt_D0_{cl}'
-    rows.append((sysn, 'D0 <pT> |y|<1 (GeV)', q[k]['val'][0], q[k]['err'][0], p[k]['val'][0], p[k]['err'][0]))
+    scale = math.sqrt(p['counts']['events'] / q['counts']['events'])
+    for k, lab in [(f'N_{nm}_{cl}_perc', f'{nm} per c quark') for nm in ('D0', 'Dp', 'Ds', 'Lc')] + \
+                  [(f'meanpt_D0_{cl}', 'D0 <pT> |y|<1 (GeV)')]:
+        ep = p[k]['err'][0]
+        rows.append((sysn, lab, q[k]['val'][0], max(q[k]['err'][0], ep * scale), p[k]['val'][0], ep))
 print(f'{"system":14s} {"quantity":22s} {"this run":>18s} {"published":>18s} {"pull":>6s}')
 for s, n, a, ea, b, eb in rows:
     pull = (a - b) / math.hypot(ea, eb) if ea > 0 else float('nan')

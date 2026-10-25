@@ -23,9 +23,12 @@ import math
 import os
 import sys
 
+import warnings
+
 import numpy as np
 
 AADIR, PPDIR, OUT = sys.argv[1:4]
+warnings.filterwarnings('ignore', category=RuntimeWarning)   # empty bins in small samples give NaN
 BMAX = 14.5
 FRAC = min(1.0, (BMAX / 14.9) ** 2)
 rng = np.random.default_rng(12345)
@@ -219,9 +222,13 @@ def analyse(d, sysname):
     return S, nf, sum(len(ev) for ev in allev)
 
 
-def per_c(S, nm, k):
-    """yield per charm quark in bins, jackknife (numerator sums of w, denominator sums of w*nc)"""
-    num = S.d[nm][1]                          # sum of w over hadrons in the bin
+def per_c(S, nm, k, nb):
+    """yield per charm quark in bins, jackknife (numerator sums of w, denominator sums of w*nc); NaN when the
+    sample has no entry at all (small test productions)"""
+    if f'nc_{k}' not in S.d:
+        nan = np.full(nb, np.nan)
+        return nan, nan, None
+    num = S.d[nm][1] if nm in S.d else np.zeros((S.nf, nb))     # no such hadron in the sample: yield 0                          # sum of w over hadrons in the bin
     cq = S.d[f'nc_{k}'][0][:, 0]              # sum of wn * nc
     return ratio_jk(num, np.repeat(cq[:, None], num.shape[1], 1))
 
@@ -239,15 +246,20 @@ def slope(v, e):
 
 
 for nm in ('v1_D0avg_10-80', 'v1_D0_10-80', 'v1_D0bar_10-80'):
+    if nm not in SA.d:
+        continue
     v, e, jk = ratio_jk(*SA.d[nm])
     res[nm] = dict(val=v.tolist(), err=e.tolist())
     k = slope(v, e); ks = np.array([slope(j, e) for j in jk])
     res['slope_' + nm[3:]] = [k, float(np.sqrt((nfa - 1) / nfa * np.sum((ks - k) ** 2)))]
-v0, e0, j0 = ratio_jk(*SA.d['v1_D0_10-80']); v1, e1, j1 = ratio_jk(*SA.d['v1_D0bar_10-80'])
+v0, e0, j0 = ratio_jk(*SA.d['v1_D0_10-80']) if 'v1_D0_10-80' in SA.d else (np.full(4, np.nan),) * 3
+v1, e1, j1 = ratio_jk(*SA.d['v1_D0bar_10-80']) if 'v1_D0bar_10-80' in SA.d else (np.full(4, np.nan),) * 3
 ee = np.hypot(e0, e1); k = slope(v0 - v1, ee)
 ks = np.array([slope(a - b, ee) for a, b in zip(j0, j1)])
 res['slope_dD0_10-80'] = [k, float(np.sqrt((nfa - 1) / nfa * np.sum((ks - k) ** 2)))]
 for k in ('10-40', '0-80'):
+    if f'v2RP_{k}' not in SA.d or f'v2SP_{k}' not in SA.d:
+        continue
     v, e, _ = ratio_jk(*SA.d[f'v2RP_{k}'])
     res[f'v2_D0_{k}'] = dict(val=v.tolist(), err=e.tolist())
     # SP: per 5 % bin j, <Re u q*>_j / sqrt<Re qA qB*>_j, combined as sum_j N_j/R_j / sum_j D_j
@@ -263,17 +275,17 @@ for k in ('10-40', '0-80'):
     jk = np.array([spv(np.delete(num, i, 0), np.delete(den, i, 0), np.delete(rn, i, 0), np.delete(rd, i, 0))
                    for i in range(nfa)])
     res[f'v2SPS_D0_{k}'] = dict(val=v.tolist(), err=np.sqrt((nfa - 1) / nfa * np.nansum((jk - v) ** 2, 0)).tolist())
-pv, pe, _ = per_c(SP_, 'dN_D0_mb', 'mb')
+pv, pe, _ = per_c(SP_, 'dN_D0_mb', 'mb', 11)
 res['pp_dN_D0_perc'] = dict(val=pv.tolist(), err=pe.tolist())
 for k in ('0-10', '10-40', '40-80'):
-    av, ae, _ = per_c(SA, f'dN_D0_{k}', k)
+    av, ae, _ = per_c(SA, f'dN_D0_{k}', k, 11)
     res[f'dN_D0_{k}_perc'] = dict(val=av.tolist(), err=ae.tolist())
     with np.errstate(invalid='ignore', divide='ignore'):
         res[f'RAA_{k}'] = dict(val=(av / pv).tolist(), err=(av / pv * np.hypot(ae / av, pe / pv)).tolist())
-lv, le, _ = per_c(SA, 'dN_Lclc_10-80', '10-80'); dv, de, _ = per_c(SA, 'dN_D0lc_10-80', '10-80')
+lv, le, _ = per_c(SA, 'dN_Lclc_10-80', '10-80', 3); dv, de, _ = per_c(SA, 'dN_D0lc_10-80', '10-80', 3)
 res['LcD0_pt_10-80'] = dict(val=(lv / dv).tolist(), err=(lv / dv * np.hypot(le / lv, de / dv)).tolist())
 for k in ('50-80', '20-50', '0-20'):
-    lv, le, _ = per_c(SA, f'dN_Lc_3to6_{k}', k); dv, de, _ = per_c(SA, f'dN_D0_3to6_{k}', k)
+    lv, le, _ = per_c(SA, f'dN_Lc_3to6_{k}', k, 1); dv, de, _ = per_c(SA, f'dN_D0_3to6_{k}', k, 1)
     res[f'LcD0_3to6_{k}'] = [float(lv[0] / dv[0]), float(lv[0] / dv[0] * math.hypot(le[0] / lv[0], de[0] / dv[0]))]
 json.dump(res, open(OUT, 'w'), indent=1)
 print(json.dumps(res['events']), 'slope D0avg', res['slope_D0avg_10-80'])

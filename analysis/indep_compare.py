@@ -4,14 +4,19 @@
 so agreement is statistical: |diff| is compared with the production jackknife error (pull = diff / err)."""
 import json
 import sys
+import warnings
 
 import numpy as np
 
+warnings.filterwarnings('ignore', category=RuntimeWarning)
 I, A, P = (json.load(open(f)) for f in sys.argv[1:4])
 OUT = sys.argv[4]
 
 
 def pv(r, k):
+    """value and error arrays; NaN when the key is absent (an observable with no entry in a small sample)"""
+    if k not in r:
+        return np.array([np.nan]), np.array([np.nan])
     return np.array(r[k]['val'], float), np.array(r[k]['err'], float)
 
 
@@ -19,7 +24,11 @@ rows = []
 
 
 def cmp(name, a, b, e):
-    a, b, e = np.atleast_1d(a), np.atleast_1d(b), np.atleast_1d(e)
+    a, b, e = (np.atleast_1d(np.asarray(x, float)) for x in (a, b, e))
+    if a.shape != b.shape or np.any(np.isfinite(a) != np.isfinite(b)):
+        # one analysis has a value where the other has none: a real disagreement
+        rows.append((name, int(min(a.size, b.size)), np.inf, np.inf, np.inf))
+        return
     ok = np.isfinite(a) & np.isfinite(b) & (e > 0)
     pull = (a - b)[ok] / e[ok]
     rows.append((name, int(ok.sum()), float(np.max(np.abs(a - b)[ok])) if ok.any() else np.nan,
@@ -29,7 +38,8 @@ def cmp(name, a, b, e):
 for k in ('v1_D0avg_10-80', 'v1_D0_10-80', 'v1_D0bar_10-80'):
     cmp(k, pv(I, k)[0], *pv(A, k))
 for k in ('slope_D0avg_10-80', 'slope_dD0_10-80'):
-    cmp(k, I[k][0], A[k][0], A[k][1])
+    if k in I and k in A:
+        cmp(k, I[k][0], A[k][0], A[k][1])
 for cl in ('10-40', '0-80'):
     cmp(f'v2{{RP}} D0 {cl}', pv(I, f'v2_D0_{cl}')[0], *pv(A, f'v2_D0_{cl}'))
     cmp(f'v2{{SP}} D0 {cl}', pv(I, f'v2SPS_D0_{cl}')[0], *pv(A, f'v2SPS_D0_{cl}'))
